@@ -1,0 +1,92 @@
+:root {
+    --primary-color: #0078d7;
+    --secondary-color: beige;
+    --backup-color: white;
+    --highlight-color: cornflowerblue;
+    --text-color: #333;
+}
+
+/* General Metro Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: var(--backup-color);
+    margin: 0;
+    padding: 0;
+    align-items: center;
+    height: 100vh;
+}
+
+h1 {
+    font-size: 2em;
+    color: var(--primary-color);
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* Table Styles */
+table {
+    width: 90%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    background-color: var(--secondary-color);
+    box-shadow: 0px 3px 10px rgba(0, 0, 0, 0.1);
+    margin: auto;
+}
+
+th, td {
+    padding: 12px 15px;
+    text-align: center;
+    border-bottom: 3px solid var(--backup-color);
+}
+
+th {
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+td {
+    font-size: 0.9em;
+}
+
+/* Links */
+a {
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Images */
+img {
+    width: 200px;
+    border-radius: 10px;
+    transition: transform 0.2s ease-in-out;
+}
+
+img:hover {
+    transform: scale(1.05);
+}
+
+/* Custom Classes */
+.watched {
+    background-color: var(--highlight-color);
+    color: var(--secondary-color);
+}
+
+.summary{
+    text-align: justify;
+    min-width: 200px;
+}
+
+.rating{
+    border: 2px solid var(--secondary-color);
+    border-radius: 10px;
+    padding: 10px;
+    background-color: var(--primary-color);
+    color:var(--backup-color);
+    font-weight: bold;
+}
