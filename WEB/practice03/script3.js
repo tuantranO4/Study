@@ -53,29 +53,35 @@ for (const episode of episodes) {
                 a.href = data
                 td.appendChild(a)
                 break;
+
             case 'airstamp':
                 let date = new Date(data);
                 td.innerText = date.toLocaleString('hu-HU');
                 break;
+
             case 'runtime':
                 td.innerText = data + ' minutes'
                 break;
+
             case 'rating':
                 let span = document.createElement('span')
                 span.innerHTML = data
                 span.classList.add('rating')
                 td.appendChild(span)
                 break;
+
             case 'image':
                 let img = document.createElement('img')
                 img.src = data
                 img.alt = 'Episode Cover Image'
                 td.appendChild(img)
                 break;
+
             case 'summary':
                 td.innerHTML = data
                 td.classList.add('summary')
-                break;                
+                break;      
+                          
             default:
                 td.innerText = data
                 break;
@@ -85,26 +91,22 @@ for (const episode of episodes) {
     TABLE.appendChild(tr)
 }
 
-// Table Row click handler
 
+// Table Row click handler
 function handleTableRowClick() {
-    
     // Check if the clicked <tr> contains any <th> elements
     if(Array.from(this.childNodes).every(e => e === 'th')) return;
 
     this.classList.toggle('watched')
 }
 
+
 // Call delegate function with proper parameters
-
 delegate(TABLE, "click", "tr", handleTableRowClick)
-
 // Delegate Function
-
 function delegate(parent, type, selector, handler) {
     parent.addEventListener(type, function (event) {
         const targetElement = event.target.closest(selector);
-
         if (this.contains(targetElement)) {
             handler.call(targetElement, event);
         }
