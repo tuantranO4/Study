@@ -2,5 +2,9 @@
     "java.project.sourcePaths": [
         "."
     ],
-    "java.project.referencedLibraries": []
+    "java.project.referencedLibraries": [
+        "a:\\GITCLONEBS\\Study\\hell\\checkagent.jar",
+        "a:\\GITCLONEBS\\Study\\hell\\checkthat.jar",
+        "a:\\GITCLONEBS\\Study\\hell\\junit5all.jar"
+    ]
 }
