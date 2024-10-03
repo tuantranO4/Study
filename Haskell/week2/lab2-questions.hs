@@ -1,4 +1,4 @@
-
+--NOTE: DIV CHIA LẤY THƯƠNG, MOD CHIA LẤY DƯ
 {-
     When you want to test your function:
         1. open your terminal (right click the folder name in the left bar, then click "open in integrated terminal")
@@ -183,20 +183,26 @@ sumpowers a
 ---- Sum of squares
 -- Compute the sum of the squares of numbers from 1 to n.
 squareSum :: Int -> Int
-squareSum a
-    squareSum 0 = 0
-    squareSum a = a^2 + squareSum(a-1)
+squareSum 0 = 0
+squareSum a = a^2 + squareSum(a-1)
 -- Examples
--- main = print(squareSum 5) -- 55
+--main = print(squareSum 5) -- 55
 -- main = print(squareSum 0) -- 0
 -- main = print(squareSum 100) -- 338350
 
 ---------------------------------------------------------------------------------------
 ---- Given a positive integer, find the sum of the odd numbers up to that number starting from 1.
 
---sumOdd :: Int -> Int
+sumOdd :: Int -> Int
+sumOdd 0 = 0
+sumOdd a = 
+    if odd a 
+    then a + sumOdd (a - 1) --RUN: 5? odd -> 5+ (not 4) +3 + (not 2) +1
+    else sumOdd (a - 1)     
 
--- sumOdd 5 // 9 
+--main :: IO ()
+--main = print (sumOdd 5)  -- Output will be 9 (1 + 3 + 5)
+
 -- sumOdd 21 // 121
 -- sumOdd 10 // 25 = 9+7+5+3+1
 -- sumOdd -13 // n has to be positive
@@ -204,30 +210,37 @@ squareSum a
 ---------------------------------------------------------------------------------------
 ---- Compute for a given positive n the sum of 2i*(2i+1), for i from 1 to n. E.g. for n=3 the sum is 68.
 
---f :: Int -> Int
-
--- main = print( f 0 ) -- 0
--- main = print( f 3 ) -- 68
+f :: Int -> Int
+f 0 = 0
+f i = 2*i*(2*i+1) +f(i-1)
+--main = print( f 0 ) -- 0
+--main = print( f 3 ) -- 68
 
 ---------------------------------------------------------------------------------------
 ---- Write GetLastPositive function
 -- Returns the number decreased by the last digit if positive, otherwise returns -1.
 
---getLastPositive :: Int -> Int
-
--- main = print( getLastPositive 5856)   -- 5850  
--- main = print( getLastPositive 689255) -- 689250
--- main = print( getLastPositive 0)      -- 0
+getLastPositive :: Int -> Int
+getLastPositive 0 =0
+getLastPositive a =
+    if a < 0 then -1
+    else a-(a `mod` 10)
+--main = print( getLastPositive 5856)   -- 5850  
+--main = print( getLastPositive 689255) -- 689250
+--main = print( getLastPositive 0)      -- 0
 -- main = print( getLastPositive 8)      -- 0
--- main = print( getLastPositive (-8554)) -- -1
+--main = print( getLastPositive (-8554)) -- -1
 
 ---------------------------------------------------------------------------------------
 ---- Convert digit to string
 -- Convert an integer from 0 to 3 into a word, otherwise return "Not less or equal to 5".
-
---digitToString :: Int -> String
-
--- main = print( digitToString 3) -- "Three"
+digitToString :: Int -> String
+digitToString 0 = "Zero"
+digitToString 1 = "One"
+digitToString 2 = "Two"
+digitToString 3 = "Three"
+digitToString _ = "Not less or equal to 5"
+--main = print( digitToString 3) -- "Three"
 -- main = print( digitToString 8) -- "Not less or equal to 5"
 -- main = print( digitToString (-1)) -- "Not less or equal to 5"
 
@@ -235,41 +248,51 @@ squareSum a
 ---- Average of 5 numbers
 -- Compute the average of 5 numbers.
 
---av5 :: Int -> Int -> Int -> Int -> Int -> Double
+av5 :: Int -> Int -> Int -> Int -> Int -> Double
+av5 a b c d e = fromIntegral (a + b + c + d + e) / 5.0
+--main = print( av5 1 2 3 4 5) -- 3.0
+--main = print(av5 3 5 7 9 10) -- 6.8
 
--- main = print( av5 1 2 3 4 5) -- 3.0
--- main = print(av5 3 5 7 9 10) -- 6.8
+--{fromIntegral} is a function used to convert an integral type (like Int, Integer, etc.) 
+--to a more general numeric type (like Float, Double, or any type that is an instance of the Num type class)
 
 ---------------------------------------------------------------------------------------
 ---- Odd-even operation
 -- Return the product if both numbers are odd, sum if both are even, otherwise return 0.
 
---oddEven :: Int -> Int -> Int
+oddEven :: Int -> Int -> Int
+oddEven a b
+    |even a&&even b = a+b
+    |odd a&&odd b = a*b
+    |otherwise = 0
 
-
--- main = print(oddEven 474 8983) -- 0
--- main = print(oddEven 6 6) -- 12
--- main = print(oddEven 7 7) -- 49
+--main = print(oddEven 474 8983) -- 0
+--main = print(oddEven 6 6) -- 12
+--main = print(oddEven 7 7) -- 49
 
 ---------------------------------------------------------------------------------------
 ---- Are numbers sorted?
 -- Check if 5 numbers are sorted in increasing order.
-
---isSorted :: Int -> Int -> Int -> Int -> Int -> Bool
-
--- main = print(isSorted 1 1 1 1 1) -- True
--- main = print(isSorted 1 2 3 4 5) -- True
--- main = print(isSorted 4 3 2 1 0) -- False
+isSorted :: Int -> Int -> Int -> Int -> Int -> Bool
+isSorted a b c d e
+    | (a <= b && b <= c && c <= d && d <= e) = True
+    | otherwise = False
+--main = print(isSorted 1 1 1 1 1) -- True
+--main = print(isSorted 1 2 3 4 5) -- True
+--main = print(isSorted 4 3 2 1 0) -- False
 
 ---------------------------------------------------------------------------------------
 ---- Transform days into years, weeks, and days.
 -- Convert the number of days into a string of years, weeks, and days.
 
---transform :: Int -> String
+transform :: Int -> String
+transform a = show (a `div` 365) ++ " year " ++ show ((a `mod` 365) `div` 7) ++ " week " ++ show ((a `mod` 365) `mod` 7) ++ " days"
+--{show}: 
 
--- main = print(transform 375) -- "1 year 1 week 3 days"
--- main = print(transform 365) -- "1 year 0 week 0 days"
--- main = print(transform 1050) -- "2 year 45 week 5 days"
+
+--main = print(transform 375) -- "1 year 1 week 3 days"
+--main = print(transform 365) -- "1 year 0 week 0 days"
+--main = print(transform 1050) -- "2 year 45 week 5 days"
 -- main = print(transform 2500) -- "6 year 44 week 2 days"
 
 ---------------------------------------------------------------------------------------
@@ -278,9 +301,28 @@ squareSum a
 --  153 = 1^3 + 5^3 + 3^3
 --  Given a positive integer number, write a function to determine whether it is an Armstrong number or not.
 
---armstrong :: Int -> Bool
-
--- main = print( armstrong 153) -- True
--- main = print( armstrong 370) -- True
+armstrong :: Int -> Bool
+armstrong n = sum [x^length (show n) | x <- (map (\x -> read [x]) (show n))] == n
+--main = print( armstrong 153) -- True
+--main = print( armstrong 370) -- True
 -- main = print( armstrong 0) -- True
--- main = print( armstrong 12) -- False
+main = print( armstrong 12) -- False
+--EXPLAIN ARMSTRONG:
+--show n : the show function is used to convert values of certain types into their string representation. (convert n to string)
+--x^length (show n): x^length(x) in other language
+
+--[expression | variable <- list]: list comprehension ↓
+--[...|x <- (map (\x -> read [x]) (show n))] -> Here, x is a variable that takes on each value from the list generated by (map (\x -> read [x]) (show n))
+
+--The map Function: map :: (a -> b) -> [a] -> [b]
+--In our case, the type of a is Char (characters from the string) and the type of b is Int (the resulting integers).
+--map applies this conversion to each character in the string, resulting in a list of digits: (map (\x -> read [x]) (show n))
+--map takes two arguments:
+--The lambda function (\x -> read [x]). The result of the transformation (after applying read) is Int.
+--The list of characters obtained from (show n).
+
+--lambda function: \x1 x2 ... xn -> expression
+-- \x - define lambda
+-- -> - separate param from body
+-- read[x] - basically covert String to Int/Float/Double 
+--aka: the given lambda function reading and evaluate each number. 
