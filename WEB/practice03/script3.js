@@ -10,18 +10,31 @@ H1.innerText = 'Mandalorian - Season 1' //(check style3.css)
 
 //TABLE HEADER=========================================
 // Gather table header
-let tableHeader = Object.keys(episodes[0]) //return the keys(id, url, name...) not value(chapter 1, 2019-xx-xx...)
+let tableHeader = Object.keys(episodes[0]) //return the keys(id, url, name...) not value(chapter 1, 8.3...) in an array
 //why episodes[0]? doesnt matter, it just returns key(id, url...), also works with 1 2 3...
 
 //HEADER CELL MAKER=========================================
 // Display table header
-let tr = document.createElement('tr') //create .js table row in memory (rationalise it in appendChild)
+let tr = document.createElement('tr') //create .js table row(tr) in memory (shape it up in appendChild)
 tableHeader.forEach(key => { 
     let th = document.createElement('th'); // Create a new table header cell (<th>) element
     th.innerText = key; // Set the text content of the header cell to the current key
     tr.appendChild(th); // Append the header cell to the row
 });
 TABLE.appendChild(tr); // Append the populated table row to the actual table in the document
+
+//========================VERTICAL TABLE HEADER============================
+// tableHeader.forEach(key => {
+//     let tr = document.createElement('tr');  // Create a new row for each key
+//     let th = document.createElement('th');  // Create a header cell
+//     th.innerText = key; 
+//     tr.appendChild(th);                     // Append the header cell to the row
+//     TABLE.appendChild(tr);                  // Add the row to the table
+// });
+//----------------------------------------------------------------
+//so this is how it works: First loop-it creates 1 row and appends element to it (tr and TABLE out of foreach loop)
+//2nd loop: create each row for each key, then append elem to row, then append to table (tr and TABLE inside loop)
+
 //---------
 //Object.keys(episodes[0]) returns: ["id", "url", "name", "season", "number", "type", ...]
 //so the key in foreach loops iterate thru that returned array
@@ -50,7 +63,7 @@ for (const episode of episodes) { //iterate through episodes const (data3.js)
         //const key: official syntax to access properties in for...in... loop 
         const data = episode[key]; //store the corresponding value of key (url, airstamp...)
 
-        let td = document.createElement('td') //create table cell 'td' elems in memory (append later)
+        let td = document.createElement('td') //create table cell 'td' elems in memory for each key (append later)
         
         // Optional task: Handle the different data types
         switch (key) {
@@ -98,9 +111,10 @@ for (const episode of episodes) { //iterate through episodes const (data3.js)
                 td.innerText = data //default case (id, ep, season)
                 break;
         }        
+        //make case first, then append each different td cases to tr
         tr.appendChild(td)//shape up td on tr
     }
-    TABLE.appendChild(tr) //picturising tr (included td)
+    TABLE.appendChild(tr) //shape up tr in TABLE (included td)
 }
 
  
