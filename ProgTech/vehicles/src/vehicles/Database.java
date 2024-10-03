@@ -26,9 +26,10 @@ public class Database {
     public void read(String filename) throws FileNotFoundException, InvalidInputException {
         Scanner sc = new Scanner(new BufferedReader(new FileReader(filename)));
         int numVehicles = sc.nextInt();
-        while (sc.hasNext()) {
+        while (sc.hasNext()) { //read in a line, not in a row. Check if line has ended or not
             Vehicle vehicle;
             switch (sc.next()) {
+            //Vehicle(<-> var) vehicle = switch(sc.next()) {...} 
                 case "C":
                     vehicle = new Car(sc.next());
                     break;
@@ -38,6 +39,7 @@ public class Database {
                 case "T":
                     vehicle = new Truck(sc.next());
                     break;
+                //case "T" -> vehicle = new Truck(sc.next());
                 default:
                     throw new InvalidInputException();
             }
@@ -49,6 +51,7 @@ public class Database {
         }
     }
     
+    //this to print out the result on main 
     public void report() {
         System.out.println("Vehicles in the database:");
         for (Vehicle v : vehicles) {
@@ -61,15 +64,17 @@ public class Database {
         String[] categories = {"C", "B", "T"};
         for (String cat : categories) {
             System.out.println("Refuels in category " + cat + ":");
-            ArrayList<Vehicle> catVehicles = collectCategory(cat);
-            System.out.println("Most fuel refueled: " + catVehicles.stream().max((vh1, vh2) -> vh1.sumRefuels().compareTo(vh2.sumRefuels())).get());
+            ArrayList<Vehicle> catVehicles = collectCategory(cat); //looping thru cat in {C,B,T}
+            System.out.println("Most fuel refueled: " + catVehicles.stream().max(
+                (vh1, vh2) -> vh1.sumRefuels().compareTo(vh2.sumRefuels()) //lambda function
+                ).get());
             System.out.println("Least fuel refueled: " + catVehicles.stream().min((vh1, vh2) -> vh1.sumRefuels().compareTo(vh2.sumRefuels())).get());
             System.out.println("Most times refueled: " + catVehicles.stream().max((vh1, vh2) -> vh1.numRefuels().compareTo(vh2.numRefuels())).get());
             System.out.println("Least times refueled: " + catVehicles.stream().min((vh1, vh2) -> vh1.numRefuels().compareTo(vh2.numRefuels())).get());
         }
     }
 
-    public ArrayList<Vehicle> collectCategory(String category) {
+    public ArrayList<Vehicle> collectCategory(String category) { //use this one on report()
         ArrayList<Vehicle> catVehicles = new ArrayList<>();
         for (Vehicle v : vehicles) {
             if (v.getCategory().equals(category)) {
