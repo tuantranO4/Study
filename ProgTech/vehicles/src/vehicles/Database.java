@@ -27,7 +27,7 @@ public class Database {
         Scanner sc = new Scanner(new BufferedReader(new FileReader(filename)));
         int numVehicles = sc.nextInt();
         while (sc.hasNext()) { //read in a line, not in a row. Check if line has ended or not
-            Vehicle vehicle;
+            Vehicle vehicle; //var for the custom data type
             switch (sc.next()) {
             //Vehicle(<-> var) vehicle = switch(sc.next()) {...} 
                 case "C":
@@ -44,7 +44,7 @@ public class Database {
                     throw new InvalidInputException();
             }
             int numRefuels = sc.nextInt();
-            for (int i = 0; i < numRefuels; i++) {
+            for (int i = 0; i < numRefuels; i++) { //iterate through the list: C PLATE 4 5 6 7 8 -> add refuel
                 vehicle.addRefuel(sc.nextInt());
             }
             vehicles.add(vehicle);
@@ -62,13 +62,15 @@ public class Database {
             System.out.println(vehicle.plate + ": " + vehicle.meanRefuels());
         }
         String[] categories = {"C", "B", "T"};
-        for (String cat : categories) {
+        for (String cat : categories) { //for loop
             System.out.println("Refuels in category " + cat + ":");
             ArrayList<Vehicle> catVehicles = collectCategory(cat); //looping thru cat in {C,B,T}
             System.out.println("Most fuel refueled: " + catVehicles.stream().max(
                 (vh1, vh2) -> vh1.sumRefuels().compareTo(vh2.sumRefuels()) //lambda function
                 ).get());
-            System.out.println("Least fuel refueled: " + catVehicles.stream().min((vh1, vh2) -> vh1.sumRefuels().compareTo(vh2.sumRefuels())).get());
+            System.out.println("Least fuel refueled: " + catVehicles.stream().min(
+                (vh1, vh2) -> vh1.sumRefuels().compareTo(vh2.sumRefuels()) //lambda function  
+                ).get());
             System.out.println("Most times refueled: " + catVehicles.stream().max((vh1, vh2) -> vh1.numRefuels().compareTo(vh2.numRefuels())).get());
             System.out.println("Least times refueled: " + catVehicles.stream().min((vh1, vh2) -> vh1.numRefuels().compareTo(vh2.numRefuels())).get());
         }
