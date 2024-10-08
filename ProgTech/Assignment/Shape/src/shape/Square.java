@@ -1,8 +1,8 @@
 package shape;
 public class Square extends ShapeAbs{
-    private double side;
+    protected double side;
 
-    public Square(double dotX, double dotY, double sideLength) {
+    public Square(double dotX, double dotY, double side) {
         super(dotX, dotY);
         this.side = side;
     }
@@ -19,5 +19,9 @@ public class Square extends ShapeAbs{
     @Override
     public String collectCat(){
         return "S";
+    }
+    @Override
+    public String toString(){
+        return "Square";
     }
 }

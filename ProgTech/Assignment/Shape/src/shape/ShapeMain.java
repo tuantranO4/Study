@@ -20,5 +20,5 @@ public class ShapeMain {
         }
         database.printres();
     }
-    
+
 }

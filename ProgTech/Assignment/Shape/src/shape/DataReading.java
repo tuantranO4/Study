@@ -1,62 +1,58 @@
 package shape;
-import java.util.Scanner;
-import java.util.ArrayList;
 import java.io.BufferedReader;
-import java.io.FileReader;
 import java.io.FileNotFoundException;
+import java.io.FileReader;
+import java.util.ArrayList;
+import java.util.Scanner;
 
 public class DataReading {
     public final ArrayList<ShapeAbs> shapes;
+
     public DataReading() {
         shapes = new ArrayList<>();
     }
+
     public void read(String filename) throws FileNotFoundException, InvalidInputException {
         Scanner sc = new Scanner(new BufferedReader(new FileReader(filename)));
-        int shapesqt=sc.nextInt();
+        int shapesqt = sc.nextInt(); 
         while (sc.hasNext()) {
             ShapeAbs shapePoly;
-            switch(sc.next()) { 
-                    case "C":
-                    shapePoly = new Circle(sc.nextDouble(),sc.nextDouble(),sc.nextDouble()); 
-                        break;
-                    case "H":
-                    shapePoly = new Hexagon(sc.nextDouble(),sc.nextDouble(),sc.nextDouble()); 
-                        break;
-                    case "S":
-                    shapePoly = new Square(sc.nextDouble(),sc.nextDouble(),sc.nextDouble()); 
-                        break;
-                    case "T":
-                    shapePoly = new Triangle(sc.nextDouble(),sc.nextDouble(),sc.nextDouble()); 
-                        break;
-                    default:
-                        throw new InvalidInputException("shape input");
+            switch (sc.next()) {
+                case "C":  
+                    shapePoly = new Circle(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
+                    break;
+                case "H":  
+                    shapePoly = new Hexagon(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
+                    break;
+                case "S":  
+                    shapePoly = new Square(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
+                    break;
+                case "T": 
+                    shapePoly = new Triangle(sc.nextDouble(), sc.nextDouble(), sc.nextDouble());
+                    break;
+                default:
+                    throw new InvalidInputException("Invalid shape type in input file.");
             }
+            shapes.add(shapePoly);
         }
+        if (shapes.size() != shapesqt) {
+            throw new InvalidInputException("Mismatch between the expected and actual number of shapes");
         }
-
-
-    public void printres(){
-        System.out.println("Vehicles in the database:");
-        for (ShapeAbs s : shapes) {
-            System.out.println(s);
-        }
-        String[] ShapeCat = {"C", "H", "S", "T"};
-
-        for (String cat : ShapeCat) { 
-            ArrayList<ShapeAbs> catVehicles = collectCat(cat); 
-                System.out.println("Least fuel refueled: " + catVehicles.stream()
-                .min((vh1, vh2) -> Double.compare(vh1.getDiff(), vh2.getDiff()))
-                .get());
-            }
     }
 
-    protected ArrayList<ShapeAbs> collectCat(String cat){
-        ArrayList<ShapeAbs> catShapes = new ArrayList<>();
-        for (ShapeAbs v : catShapes) {
-            if (v.collectCat().equals(cat)) {
-                catShapes.add(v);
-            }
+    public void printres() {
+        for (ShapeAbs s : shapes) {
+            System.out.println(s + " -> Diff: " + s.getDiff());
         }
-        return catShapes;
+        
+        ShapeAbs minDiffShape = shapes.stream()
+            .min((sh1, sh2) -> Double.compare(sh1.getDiff(), sh2.getDiff()))
+            .orElse(null);
+        
+        if (minDiffShape != null) {
+            System.out.println("Shape with the smallest area-perimeter difference across all categories: " + minDiffShape);
+        } else {
+            System.out.println("No shapes");
+        }
     }
 }

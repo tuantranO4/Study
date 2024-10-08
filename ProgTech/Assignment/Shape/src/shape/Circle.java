@@ -28,4 +28,10 @@ public class Circle extends ShapeAbs{
     public String collectCat(){
         return "C";
     }
+
+    @Override
+    public String toString(){
+        return "Circle";
+    }
 }
+

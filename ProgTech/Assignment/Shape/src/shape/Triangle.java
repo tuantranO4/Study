@@ -1,8 +1,8 @@
 package shape;
 
 public class Triangle extends ShapeAbs {
-    private double side;
-    public Triangle(double dotX, double dotY, double sideLength) {
+    protected double side;
+    public Triangle(double dotX, double dotY, double side) {
         super(dotX, dotY);
         this.side = side;
     }
@@ -19,5 +19,9 @@ public class Triangle extends ShapeAbs {
     @Override
     public String collectCat(){
         return "T";
+    }
+    @Override
+    public String toString(){
+        return "Triangle";
     }
 }

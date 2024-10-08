@@ -28,7 +28,7 @@ public class Database {
         int numVehicles = sc.nextInt();
         while (sc.hasNext()) { //read in a line, not in a row. Check if line has ended or not
             Vehicle vehicle; //var declaration for subclasses polymorphism down below
-            switch (sc.next()) { //sc.next(): returns the next complete token from the input as a String
+            switch (sc.next()) { //sc.next(): returns the next com   plete token from the input as a String
             //Vehicle(<-> var) vehicle = switch(sc.next()) {...} 
                 case "C":
                     vehicle = new Car(sc.next()); //subclass Car/Bus/Truck inherit vehicle superclass. the "sc.next()" returns Plate datas.
@@ -84,7 +84,7 @@ public class Database {
             }
         }
         return catVehicles;
-    }
+    }   
     
     public void clear() {
         vehicles.clear();

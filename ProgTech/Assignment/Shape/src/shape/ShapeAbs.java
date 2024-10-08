@@ -3,16 +3,10 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package shape;
-
-/**
- *
- * @author ducan
- */
 public abstract class ShapeAbs {
     protected double dotX;
     protected double dotY;
 
-    // Constructor
     public ShapeAbs(double dotX, double dotY) {
         this.dotX = dotX;
         this.dotY = dotY;
@@ -22,6 +16,6 @@ public abstract class ShapeAbs {
     public abstract String collectCat();
 
     public double getDiff() {
-        return Math.abs(getArea() - getC());
+        return Math.abs(getArea()-getC());
     }
 }
