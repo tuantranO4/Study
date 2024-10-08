@@ -3,18 +3,22 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Main.java to edit this template
  */
 package shape;
+import java.io.FileNotFoundException;
 
-/**
- *
- * @author ducan
- */
 public class ShapeMain {
 
-    /**
-     * @param args the command line arguments
-     */
     public static void main(String[] args) {
-        // TODO code application logic here
+        DataReading database = new DataReading();
+        try {
+            database.read("input.txt");
+        } catch (FileNotFoundException ex) {
+            System.out.println("File not found!");
+            System.exit(-1);
+        } catch (InvalidInputException ex) {
+            System.out.println("Invalid input!");
+            System.exit(-1);
+        }
+        database.printres();
     }
     
 }

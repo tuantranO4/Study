@@ -9,11 +9,15 @@ public class Square extends ShapeAbs{
 
     @Override
     public double getArea() {
-        return side * side;
+        return (side * side);
     }
 
     @Override
     public double getC() {
-        return 4 * side;
+        return (4 * side);
+    }
+    @Override
+    public String collectCat(){
+        return "S";
     }
 }

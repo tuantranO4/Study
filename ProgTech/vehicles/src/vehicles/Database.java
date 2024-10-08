@@ -27,11 +27,11 @@ public class Database {
         Scanner sc = new Scanner(new BufferedReader(new FileReader(filename)));
         int numVehicles = sc.nextInt();
         while (sc.hasNext()) { //read in a line, not in a row. Check if line has ended or not
-            Vehicle vehicle; //var for the custom data type
-            switch (sc.next()) {
+            Vehicle vehicle; //var declaration for subclasses polymorphism down below
+            switch (sc.next()) { //sc.next(): returns the next complete token from the input as a String
             //Vehicle(<-> var) vehicle = switch(sc.next()) {...} 
                 case "C":
-                    vehicle = new Car(sc.next());
+                    vehicle = new Car(sc.next()); //subclass Car/Bus/Truck inherit vehicle superclass. the "sc.next()" returns Plate datas.
                     break;
                 case "B":
                     vehicle = new Bus(sc.next());
@@ -44,7 +44,7 @@ public class Database {
                     throw new InvalidInputException();
             }
             int numRefuels = sc.nextInt();
-            for (int i = 0; i < numRefuels; i++) { //iterate through the list: C PLATE 4 5 6 7 8 -> add refuel
+            for (int i = 0; i < numRefuels; i++) { //iterate through the list: C PLATE 4 22 31 12 82 -> add refuel
                 vehicle.addRefuel(sc.nextInt());
             }
             vehicles.add(vehicle);

@@ -9,11 +9,15 @@ public class Triangle extends ShapeAbs {
 
     @Override
     public double getArea() {
-        return (Math.sqrt(3) / 4) * side * side;
+        return ((Math.sqrt(3) / 4) * side * side);
     }
 
     @Override
     public double getC() {
-        return 3 * side;
+        return (3 * side);
+    }
+    @Override
+    public String collectCat(){
+        return "T";
     }
 }

@@ -16,11 +16,16 @@ public class Circle extends ShapeAbs{
     }
      @Override
     public double getArea() {
-        return Math.PI * radius * radius;
+        return (Math.PI * radius * radius);
     }
 
     @Override
     public double getC() {
-        return 2 * Math.PI * radius;
+        return (2 * Math.PI * radius);
+    }
+
+    @Override
+    public String collectCat(){
+        return "C";
     }
 }

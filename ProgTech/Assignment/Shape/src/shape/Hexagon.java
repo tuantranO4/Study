@@ -11,11 +11,15 @@ public class Hexagon extends ShapeAbs {
 
     @Override
     public double getArea() {
-        return (3 * Math.sqrt(3) / 2) * side * side;
+        return ((3 * Math.sqrt(3) / 2) * side * side);
     }
 
     @Override
     public double getC() {
-        return 6 * side;
+        return (6 * side);
+    }
+    @Override
+    public String collectCat(){
+        return "H";
     }
 }

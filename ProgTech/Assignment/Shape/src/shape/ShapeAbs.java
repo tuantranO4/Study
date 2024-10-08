@@ -19,6 +19,7 @@ public abstract class ShapeAbs {
     }
     public abstract double getArea();
     public abstract double getC();
+    public abstract String collectCat();
 
     public double getDiff() {
         return Math.abs(getArea() - getC());
