@@ -14,6 +14,9 @@ public class DataReading {
 
     public void read(String filename) throws FileNotFoundException, InvalidInputException {
         Scanner sc = new Scanner(new BufferedReader(new FileReader(filename)));
+        if (!sc.hasNextInt()) {
+            throw new InvalidInputException();
+        }
         int shapesqt = sc.nextInt(); 
         while (sc.hasNext()) {
             ShapeAbs shapePoly;
@@ -38,6 +41,7 @@ public class DataReading {
         if (shapes.size() != shapesqt) {
             throw new InvalidInputException("Mismatch between the expected and actual number of shapes");
         }
+        sc.close();
     }
 
     public void printres() {

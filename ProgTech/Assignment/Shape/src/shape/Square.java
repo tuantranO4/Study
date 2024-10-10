@@ -4,6 +4,9 @@ public class Square extends ShapeAbs{
 
     public Square(double dotX, double dotY, double side) {
         super(dotX, dotY);
+        if (side <=0){
+            throw new IllegalArgumentException("need positive value for sides/radius");
+        }
         this.side = side;
     }
 

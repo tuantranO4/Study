@@ -12,6 +12,9 @@ public class Circle extends ShapeAbs{
     protected double radius;
     public Circle(double dotX, double dotY, double radius) {
         super(dotX, dotY);
+        if (radius <=0){
+            throw new IllegalArgumentException("need positive value for sides/radius");
+        }
         this.radius = radius;
     }
      @Override
