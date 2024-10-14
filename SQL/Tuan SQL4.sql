@@ -44,8 +44,32 @@ from prac4 e
 join sal4 s on e.sal BETWEEN s.lowest_sal AND s.highest_sal 
 where mod(s.category,2)=0;
 --14. Give the number of days between the hiredate of KING and the hiredate of JONES.
-
+select king.hiredate as King,
+jones.hiredate as jones,
+king.hiredate-jones.hiredate as daydiff from prac4 king, prac4 jones
+where king.ename = 'KING' and jones.ename='JONES';
 --15. Give the name of the day (e.g. Monday) which was the last day of the month in which KING's hiredate was. (last_day function)
+select last_day(king.hiredate) from prac4 king where king.ename = 'KING';
 --16. Give the name of the day (e.g. Monday) which was the first day of the month in which KING's hiredate was. (trunc function)
+SELECT TO_CHAR(TRUNC(hiredate, 'MONTH'), 'DAY') AS first_day_name
+FROM prac4 king
+WHERE king.ename = 'KING';
 --17. Give the names of employees whose department name contains a letter 'C' and whose salary category is >= 4.
-
+SELECT *
+FROM prac4, dept, sal4
+WHERE 
+    prac4.deptno = dept.deptno AND 
+    dname LIKE '%C%' AND
+    (sal BETWEEN lowest_sal AND highest_sal) AND
+    category >= 4;
+--18. List the name and salary of the employees, and a charater string where one '#' denotes 1000 (rounded). (rpad function)
+--(So if the salary is 1800 then print -> '##', because 1800 rounded to thousands is 2.) 
+SELECT 
+    ename, 
+    sal, 
+    RPAD('#', ROUND(sal / 1000), '#') AS salary_representation
+FROM prac4;
+--Give the queries below in relational algebra and SQL
+------------------------------------------------------
+--19. Give the name and location of departments having an employee with salary category 1. (dname, loc)
+--20. Give the name and location of departments having no employee with salary category 1. (dname, loc)
