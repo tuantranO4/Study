@@ -1,0 +1,15 @@
+{
+    
+    "java.inlayHints.parameterNames.enabled" : "none",
+    
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.referencedLibraries": [
+        "a:\\GITCLONEBS\\Study\\hell\\W5\\junit5all.jar",
+        "a:\\GITCLONEBS\\Study\\hell\\W5\\checkthat.jar",
+        "a:\\GITCLONEBS\\Study\\hell\\W5\\checkagent.jar"
+    ],
+    "java.debug.settings.onBuildFailureProceed": true
+    
+}
