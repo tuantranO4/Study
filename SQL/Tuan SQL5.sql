@@ -67,8 +67,8 @@ select dep.deptno, dep.loc, avg(sal) avgsal from emp e, dept dep group by dep.de
     select avg(sal) avgsal4, deptno from emp group by deptno having count(distinct ename)>=4;
 --11. Give the average salary and location by departments where the department has at least 4 employees. [deptno, loc, avg_sal]
     select avg(sal) avgsal4, dept.loc from emp, dept group by dept.loc having count(ename)>=4;
---12. Give the name and location of departments where the average salary is greater than 2000. [dname, loc]
-  SELECT d.dname, d.loc
+--12. Give the name and location of departments where the average salary is greater than 2000. [dname, loc] -IMPORTANT
+SELECT d.dname, d.loc
 FROM dept d
 JOIN emp e ON d.deptno = e.deptno
 GROUP BY d.dname, d.loc

@@ -30,7 +30,7 @@ SELECT e1.ename, e1.mgr AS employee, e2.ename, e2.empno AS manager
 FROM prac4 e1
 JOIN prac4 e2 ON e1.mgr = e2.empno 
 WHERE LENGTH(e1.ename) = LENGTH(e2.ename);
---12. List the employees whose salary is in category 1. (see Sal_cat table)
+--12. List the employees whose salary is in category 1. (see Sal_cat table) IMPORTANT
 create table sal4 as select * from nikovits.sal_cat;
 select * from sal4;
 select * from prac4;
@@ -50,11 +50,11 @@ king.hiredate-jones.hiredate as daydiff from prac4 king, prac4 jones
 where king.ename = 'KING' and jones.ename='JONES';
 --15. Give the name of the day (e.g. Monday) which was the last day of the month in which KING's hiredate was. (last_day function)
 select last_day(king.hiredate) from prac4 king where king.ename = 'KING';
---16. Give the name of the day (e.g. Monday) which was the first day of the month in which KING's hiredate was. (trunc function)
+--16. Give the name of the day (e.g. Monday) which was the first day of the month in which KING's hiredate was. (trunc function) -IMPORTANT
 SELECT TO_CHAR(TRUNC(hiredate, 'MONTH'), 'DAY') AS first_day_name
 FROM prac4 king
 WHERE king.ename = 'KING';
---17. Give the names of employees whose department name contains a letter 'C' and whose salary category is >= 4.
+--17. Give the names of employees whose department name contains a letter 'C' and whose salary category is >= 4. -IMPONTANT
 SELECT *
 FROM prac4, dept, sal4
 WHERE 
