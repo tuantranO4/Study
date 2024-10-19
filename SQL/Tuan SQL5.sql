@@ -77,13 +77,27 @@ HAVING AVG(e.sal) > 2000;
     select s.sal_cat from sal5 s join emp e on s.sal_cat = e.sal_cat 
     group by s.sal_cat having count(*)=3;
 --14. Give the salary categories where the employees in this category work on the same department. [category]
+select * from sal5;
+select * from emp;
 
+select sc.category, count(sc.category), count(e.deptno)
+from emp e, sal5 sc
+where e.sal between sc.lowest_sal and sc.highest_sal 
+group by sc.category
+having count(distinct deptno)=1
+order by 1;
 --15. List the department number, department name and location for the departments having an employee with salary category 1. 
 --    (deptno, dname, loc)
-
+    select distinct d.deptno, d.dname, d.loc
+    from emp e, dept d, sal5 sc
+    where e.deptno = d.deptno and e.sal between sc.lowest_sal and sc.highest_sal and sc.category = 1;
 --16. List the department number, department name and location for the departments having at least two employees with salary category 1. 
 --    (deptno, dname, loc)
-
+    select distinct d.deptno, d.dname, d.loc
+    from emp e, dept d, sal5 sc
+    where e.deptno = d.deptno and e.sal between sc.lowest_sal and sc.highest_sal and sc.category = 1
+    group by d.deptno, d.dname, d.loc
+    having count(*)>1;
 --17. List the number of employees whose empno is an even number and list the number whose empno is odd. [parity, num_of_emps]
 
 --18. List the number of employees and average salary by jobs. Print the average salary with a character string 
