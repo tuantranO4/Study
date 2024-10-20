@@ -149,9 +149,10 @@ power a b= a^b
 --main = print( power 2 5 ) -- 32
 
 powerrec :: Int -> Int -> Int
-powerrec a b | b==0 = 1             -- Any number to the power of 0 is 1
-powerrec a b | b > 0 = a * power a (b - 1)  -- Recursive case
-powerrec a b |b<0 = error "Negative exponent not supported"  -- Handle negative exponents if needed
+powerrec a b 
+    | b==0 = 1             -- Any number to the power of 0 is 1
+    | b > 0 = a * power a (b - 1)  -- Recursive case
+    |b<0 = error "Negative exponent not supported"  -- Handle negative exponents if needed
 
 --main = print (powerrec 2 5)  -- Output: 32
 
