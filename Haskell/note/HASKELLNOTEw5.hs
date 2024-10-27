@@ -52,4 +52,14 @@ checkEven' x = foldr (\x acc -> acc && even (length x)) True (group(sort x)) --i
 {-
 filter :: f(a -> Bool) -> [a] -> [a]
 -}
-main = print(filter (\x -> length x >= 5) ["apple", "fig", "banana", "kiwi", "cherry"]) --["apple", "banana", "cherry"]
+--main = print(filter (\x -> length x >= 5) ["apple", "fig", "banana", "kiwi", "cherry"]) --["apple", "banana", "cherry"]
+
+
+------------------------function composition------------------------
+replaceWithOccurrence :: [Int] -> [Int]
+replaceWithOccurrence xs = map (\x -> count x xs) xs
+  where
+    count x = length . filter (== x)  --the . is a composition of function length and filter. it filters out elems similar to x and output the length of said elems. 
+                                    --filter (== 2) [1, 2, 2, 3]
+                                    
+--main = print (replaceWithOccurrence [1, 2, 2, 3, 4, 4, 5])  -- [1,2,2,1,2,2,1]
