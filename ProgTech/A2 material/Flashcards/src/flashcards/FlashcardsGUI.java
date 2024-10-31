@@ -44,20 +44,20 @@ public class FlashcardsGUI {
     private JLabel scoreLabel;
 
     public FlashcardsGUI() {
-        frame = new JFrame("Flashcards");
-        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame = new JFrame("Flashcards"); //Title: Flashcard
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE); //press X to close
 
-        northPanel = new JPanel();
+        northPanel = new JPanel(); //styling
         display = new JTextArea("Please open a cards file.", 10, 40);
         display.setEditable(false);
         display.setLineWrap(true);
         display.setWrapStyleWord(true);
         northPanel.add(display);
         frame.getContentPane().add(northPanel, BorderLayout.NORTH);
-
         southPanel = new JPanel();
         scoreLabel = new JLabel("0/0");
         southPanel.add(scoreLabel);
+
         ArrayList<String> buttonLabels = new ArrayList<>(
                 Arrays.asList("Reset", "Toggle Q/A", "Wrong answer", "Good answer"));
         ArrayList<ActionListener> listeners = new ArrayList<ActionListener>(
@@ -69,8 +69,8 @@ public class FlashcardsGUI {
             JButton button = new JButton(buttonLabels.get(i));
             southPanel.add(button);
             button.addActionListener(listeners.get(i));
-        }
-        frame.getContentPane().add(southPanel, BorderLayout.SOUTH);
+        } //add interaction to buttonLabels by iteration
+        frame.getContentPane().add(southPanel, BorderLayout.SOUTH);//adding southPanel
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
@@ -92,6 +92,7 @@ public class FlashcardsGUI {
         frame.setVisible(true);
     }
 
+
     public void reset() {
         score = 0;
         cardNumber = 0;
@@ -99,11 +100,9 @@ public class FlashcardsGUI {
         updateScore();
         updateDisplay();
     }
-
     private void updateScore() {
         scoreLabel.setText(score + "/" + cardNumber);
     }
-
     private void updateDisplay() {
         if (cards != null && cardNumber < cards.size()) {
             if (showQuestion) {
@@ -149,25 +148,21 @@ public class FlashcardsGUI {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            showQuestion = !showQuestion;
+            showQuestion = !showQuestion; //flipping showQuestion bool, to toggle between show and unshow display
             updateDisplay();
         }
 
     }
 
     class ResetButtonActionListener implements ActionListener {
-
         @Override
         public void actionPerformed(ActionEvent e) {
             reset();
         }
-
     }
 
     class AnswerButtonActionListener implements ActionListener {
-
         private boolean incScore;
-
         public AnswerButtonActionListener(boolean incScore) {
             this.incScore = incScore;
         }
