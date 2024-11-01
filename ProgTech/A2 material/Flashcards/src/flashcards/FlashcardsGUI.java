@@ -72,24 +72,27 @@ public class FlashcardsGUI {
         } //add interaction to buttonLabels by iteration
         frame.getContentPane().add(southPanel, BorderLayout.SOUTH);//adding southPanel
 
-        JMenuBar menuBar = new JMenuBar();
-        frame.setJMenuBar(menuBar);
-        JMenu fileMenu = new JMenu("File");
-        menuBar.add(fileMenu);
-        JMenuItem openMenuItem = new JMenuItem("Open...");
+        //::DOWN HERE IS THE MENU BAR DROP DOWN CONFIGURATION::
+        JMenuBar menuBar = new JMenuBar();//Creating the Menu Bar: JMenu bar object - main container for menus
+        frame.setJMenuBar(menuBar); // menuBar to the top of the main application window (frame), where it will be visible to users.
+        JMenu fileMenu = new JMenu("File"); //Creating the "File" Menu: it's a dropdown menu in the menuBar
+        menuBar.add(fileMenu);//attaches fileMenu to the menu bar, so it appears under the "File" name to toggle dropdown.
+
+        JMenuItem openMenuItem = new JMenuItem("Open..."); //fileMenu component: add "Open..." option in dropdown menu
         openMenuItem.addActionListener(new OpenActionListener());
         fileMenu.add(openMenuItem);
+
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         fileMenu.add(exitMenuItem);
+
         exitMenuItem.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent ae) {
                 System.exit(0);
             }
         });
-
-        frame.pack();
-        frame.setVisible(true);
+        frame.pack(); // sizes the window to fit its components (menu, panels, etc.) snugly
+        frame.setVisible(true); // makes the entire window visible to the user
     }
 
 
@@ -100,17 +103,19 @@ public class FlashcardsGUI {
         updateScore();
         updateDisplay();
     }
+
     private void updateScore() {
-        scoreLabel.setText(score + "/" + cardNumber);
+        scoreLabel.setText(score + "/" + cardNumber); //display score
     }
+
     private void updateDisplay() {
         if (cards != null && cardNumber < cards.size()) {
             if (showQuestion) {
-                display.setText(cards.get(cardNumber).getQuestion());
+                display.setText(cards.get(cardNumber).getQuestion()); //showQ = true -> question, else answer
             } else {
                 display.setText(cards.get(cardNumber).getAnswer());
             }
-        } else if (cards != null) {
+        } else if (cards != null) { //If all cards have been reviewed
             display.setText("The End");
         }
     }
@@ -119,20 +124,20 @@ public class FlashcardsGUI {
 
         @Override
         public void actionPerformed(ActionEvent e) {
-            JFileChooser fc = new JFileChooser();
-            int returnVal = fc.showOpenDialog(frame);
+            JFileChooser fc = new JFileChooser();//choose file with JFileChooser
+            int returnVal = fc.showOpenDialog(frame); //0 or 1 to approve file choosing
             if (returnVal == JFileChooser.APPROVE_OPTION) {
-                File file = fc.getSelectedFile();
-                try (BufferedReader br = new BufferedReader(new FileReader(file))) {
+                File file = fc.getSelectedFile(); //get file with getSelectedFile() function
+                try (BufferedReader br = new BufferedReader(new FileReader(file))) { //run bufferedReader
                     String line;
                     cards = new ArrayList<>();
-                    while ((line = br.readLine()) != null) {
-                        String[] qa = line.split("~");
+                    while ((line = br.readLine()) != null) { //while loop with != null, it reads until reaching the end of the file
+                        String[] qa = line.split("~"); //qa[0] holds the question, qa[1] holds the answer.
                         if (qa.length == 2) {
                             cards.add(new Card(qa[0], qa[1]));
                         }
                     }
-                } catch (FileNotFoundException ex) {
+                } catch (FileNotFoundException ex) { //catch exceptions
                     JOptionPane.showMessageDialog(frame, "File not found!",
                             "Error", JOptionPane.ERROR_MESSAGE);
                 } catch (IOException ex) {
@@ -161,7 +166,7 @@ public class FlashcardsGUI {
         }
     }
 
-    class AnswerButtonActionListener implements ActionListener {
+    class AnswerButtonActionListener implements ActionListener {//true\false for Good/Wrong answer
         private boolean incScore;
         public AnswerButtonActionListener(boolean incScore) {
             this.incScore = incScore;
@@ -170,7 +175,7 @@ public class FlashcardsGUI {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (cards != null && cardNumber < cards.size()) {
-                if (incScore) {
+                if (incScore) { //if true(good answer), score ++
                     score++;
                 }
                 cardNumber++;
