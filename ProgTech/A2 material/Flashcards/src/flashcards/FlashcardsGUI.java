@@ -181,10 +181,9 @@ public class FlashcardsGUI {
                 cardNumber++;
                 updateScore();
                 showQuestion = true;
-                updateDisplay();
+                updateDisplay(); //set showQ to true -> display question
             }
         }
-
     }
 
 }
