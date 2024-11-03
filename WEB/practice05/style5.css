@@ -1,0 +1,98 @@
+/* General styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f3f6f9; /* Pastel palette */
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+#container {
+    background-color: #fcfcfc; /* Pastel palette */
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+    width: 80%;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+h1 {
+    font-size: 24px;
+    color: #444;
+    margin-bottom: 20px;
+    font-weight: 600;
+}
+
+#controls {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-size: 1.2em;
+    color: #555;
+    margin-bottom: 5px;
+    margin-right: 10px;
+}
+
+input[type="text"] {
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    font-size: 14px;
+    color: #555;
+    background-color: #e9f1f7; /* Pastel palette */
+}
+
+input[type="text"]:focus {
+    border-color: #9c9c9c;
+    outline: none;
+    background-color: #fff;
+}
+
+input[type="color"] {
+    cursor: pointer;
+}
+
+button {
+    padding: 10px 20px;
+    font-size: 14px;
+    color: #555; /* Adjusted for pastel theme */
+    background-color: #c6ddff; /* Pastel palette */
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+button:hover {
+    background-color: #7aaeff;
+}
+
+#paint {
+    margin-bottom: 20px;
+}
+
+#board {
+    border-collapse: collapse;
+}
+
+#board td {
+    width: 20px;
+    height: 20px;
+    border: 1px solid #ccc;
+    cursor: pointer;
+    background-color: white;
+    transition: background-color 0.3s;
+}
+
+#board td:hover {
+    background-color: #f0f0f0;
+}
