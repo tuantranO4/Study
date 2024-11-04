@@ -7,6 +7,3 @@ delegate(board, "mousemove", "td", paintTd)
 
 
 
-
-
-
