@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<module type="JAVA_MODULE" version="4">
+  <component name="NewModuleRootManager" inherit-compiler-output="true">
+    <exclude-output />
+    <content url="file://$MODULE_DIR$">
+      <sourceFolder url="file://$MODULE_DIR$/W1" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/W2" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/W3" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/W4" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/W5" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/W6" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/W8" isTestSource="false" packagePrefix="text.to.numbers" />
+      <sourceFolder url="file://$MODULE_DIR$/W9" isTestSource="false" />
+    </content>
+    <orderEntry type="inheritedJdk" />
+    <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="library" name="W4" level="project" />
+    <orderEntry type="library" name="W6" level="project" />
+    <orderEntry type="library" name="W5" level="project" />
+    <orderEntry type="library" name="hell" level="project" />
+  </component>
+</module>

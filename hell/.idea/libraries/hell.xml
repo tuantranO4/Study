@@ -1,0 +1,13 @@
+<component name="libraryTable">
+  <library name="hell">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/24-25-1-assignment-TheaterSeating.zip!/" />
+      <root url="jar://$PROJECT_DIR$/checkagent.jar!/" />
+      <root url="jar://$PROJECT_DIR$/junit5-checkthat-demo.zip!/" />
+      <root url="jar://$PROJECT_DIR$/junit5all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/checkthat.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

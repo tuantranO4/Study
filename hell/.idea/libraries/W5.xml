@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="W5">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/W5/junit5all.jar!/" />
+      <root url="jar://$PROJECT_DIR$/W5/checkagent.jar!/" />
+      <root url="jar://$PROJECT_DIR$/W5/checkthat.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>
