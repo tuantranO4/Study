@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Railway Puzzle</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div id="mainMenu" class="screen">
+        <h1>RAILWAYS</h1>
+        <input type="text" id="playerName" placeholder="WHO ARE YOU?">
+        <div class="difficulty">
+            <p>SET THE DIFFICULTY!</p>
+            <button class="difficulty-btn" data-difficulty="Easy">5 X 5</button>
+            <button class="difficulty-btn" data-difficulty="Hard">7 X 7</button>
+        </div>
+        <button id="rulesBtn">RULES</button>
+        <button id="startBtn">START GAME</button>
+        <button id="loadGameBtn" style="display: none;">LOAD SAVED GAME</button> <!-- Load button -->
+    </div>
+
+    <div id="descMenu" class="screen" style="display: none;">
+        <h2>Game Rules</h2>
+        <div class="rule">
+            <img src="starter_eng/pics/tiles/empty.png" alt="Empty Tile">
+            <p><strong>Description:</strong> This cell allows the railway to continue in any of the three directions besides the entry direction.<br></p>
+            <strong>Empty Tile Controls:</strong>
+            <ul>
+                <li><strong>Left-click</strong> - Place a straight rail, or rotate the straight rail clockwise if already placed. If a curved rail exists, left-click removes it.</li>
+                <li><strong>Right-click</strong> - Place a curved rail, or rotate the curved rail clockwise if already placed. If a straight rail exists, right-click removes it.</li>
+            </ul>
+        </div>
+        <div class="rule">
+            <img src="starter_eng/pics/tiles/bridge.png" alt="Bridge Tile">
+            <p><strong>Description:</strong> On this tile, the railway can only be built in the straight direction defined by the bridge.<br></p>
+            <p><strong>Control:</strong> Left-click to add a straight railway aligned with the bridge direction.</p>
+        </div>
+        <div class="rule">
+            <img src="starter_eng/pics/tiles/mountain.png" alt="Mountain Tile">
+            <p><strong>Description:</strong> This tile has rocks blocking two adjacent exits, so the train can only continue by turning 90°.<br></p>
+            <p><strong>Control:</strong> Left-click to add a curved railway that follows the mountain’s rotation.</p>
+        </div>
+        <div class="rule">
+            <img src="starter_eng/pics/tiles/oasis.png" alt="Oasis Tile">
+            <p><strong>Description:</strong> No railway can be built on this tile.<br></p>
+        </div>
+        <button id="closeRulesButton">CLOSE</button>
+    </div>
+
+    <div id="gameScreen" class="screen" style="display: none;">
+        <div class="game-container">
+            <div id="gameGrid" class="grid"></div>
+            <div class="game-info">
+                <h1>RAILWAYS</h1>
+                <p><strong>Route Designer:</strong> <span id="playerDisplay"></span></p>
+                <p><strong>Elapsed Time:</strong> <span id="timer">00:00</span></p>
+                <button id="saveGameBtn">SAVE GAME</button>
+                <button id="exitBtn">EXIT TO MAIN MENU</button>
+            </div>
+        </div>
+    </div>
+
+    <div id="leaderboardModal" class="screen" style="display: none;">
+        <h2>Leaderboard</h2>
+        <div id="leaderboardContent"></div> 
+        <button id="closeLeaderboardButton">CLOSE LEADERBOARD</button>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
