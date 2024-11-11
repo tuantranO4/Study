@@ -24,13 +24,15 @@ Minimum requirements (8 points)
 Basic tasks (12 points)
 
   - [x] Placement: Elements can be placed according to the rules. (On a bridge, only straight; on a mountain, only at 90°; nothing can be placed on an oasis; any element can be placed on an empty cell) (4 points)
-  - [ ] Validation: The game checks whether the puzzle is solved. That is: each cell that can be touched is only touched once; the path is continuous; all cells are accessible from the neighboring cells; and the correct elements are present everywhere (4 points)
+  - [x-partially] Validation: The game checks whether the puzzle is solved. That is: each cell that can be touched is only touched once; the path is continuous; all cells are accessible from the neighboring cells; and the correct elements are present everywhere (4 points)
   - [ ] End of game: At the end of the game, the time taken to complete the puzzle is displayed. (1 point)
   - [ ] Leaderboard: At the end of the game, a leaderboard is displayed, showing how long it took for different players to complete the puzzle at the given difficulty level (2 points)
-  - [ ] Other: A neat design and well-organized code (1 point)
+  - [x-maybe?] Other: A neat design and well-organized code (1 point)
 
 Bonus tasks (5 points)
 
   - [x] Save: The game's state can be saved during gameplay, and upon reopening the page, the last saved state can be loaded (1 point)
   - [ ] Save: Leaderboards are saved in LocalStorage, and are accessible even after reloading the page (2 points)
   - [ ] Element placement: Drawing the path by holding down the mouse button and moving across the cells (2 points)
+
+  //save explaining: if you keep the same difficulty and same name, click Start game after you exit game will get you back to the latest state.
