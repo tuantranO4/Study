@@ -371,11 +371,11 @@ listToNum xs = foldl (\acc x -> acc * 10 + x) 0 xs
 --foldl/foldr syntax: foldl function initial value list
 
 funNum :: Int -> Int
-funNum n = listToNum (take mid digits ++ drop mid digits)
+funNum n = listToNum (drop mid digits ++ take mid digits)
   where
     digits = numToList n
     mid = length digits `div` 2
-
+--continue
 
 funNum2 :: Int -> Int
 funNum2 n = listToNum (rightHalf ++ leftHalf)
@@ -389,7 +389,7 @@ funNum2 n = listToNum (rightHalf ++ leftHalf)
 -- main = print (funNum 0)      -- 0
 --main = print (funNum 1234)   -- 3412
 --main = print (funNum 12345)  -- 34512
--- main = print (funNum 123456) -- 456123
+--main = print (funNum 1234567) -- 456123
 
 
 
@@ -410,7 +410,6 @@ foldIfTrue pred func list
   | func == "max" = maximum (filter pred list)
   | func == "min" = minimum (filter pred list)
   | otherwise = error "not a valid reduce function"
-
 
 --main  = print(foldIfTrue ((>) 5) "max" [6, 1, 2, 3]) -- 6
 --main  = print(foldIfTrue ((>) 5) "min" [6, 1, 2, 3]) -- 1
@@ -454,6 +453,7 @@ averageSalary employees = totalSalary / fromIntegral count
   where
     totalSalary = sum [fromIntegral (thd3 emp) | emp <- employees]
     count = length employees
+--------------emp <- employees:: iterates over each tuple elems in the employees (emp-tuple)
 
 -- main = print (averageSalary [("John", 23, 200), ("Bob", 60, 700), ("Anna", 38, 427), ("Joe", 36, 289), ("Doe", 22, 384), ("Marie", 55, 573), ("Lucy", 37, 400)])  
 -- 424.7142857142857
