@@ -1,4 +1,4 @@
-
+ 
 -- TASK 1 
 {-
 1- Unique digits - 10 points
@@ -57,15 +57,16 @@ isEven x = x `mod` 2 == 0
 
 isPrime :: Int -> Bool
 isPrime n = n > 1 && null [i | i <- [2..(n - 1)], n `mod` i == 0]
-
+--null [list] : check if list comprehension/list-generating expression yields empty list
 isGood :: [Int] -> Bool
 isGood [] = True
 isGood (x:y:xs) = isEven x && isPrime y && isGood xs
+--first: even, 2nd: prime = good list (recursion pattern)
 isGood [x] = isEven x
 
 count_good_lists :: [[Int]] -> Int
 count_good_lists ls = length (filter isGood ls)
-
+--filter predicate(bool) list
 
 -- main = print (count_good_lists [[2,2,4,5], [2,3,3,5]]) -- 1
 --main = print (count_good_lists [[2,23,22], [2,29,22,5], [1,2,3]]) --  2
@@ -87,7 +88,7 @@ count_good_lists ls = length (filter isGood ls)
 
 increaseByPosition :: [Double] -> [Double]
 increaseByPosition x = [el + fromIntegral i | (el, i) <- zip x [0..]]
-
+--fromIntegral: convert to Double, we zip list [x] with [0..] aka position. returns all pair sum as new list
 
 
 --main = print (increaseByPosition [1.0, 2.1, 3.5, 2.0])         --  [1.0, 3.1, 5.5, 5.0]
@@ -111,13 +112,15 @@ increaseByPosition x = [el + fromIntegral i | (el, i) <- zip x [0..]]
 
 reverse_num :: Int -> Int
 reverse_num x = read (reverse (show x)) :: Int
-
+--show x : convert int to string
+--read ... :: Int : convert back to Int (the type is after ::)
 rev_nums :: [Int] -> [Int]
 rev_nums [] = []
 rev_nums (x:xs) = reverse_num x : rev_nums xs
 
 rev_nums2 :: [Int] -> [Int]
 rev_nums2 list = map reverse_num list
+-- !!important: map function list: map SYNTAX
 
 
 -- main = print (rev_nums [1,234,5677,43,0])            -- [1,432,7765,34,0]
@@ -144,10 +147,13 @@ rev_nums2 list = map reverse_num list
 integerPart :: Double ->  Int
 integerPart n = floor n
 
+--round down to nearest int
 -- Function to check which students passed based on integer part sum
 passedStudents :: [(String, [Double])] -> Int -> [String]
 passedStudents ls x = [name | (name, points) <- ls, sum (map integerPart points) >= x]
-
+--(name, points) <- ls - extracts or deconstructs each element in ls (a list of tuples) into the components name and points.
+-- <- : iterate symbol.
+-- map: we 'floor' all elems in list then sum it. cond: compare to x
 
 
 -- main = print (passedStudents [("Abdullah", [55.55,66.55,77.75,65.07,65.57]),("Mohammed",[27.55,20.55,10.75,30.07,20.57])] 320) 
@@ -187,8 +193,8 @@ eliminate2 :: [Int] -> [Int]
 eliminate2 [] = []
 eliminate2 [x] = [x]
 eliminate2 ls = eliminate2 [x | (x, i) <- zip ls [1..], even i]
-
-
+--eliminate2 ls = eliminate2 (filter (\(x, i) -> even i) (zip ls [1..]))
+--LAMBDA SYNTAX: \parameter1 parameter2 ... -> expression
 
 -- main = print (eliminate [1..9]) -- [8]
 -- main = print (eliminate [1, 2, 3, 4]) -- [4]
@@ -241,19 +247,20 @@ fib :: Int -> Int
 fib 0 = 0
 fib 1 = 1
 fib n = fib (n - 1) + fib (n - 2)
+--fibonacci generator
 
 -- Generate Fibonacci sequence less than or equal to n
 genFib :: Int -> Int -> [Int]
 genFib x n
     | n == 0 = [0]
-    | x >= n     = []
-    | fib x > n = []
+    | x >= n     = [] --if index past n stop
+    | fib x > n = [] --if fib at index x past n stop
     | otherwise = fib x : genFib (x + 1) n
 
 -- Generate a list of Fibonacci sequences for each integer in the input list
 fibList :: [Int] -> [[Int]]
 fibList xs = map (\y -> genFib 0 y) xs
-
+--For each integer y in xs, genFib 0 y is called to generate a list of Fibonacci numbers from 0 to y.
 
 -- main = print (fibList [1, 2, 3, 4, 5, 6, 7, 8, 9, 10])
 -- [[0],[0,1],[0,1,1],[0,1,1,2],[0,1,1,2,3],[0,1,1,2,3,5],
@@ -284,7 +291,8 @@ fibList xs = map (\y -> genFib 0 y) xs
 
 carrylessDigitAddition :: [Int] -> [Int] -> [Int]
 carrylessDigitAddition list1 list2 = zipWith (\x y -> (x + y) `mod` 10) list1 list2
-
+--zipWith: pairs zip1 and zip2, then apply function to each pair
+--zipWith func pair1 pair2: zipWith Syntax
 
 
 -- main = print (carrylessDigitAddition [9, 6, 3, 4, 3, 4, 5] [4, 8, 9, 0, 9, 6, 5]) -- [3, 4, 2, 4, 2, 0, 0]
@@ -321,12 +329,13 @@ carrylessDigitAddition'' list1 list2 = map (\(x,y) -> (x + y) `mod` 10) (zip lis
 -- Function to calculate the Least Common Multiple (LCM)
 lcmAux :: Int -> Int -> Int
 lcmAux x y = (x * y) `div` (gcd x y)
+--math: LCM(x,y)= x*y/GCD(x,y)
 
 zipWithLCM :: [Int] -> [Int] -> [(Int, Int, Int)]
 zipWithLCM [] _ = []
 zipWithLCM _ [] = []
 zipWithLCM (x:xs) (y:ys) = (x, y, lcmAux x y) : zipWithLCM xs ys
-
+--recursion, nothing much
 
 
 -- main = print (zipWithLCM [12,14,22,57,66] [13,15,17,19,21]) --[(12,13,156),(14,15,210),(22,17,374),(57,19,171),(66,21,462)]
@@ -353,18 +362,20 @@ zipWithLCM (x:xs) (y:ys) = (x, y, lcmAux x y) : zipWithLCM xs ys
 -- Convert a number to a list of its digits
 numToList :: Int -> [Int]
 numToList 0 = []
-numToList n = numToList (n `div` 10) ++ [n `mod` 10]
+numToList n = numToList (n `div` 10) ++ [n `mod` 10] --append result of div to the begin, recursion 
 
 -- Convert a list of digits back to a number
 listToNum :: [Int] -> Int
 listToNum [] = 0
 listToNum xs = foldl (\acc x -> acc * 10 + x) 0 xs
+--foldl/foldr syntax: foldl function initial value list
 
 funNum :: Int -> Int
 funNum n = listToNum (take mid digits ++ drop mid digits)
   where
     digits = numToList n
     mid = length digits `div` 2
+
 
 funNum2 :: Int -> Int
 funNum2 n = listToNum (rightHalf ++ leftHalf)
