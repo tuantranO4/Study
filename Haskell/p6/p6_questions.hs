@@ -1,9 +1,6 @@
 {-# LANGUAGE ParallelListComp #-}
 
 
-main :: IO ()
-
-
 -- Higher order function foldr, foldl, dropWhile, scan, iterate
 
 -- 1.  Write a function that calculates the sum of all numbers in a list that are divisible by 3 and 5 using a foldl and filter function.

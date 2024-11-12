@@ -13,6 +13,7 @@ t1 x y = zip x y
 -- 1. Generate a list with 10 times of 13: [13,13,13,13,13,13,13,13,13,13]
 l1 :: [Int]
 l1 = [ 13 | x <- [1..10] ]
+--l1_alt = replicate 10 13
 
 --main = print(l1)
 
@@ -35,7 +36,7 @@ l82 = take 100 [ x | x <- [1..] , even x ]
 
 -- 15. Is 123457 a prime number? A number is prime if only 1 and the number divides it.
 l15 :: Bool
-l15 = (length [ x | x <- [1..123457], mod 123457 x == 0 ] ) == 2
+l15 = (length [ x | x <- [1..123457], mod 123457 x == 0 ] ) == 2 -- =2 because 1 and 123457 (mod x y - where x is dividend and y is divisor)
 
 --main = print(l15)
 
@@ -55,13 +56,14 @@ l17 = [ (hour, minute) | hour <- [0..23], minute <- [0..59] ]
 sumtup :: [(Int, Int)] -> (Int, Int)
 sumtup x = (sum a, sum b)
     where (a, b) = unzip x
+ --unzip: separates a list of tuples into one with all the first elements and one with all the second elements.
 
 --main = print(sumtup [(1,1), (2,2), (3,3)])
 
 -- 24. Given a list of tuples form a list of triple tuples with the original numbers and their sum
 triplesum :: [(Int, Int)] -> [(Int, Int, Int)]
 triplesum x = [ (fst a, snd a, fst a + snd a) | a <- x ]
-
+--fst/snd a: retrieve first/second elem
 --main = print(triplesum [(1,2),(2,3),(3,4),(4,5),(5,6)])
 
 -- 30. Generate a list that contains all (month, day) pairs in a 365-day year.
@@ -72,5 +74,5 @@ triplesum x = [ (fst a, snd a, fst a + snd a) | a <- x ]
 l30 :: [(Int, Int)]
 l30 = [(m, d) | (m, ds) <- pairs, d <- [1..ds]]
     where pairs = zip [1..12] [31,28,31,30,31,30,31,31,30,31,30,31]
-
+--pairs: zip months with respective date, then d <- [1..ds] iterates throughout that month
 --main = print(l30)

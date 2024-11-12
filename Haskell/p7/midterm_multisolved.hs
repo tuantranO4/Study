@@ -19,7 +19,7 @@ isUnique :: Int -> [Int] -> Bool
 isUnique x ls = length (filter (== x) ls) == 1
 
 countUniqueDigits :: Int -> Int
-countUniqueDigits x = length (filter (== True) (map (\d -> isUnique d y) y))
+countUniqueDigits x = length (filter (== True) (map (\d -> isUnique d y) y))    
   where y = toDigit x
 
 
