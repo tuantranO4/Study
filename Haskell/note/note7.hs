@@ -6,6 +6,11 @@
 --[expression (x,y,int...) | pattern <- list, conditions]
 --filter :: f(a -> Bool) -> [a] -> [a]
 --composition: (f . g) x 
+-- factorial :: Int -> Int
+-- factorial 0 = 1                            -- Base case: 0! = 1
+-- factorial n = n * factorial (n - 1)         -- Recursive case: n! = n * (n-1)!
+-- !!! [x:xs] - head of x and tails of xs
+-- !!! (x:xs) - pattern matching, list comprehension
 
 --fromIntegral: convert to Double
 --show x : convert int to string

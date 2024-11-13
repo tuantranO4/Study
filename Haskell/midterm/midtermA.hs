@@ -16,9 +16,14 @@ programming midterm 2024 November 13. --}
 -- Example: 
 -- countOdds 1234 -- 2
 -- countOdds 987654321 -- 5
-
---countOdds :: Int -> Int
-
+toList :: Int -> [Int]
+toList a
+  |a<10 = [a]
+  |otherwise = toList (a `div` 10)++[a `mod` 10] --div first, mod last
+countOdds :: Int -> Int
+countOdds n
+  |n<0=error "negative"
+  |otherwise = length [a | a<-toList n, a `mod` 2==1]
 --main = print(countOdds 1234) -- 2
 --main = print(countOdds 0) -- 0
 --main = print(countOdds 987654321) -- 5
@@ -35,7 +40,13 @@ programming midterm 2024 November 13. --}
 -- commonElements [10, 20, 30] [30, 40, 10, 50]    -- Output: [10, 30]
 -- commonElements [1, 1, 2, 3] [2, 2, 3, 4]        -- Output: [2, 3]
 
---commonElements :: [Int] -> [Int] -> [Int]
+in2 :: Int -> [Int] -> Bool
+in2 y ys=y `elem` ys --elem: check if it a elemenent in the array
+commonElements :: [Int] -> [Int] -> [Int]
+commonElements xs ys = [x | x<-xs, in2 x ys] -- x<-xs to iterate
+
+commonElements' :: [Int] -> [Int] -> [Int]
+commonElements' xs ys = [x | x <- xs, x `elem` ys]
 
 --main = print (commonElements [1, 2, 3, 4, 5] [3, 4, 5, 6, 7])  -- Output: [3, 4, 5]
 --main = print (commonElements [10, 20, 30] [30, 40, 10, 50])   -- Output: [10, 30]
@@ -46,10 +57,11 @@ programming midterm 2024 November 13. --}
 -- Write a function prefixes that takes a list and returns 
 -- a list of all prefixes of the original list.
 -- Example:
--- prefixes [1, 2, 3]  output: [[1], [1, 2], [1, 2, 3]]
+--prefixes [1, 2, 3]  output: [[1], [1, 2], [1, 2, 3]]
 
---prefixes :: [a] -> [[a]]
-
+prefixes :: [a] -> [[a]]
+prefixes [] = []
+prefixes xs = [take n xs | n <-[1..length xs]] --use take!!!
 --main = print (prefixes [1, 2, 3])      -- Output: [[1], [1, 2], [1, 2, 3]]
 --main = print (prefixes "abc")          -- Output: [["a"], ["a", "b"], ["a", "b", "c"]]
 --main = print (prefixes [42, 43])       -- Output: [[42], [42, 43]]
@@ -65,9 +77,19 @@ programming midterm 2024 November 13. --}
 --  [4, 5]]
 -- [[2, 3]
 --  [5, 6]]
--- = (2-1)^2 + (3-2)^2 + (5-4)^2 + (6-5)^2= 4
+-- = (2-1)^2 + (3-2)^2 + (5-4)^2 + (6-5)^2= 4-- Compute the squared difference between two integers
+op1 :: Int -> Int -> Int
+op1 x y = (y - x) ^ 2
 
---ssd :: [[Int]] -> [[Int]] -> Int
+-- Compute the SSD for two rows (list)
+ssdRow :: [Int] -> [Int] -> Int
+ssdRow [] [] = 0
+ssdRow (x:xs) (y:ys) = op1 x y + ssdRow xs ys --[1,2] and [2,3] : 2-1 and 3-2 (1st elem of list1 and 1st elem of list1...)
+
+-- Compute the SSD for two matrices (list of lists)
+ssd :: [[Int]] -> [[Int]] -> Int
+ssd [] [] = 0
+ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys 
 
 --main = print (ssd [[1, 2], [4, 5]] [[2, 3], [5, 6]]) -- 4
 --main = print (ssd [[0, 0], [0, 0]] [[0, 0], [0, 0]]) -- 0
