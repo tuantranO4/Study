@@ -13,7 +13,7 @@
 toDigit :: Int -> [Int]
 toDigit x
   | x < 10    = [x]
-  | otherwise = toDigit (x `div` 10) ++ [x `mod` 10]
+  | otherwise = toDigit (x `div` 10) ++ [x `mod` 10] --append digit to beginning
 
 isUnique :: Int -> [Int] -> Bool
 isUnique x ls = length (filter (== x) ls) == 1
