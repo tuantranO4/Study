@@ -1,3 +1,4 @@
+import Distribution.Compat.Lens (_1)
 {-- WRITE 
 NAME 
 AND 
@@ -89,7 +90,7 @@ ssdRow (x:xs) (y:ys) = op1 x y + ssdRow xs ys --[1,2] and [2,3] : 2-1 and 3-2 (1
 -- Compute the SSD for two matrices (list of lists)
 ssd :: [[Int]] -> [[Int]] -> Int
 ssd [] [] = 0
-ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys 
+ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys --perform ssdRow function on array x and y
 
 --main = print (ssd [[1, 2], [4, 5]] [[2, 3], [5, 6]]) -- 4
 --main = print (ssd [[0, 0], [0, 0]] [[0, 0], [0, 0]]) -- 0
@@ -101,8 +102,10 @@ ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys
 -- Write a function that takes a list of tuples of integers
 -- and returns the sum of all the elements in all the tuples.
 
---sumPairs :: [(Int, Int)] -> Int
-
+sumPairs :: [(Int, Int)] -> Int
+sumTuple (x,y) = x+y
+sumPairs [] = 0
+sumPairs (x:xs) = sumTuple x + sumPairs xs
 --main = print (sumPairs [(1, 2), (3, 4), (5, 6)]) -- 21
 --main = print (sumPairs [(7, 8)]) -- 15
 --main = print (sumPairs []) -- 0
@@ -118,7 +121,15 @@ ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys
 -- the sum of the elements at even indices in the second list is 5 + 7 = 12. 
 -- The function should return the tuple (6, 12).
 
---indexSums :: [Int] -> [Int] -> (Int,Int)
+sumOdd :: [Int] -> Int
+sumOdd [] = 0
+sumOdd xs = sum [x | (x,i)<-zip xs [0..], i `mod` 2==1]
+sumEven :: [Int] -> Int
+sumEven [] = 0
+sumEven xs = sum [x | (x,i)<-zip xs [0..], i `mod` 2==0]
+indexSums :: [Int] -> [Int] -> (Int,Int)
+indexSums [] [] = error "undefined"
+indexSums x y = (sumOdd x, sumEven y)
 
 --main = print (indexSums [1, 2, 3, 4] [5, 6, 7, 8]) -- (6,12)
 --main = print (indexSums [3,5,6,7,8] [9,7,4,2,5]) -- (12,18)
@@ -131,8 +142,10 @@ ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys
 -- same as (b, a) and should only appear once.
 -- The order of the output does not matter if it is correct.
 
---divisiblePairs :: [Int] -> [(Int, Int)]
-
+divisiblePairs :: [Int] -> [(Int, Int)]
+divisiblePairs [] = []
+divisiblePairs xs = [(x,y) | x<-xs, y<-xs, x`mod` y == 0, x /= y] 
+--(x, y)<-xs would only work if each element of xs were itself a pair, like in a list of tuples (e.g., [(1, 2), (3, 4)]).
 --main = print (divisiblePairs [2, 3, 4, 6])       -- Output: [(4,2),(6,2),(6,3)]
 --main = print (divisiblePairs [10, 5, 2, 1])      -- Output: [(10,5),(10,2),(10,1),(5,1),(2,1)]
 --main = print (divisiblePairs [12, 3, 4, 6])      -- Output: [(12,3),(12,4),(12,6),(6,3)]
@@ -151,6 +164,11 @@ ssd (x:xs) (y:ys) = ssdRow x y + ssd xs ys
   -- result: 3
 
 --countNegativePositivePairs :: [Int] -> Int
+countNegativePositivePairs [] = 0
+countNegativePositivePairs [_] = 0
+countNegativePositivePairs (x:y:xs) 
+ |x<0 && y>0 = 1 + countNegativePositivePairs (y:xs)
+ |otherwise = countNegativePositivePairs (y:xs)
 
 --main = print (countNegativePositivePairs [])                               -- 0
 --main = print (countNegativePositivePairs [-1, 2, -3, -4, 5, 6, -7, 8, -9]) -- 3
@@ -179,7 +197,14 @@ getTaxRate "electronics" = 0.15   -- 15% tax on electronics
 getTaxRate "clothing" = 0.10      -- 10% tax on clothing
 getTaxRate _ = 0.08               -- Default 8% tax for other categories
 
---canAfford :: [(Int, String)] -> Int -> Bool
+getItemPrice :: (Int, String) -> Int
+getItemPrice (x, n)
+  | n == "food" = round (fromIntegral x * 1.05) --fromIntegral
+  | n == "electronics" = round (fromIntegral x * 1.15)
+  | n == "clothing" = round (fromIntegral x * 1.1)
+  | otherwise = round (fromIntegral x * 1.08)
+canAfford :: [(Int, String)] -> Int -> Bool
+canAfford xs p = (sum [getItemPrice (x, n) | (x, n) <- xs]) <= p
 
 --main = print (canAfford [(100, "food"), (200, "electronics"), (50, "clothing")] 400)  -- True
 -- 100 * 1.05 + 200 * 1.15 + 50 * 1.10 = 105 + 230 + 55 = 390 < 400
@@ -195,9 +220,10 @@ getTaxRate _ = 0.08               -- Default 8% tax for other categories
 -- Write a function, which generates all perfect numbers up to a given integer n.
 -- A perfect number is equal to the sum of its proper divisors.
 -- (e.g., 6 is perfect because 1 + 2 + 3 = 6).
-
---perfectNumbers :: Int -> [Int]
-
+perfectNumCheck :: Int -> Bool
+perfectNumCheck n = sum [x | x <- [1..n `div` 2], n `mod` x == 0] == n
+perfectNumbers :: Int -> [Int]
+perfectNumbers n = [x | x<-[1..n], perfectNumCheck x]
 --main = print(perfectNumbers 30) -- [6, 28]
 --main = print(perfectNumbers 500) -- [6, 28, 496]
 
@@ -214,8 +240,25 @@ getTaxRate _ = 0.08               -- Default 8% tax for other categories
 --  [2,4,2]  turns into [2,3,4], which has a sum of 9 which equals 9
 --  [] turns into 0, which does not equal n
 -- returns 1 as only one changed list has the same sum as 9
+maxList :: [Int] -> Int
+maxList [] = 0
+maxList [x] = x 
+maxList (x:y:xs) | x >= y   = maxList (x:xs)
+maxList (x:y:xs) | otherwise = maxList (y:xs)
+minList :: [Int] -> Int
+minList [] = 0
+minList [x] = x 
+minList (x:y:xs) | x <= y   = minList (x:xs)
+minList (x:y:xs) | otherwise = minList (y:xs)
 
---cntSums :: [[Int]] -> Int -> Int
+makeList::[Int] -> [Int]
+makeList [] = []
+makeList [a]=[a]
+makeList xs = [minList xs.. maxList xs]
+
+cntSums :: [[Int]] -> Int -> Int
+cntSums [] _ = 0
+cntSums xs n = length [a | a<-map makeList xs, sum a==n]
 
 --main = print (cntSums [[1,4,2,6], [8,4,2,4], [2,4,2], []] 9) -- 1
 --main = print (cntSums [[], [3,2,1], [4,6]] 0) -- 1
@@ -245,8 +288,15 @@ currentLib = ['B','C','S','K','M']
 -- the name of the bird, return a tuple containing the new letter code, 
 -- and "To be named!". (See: test case 2)
 
---extendBLib :: [Char] -> [(Char, String)]
-
+extendBLib :: [Char] -> [(Char, String)]
+extendBLib [] = []
+extendBLib (c:cs)
+ |c == 'B' = [('B',"Bluebird")] ++ extendBLib cs
+ |c == 'C' = [('C',"Cardinal")] ++ extendBLib cs
+ |c == 'S' = [('S',"Starling")] ++ extendBLib cs
+ |c == 'K' = [('K',"Kestrel")] ++ extendBLib cs
+ |c == 'M' = [('M',"Mockingbird")] ++ extendBLib cs
+ |otherwise = [(c,"to be named")] ++ extendBLib cs --we dont use c == _ wildcard pattern
 --main = print (extendBLib "BCKMS")  
 -- [('B',"Bluebird"),('C',"Cardinal"),('K',"Kestrel"),('M',"Mockingbird"),('S',"Starling")]
 --main = print (extendBLib "BKMY")   

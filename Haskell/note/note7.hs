@@ -12,10 +12,18 @@
 -- !!! [x:xs] - head of x and tails of xs
 -- !!! (x:xs) - pattern matching, list comprehension
 
---fromIntegral: convert to Double
---show x : convert int to string
---read ... :: Int : convert back to Int (the type is after ::)
-
+--CONVERSION
+--realToFrac (3.14 :: Float) :: Double : converts between any two fractional types such as Float to Double
+--fromIntegral 42 --42.0 : convert to Double
+--show 123     -- "123" : convert int to string
+--read "123" -- 123 : convert to Int (the type is after ::)
+-- round 3.5     -- 4
+-- ceiling 3.1   -- 4
+-- floor 3.9     -- 3
+-- truncate 3.9  -- 3
+-- toEnum 65 :: Char     -- 'A'
+-- fromEnum 'A'          -- 65
+------------------------------------------------------------------------
 -- Basic functions
 double :: Int -> Int
 double x = x * 2
