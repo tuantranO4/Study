@@ -59,7 +59,7 @@ public class TheaterSeating {
     }
 
     public Seat bookSeat(int row, int col) throws IllegalArgumentException{
-        if(row<=0 || col <=0 || row>=seats.length || col>=seats.length){
+        if(row<0 || col <0 || row>=seats.length || col>=seats[row].length){
             throw new IllegalArgumentException("row col book seat wrong.");
         }
         Seat bookingProcess=seats[row][col];

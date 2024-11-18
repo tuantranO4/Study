@@ -43,7 +43,7 @@ public class Spectator {
             Seat bookedSeat = ts.bookSeat(row, col);
             this.seat = bookedSeat;
         } catch (IllegalArgumentException e) {
-            throw new IllegalStateException("bookSpecificSeat Spectator.java Null");
+            throw new IllegalStateException("bookSpecificSeat Spectator.java Nulled af"+row +", "+col);
         }
     }
 

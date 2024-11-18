@@ -3,9 +3,9 @@
         "."
     ],
     "java.project.referencedLibraries": [
-        "a:\\GitCloud\\Study\\hell\\checkagent.jar",
-        "a:\\GitCloud\\Study\\hell\\checkthat.jar",
-        "a:\\GitCloud\\Study\\hell\\junit5all.jar"
+        "checkagent.jar",
+        "checkthat.jar",
+        "junit5all.jar"
     ],
     "java.debug.settings.onBuildFailureProceed": true
 }
