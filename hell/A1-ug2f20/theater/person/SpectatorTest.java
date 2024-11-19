@@ -20,15 +20,21 @@ public class SpectatorTest {
 
     @ParameterizedTest
     @CsvSource({
-
+        "true, JAGERMEISTER",
+        "true, Anne"
     })
     public void testTakeGift(boolean hasGift, String name){
-
+        TheaterSeating ts1 = new TheaterSeating(ROW_COUNT, COL_COUNT);
+        Spectator Anne = new Spectator(name);
+        Anne.bookSpecificSeat(ts1,2,3);
+        boolean takenGift = Anne.takeGift();
+        assertEquals(hasGift, takenGift);
     }
 
     @Test
     public void testConstructorWithNullName(){
-        
+        String nullName = null;
+        assertThrows(IllegalArgumentException.class, () -> new Spectator(nullName));
     }
 
     @Test
@@ -53,26 +59,39 @@ public class SpectatorTest {
         Spectator ss = new Spectator("Blanc");
         ss.bookSpecificSeat(ts, bookedRow, bookedCol);
         Seat bookSpecific = ss.getSeat();
+        
         assertNotNull(bookSpecific);
-        assertEquals(true, bookSpecific.getIsOccupied(),"occupy");
+        assertEquals(true, bookSpecific.getIsOccupied(),"all corners"); //forgot to set to true in the bookSpecificSeat lmao
     }
 
     
     @ParameterizedTest
     @CsvSource({
-        
+        "Roxy, IT",
+        "Al, OT"
     })
     public void testBookTailoredSeat(String name, SeatType expected){
-        
+        TheaterSeating ts1 = new TheaterSeating(ROW_COUNT, COL_COUNT);
+        Spectator ss1 = new Spectator(name);
+        ss1.bookTailoredSeat(ts1);
+        Seat bookTailored = ss1.getSeat();
+        assertNotNull(bookTailored);
+        assertEquals(expected, bookTailored.getSeatType(),"seat type wrong: "+ name);
     }
     
     @Test
     public void testGetName(){
-        
+        String expectedName = "RTX 4060";
+        Spectator ss = new Spectator(expectedName);
+
+        String actualName = ss.getName();
+
+        assertEquals(expectedName, actualName, "Spectator's name should match the provided name");
     }
     
     @Test
     public void testGetSeatInitialState(){
-        
+        Spectator ss = new Spectator("Eblan");
+        assertEquals(null, ss.getSeat(),"null");
     }
 }

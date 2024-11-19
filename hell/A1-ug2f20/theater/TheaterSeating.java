@@ -18,27 +18,32 @@ public class TheaterSeating {
     }
     
     private void initSeating(int row, int col) {
+        int middleRow1 = row / 2; 
+        int middleRow2 = row % 2 == 0 ? middleRow1 - 1 : middleRow1;
+        int middleCol1 = col / 2; 
+        int middleCol2 = col % 2 == 0 ? middleCol1 - 1 : middleCol1;
+    
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
-                String id ="Row "+i+"Col "+j;
-                boolean hasgift=(i+j)%2==1;
+                String id = "Row " + i + " Col " + j;
+                boolean hasGift = (i + j) % 2 == 1;
                 SeatType st;
+
                 if (i == 0 || i == row - 1 || j == 0 || j == col - 1) {
                     st = SeatType.OT; 
-                } else if (j == seats[i].length / 2) {
+                } else if ((i == middleRow1 || i == middleRow2) && (j == middleCol1 || j == middleCol2)) {
                     st = SeatType.MT; 
                 } else {
-                    st = SeatType.IT; 
+                    st = SeatType.IT;
                 }
-                seats[i][j] = new Seat(id, hasgift, st);
-                if(hasgift==true){
-                    giftsTotal++;
+                if (hasGift) {
+                    giftsTotal=1;
                 }
+                seats[i][j] = new Seat(id, hasGift, st);
             }
         }
     }
     
-
     public int getAmountOfGifts(){
         return giftsTotal;
     }
@@ -76,7 +81,7 @@ public class TheaterSeating {
         if (st == SeatType.MT) { 
             if (bitchassLikedLeft) {
                 for (int i = 0; i < seats.length; i++) {
-                    int middleIndex = seats[i].length / 2; //return row length
+                    int middleIndex = (seats[i].length - 1)/ 2; //return row length. also +1 to adjust base 0 counting 
                     if (seats[i][middleIndex] != null && !seats[i][middleIndex].getIsOccupied()) {
                         seats[i][middleIndex].setIsOccupied(true);
                         return seats[i][middleIndex];
@@ -84,7 +89,7 @@ public class TheaterSeating {
                 }
             } else {
                 for (int i = seats.length - 1; i >= 0; i--) { //zero base indexing btw
-                    int middleIndex = seats[i].length / 2;
+                    int middleIndex = (seats[i].length - 1) / 2;
                     if (seats[i][middleIndex] != null && !seats[i][middleIndex].getIsOccupied()) {
                         seats[i][middleIndex].setIsOccupied(true);
                         return seats[i][middleIndex];
@@ -96,7 +101,7 @@ public class TheaterSeating {
         if (st==SeatType.OT){
             if(bitchassLikedLeft){
                 for (int i = 0; i < seats.length; i++) {
-                    for (int j = 0; j < seats.length; j++){
+                    for (int j = 0; j < seats[i].length; j++){
                         if(i==0 || i==seats.length-1||j==seats[i].length-1||j==0){
                             if (seats[i][j]!= null && !seats[i][j].getIsOccupied()) {
                                 seats[i][j].setIsOccupied(true);
@@ -121,9 +126,9 @@ public class TheaterSeating {
         //Inner
         if (st==SeatType.IT){
             if(bitchassLikedLeft){
-                for (int i = 1; i < seats.length-2; i++) {
-                    int middleIndex = seats[i].length / 2; //lmao 5:2=2.5->3
-                    for (int j = 1; j < seats[i].length-2; j++){
+                for (int i = 1; i < seats.length-1; i++) {
+                    int middleIndex = (seats[i].length - 1) / 2; //lmao 5:2=2.5->3
+                    for (int j = 1; j < seats[i].length-1; j++){
                         if(j!=middleIndex){
                             if (seats[i][j]!= null && !seats[i][j].getIsOccupied()) {
                                 seats[i][j].setIsOccupied(true);
@@ -134,7 +139,7 @@ public class TheaterSeating {
                 }
             }else {
                 for (int i = seats.length - 2; i >= 1; i--) {
-                    int middleIndex = seats[i].length / 2;
+                    int middleIndex = (seats[i].length - 1) / 2;
                     for (int j = seats[i].length-2; j >=1; j--){
                         if(j!=middleIndex){
                             if (seats[i][j]!= null && !seats[i][j].getIsOccupied()) {
@@ -146,7 +151,7 @@ public class TheaterSeating {
                 }
             }
         }
-        return null; 
+        return null;
     }    
     
     public int totalTakenGifts(){

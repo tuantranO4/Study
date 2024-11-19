@@ -1,5 +1,4 @@
 package theater.person;
-import java.util.Random;
 import theater.TheaterSeating;
 import theater.seating.Seat;
 import theater.seating.SeatType;
@@ -42,21 +41,24 @@ public class Spectator {
         try {
             Seat bookedSeat = ts.bookSeat(row, col);
             this.seat = bookedSeat;
+            seat.setIsOccupied(true);
         } catch (IllegalArgumentException e) {
-            throw new IllegalStateException("bookSpecificSeat Spectator.java Nulled af"+row +", "+col);
+            throw new IllegalStateException("bookSpecificSeat Spectator.java Null: "+row +", "+col); //debug
         }
     }
 
-    public void bookTailoredSeat(TheaterSeating ts){
-        
-        Random random = new Random();
-        boolean randomBoolean = random.nextBoolean(); //just for funsies
-        if(name.length()%2==0&&name.length()>=3){
-            Seat evenNameSeat = ts.bookTailoredEmptySeat(SeatType.IT,true);
-        }else if(name.length()<3){
-            Seat ThreeletterNameSeat = ts.bookTailoredEmptySeat(SeatType.OT,randomBoolean);
-        }else{
-            Seat NormieFucksLMAOKillYourself=ts.bookTailoredEmptySeat(SeatType.MT,randomBoolean);
+    public void bookTailoredSeat(TheaterSeating ts) {
+        Seat bookedSeat = null;
+        if (this.name.length() % 2 == 0 && name.length() >= 3) {
+            bookedSeat = ts.bookTailoredEmptySeat(SeatType.IT, true);
+        } else if (this.name.length() <= 2) {
+            bookedSeat = ts.bookTailoredEmptySeat(SeatType.OT, true);
+        } else {
+            bookedSeat = ts.bookTailoredEmptySeat(SeatType.MT, true);
         }
+
+        bookedSeat.setIsOccupied(true);
+        this.seat = bookedSeat;
     }
+    
 }
