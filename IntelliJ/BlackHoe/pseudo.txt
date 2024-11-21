@@ -1,0 +1,45 @@
+enum Direction {
+    UP,
+    DOWN,
+    LEFT,
+    RIGHT
+}
+
+enum MoveResult {
+    HIT_SHIP,
+    HIT_BLACKHOLE,
+    HIT_WALL
+}
+
+class Board:
+    method getCellInDir(dir, coords):
+        switch (dir) {
+            case UP:
+                var new_coords = Coordinates(coords.x, coords.y - 1)
+            case DOWN:
+                var new_coords = Coordinates(coords.x, coords.y + 1)
+            case LEFT:
+                var new_coords = Coordinates(coords.x - 1, coords.y)
+            case RIGHT:
+                var new_coords = Coordinates(coords.x + 1, coords.y)
+        }
+        if new_coords are in the board:
+            return board[new_coords.x][new_coords.y]
+        else:
+            return null
+
+class Cell:
+    method move(dir):
+        var coordinates = this.coords
+        while (this.board.getCellInDir(dir, coordinates) != null) {
+            var next_cell = this.board.getCellInDir(dir, coordinates);
+            if next_cell is ship {
+                this.board.swapCells(this.coords, coordinates);
+                return MoveResult.HIT_SHIP
+            } else if next_cell is bh {
+                return MoveResult.HIT_BLACKHOLE
+            }
+            else
+                coordinates = next_cell.coords;
+        }
+        return MoveResult.HIT_WALL

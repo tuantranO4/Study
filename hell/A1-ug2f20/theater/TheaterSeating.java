@@ -37,7 +37,7 @@ public class TheaterSeating {
                     st = SeatType.IT;
                 }
                 if (hasGift) {
-                    giftsTotal=1;
+                    giftsTotal++;
                 }
                 seats[i][j] = new Seat(id, hasGift, st);
             }
