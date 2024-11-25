@@ -7,6 +7,7 @@ public class Main {
 
         GameFrame gui = new GameFrame();
         Board boardtemp = new Board(5);
+        //debug
         boardtemp.toString();
         boardtemp.traverse(1, 0, Direction.RIGHT);
         boardtemp.traverse(2, 4, Direction.LEFT);

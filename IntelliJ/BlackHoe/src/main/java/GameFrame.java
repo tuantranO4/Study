@@ -1,7 +1,5 @@
 import java.awt.BorderLayout;
 import java.awt.Image;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 import java.io.IOException;
 
 import javax.imageio.ImageIO;
@@ -20,18 +18,18 @@ public class GameFrame {
     public GameFrame() {
         frame = new JFrame("Space Game");
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+
         try {
             Image icon = ImageIO.read(getClass().getResource("/b8f57b1e2badfd1471fd45425ce5d430 (1).jpg"));
             frame.setIconImage(icon);
         } catch (IOException e) {
             System.err.println("Icon image not found!");
         }
-        
-        boardGUI = new BoardGUI();
+
+        boardGUI = new BoardGUI(frame);
         boardGUI.initializeGame(INITIAL_BOARD_SIZE);
 
         frame.getContentPane().add(boardGUI.boardPanel, BorderLayout.CENTER);
-
 
         JMenuBar menuBar = new JMenuBar();
         frame.setJMenuBar(menuBar);
@@ -46,29 +44,20 @@ public class GameFrame {
         for (int boardSize : boardSizes) {
             JMenuItem sizeMenuItem = new JMenuItem(boardSize + " x " + boardSize);
             newMenu.add(sizeMenuItem);
-            sizeMenuItem.addActionListener(new ActionListener() {
-                @Override
-                public void actionPerformed(ActionEvent e) {
-                    frame.getContentPane().remove(boardGUI.boardPanel);
-                    boardGUI.initializeGame(boardSize);
-                    frame.getContentPane().add(boardGUI.boardPanel, BorderLayout.CENTER);
-                    frame.pack();
-                }
+            sizeMenuItem.addActionListener(e -> {
+                frame.getContentPane().remove(boardGUI.boardPanel);
+                boardGUI.initializeGame(boardSize);
+                frame.getContentPane().add(boardGUI.boardPanel, BorderLayout.CENTER);
+                frame.pack();
             });
         }
 
         JMenuItem exitMenuItem = new JMenuItem("Exit");
         gameMenu.add(exitMenuItem);
-        exitMenuItem.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                System.exit(0);
-            }
-        });
+        exitMenuItem.addActionListener(e -> System.exit(0));
 
         frame.pack();
         frame.setLocationRelativeTo(null);
         frame.setVisible(true);
     }
-
 }
