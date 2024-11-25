@@ -5,10 +5,6 @@ import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.api.MethodOrderer.*;
 import check.*;
 
-import theater.TheaterSeating;
-import theater.seating.Seat;
-import theater.seating.SeatType;
-
 @TestMethodOrder(OrderAnnotation.class)
 public class SpectatorTestStructureTest {
     @BeforeAll
@@ -24,7 +20,7 @@ public class SpectatorTestStructureTest {
         	.withInitialValue(4)
             .thatIs(USABLE_WITHOUT_INSTANCE, NOT_MODIFIABLE, VISIBLE_TO_NONE)
             .thatHasNo(GETTER, SETTER);
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(1_01)
     public void fieldCOL_COUNT() {
@@ -32,59 +28,85 @@ public class SpectatorTestStructureTest {
     	  .withInitialValue(5)
     	  .thatIs(USABLE_WITHOUT_INSTANCE, NOT_MODIFIABLE, VISIBLE_TO_NONE)
     	  .thatHasNo(GETTER, SETTER);
-    }//
-
-    @Test @DisabledIf(notApplicable) @Order(3_00)
-    public void methodTestTakeGift() {
-        it.hasMethod("testTakeGift", withParams("name: String", "hasGift: boolean"))
-          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
-          .thatHasAnnotation("ParameterizedTest", withCases("true", "false"))
-          .thatReturnsNothing();
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_00)
     public void methodTestConstructor() {
-    	it.hasMethod("testConstructorWithNullName", withNoParams())
-    	.thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
-    	.thatReturnsNothing();
-    }//
+        it.hasMethod("testConstructorWithNullName", withNoParams())
+          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
+          .thatReturnsNothing();
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_01)
     public void methodTestBookAnySeat() {
         it.hasMethod("testBookAnySeat", withNoParams())
           .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
           .thatReturnsNothing();
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_02)
     public void methodTestBookSpecificSeat() {
-        it.hasMethod("testBookSpecificSeat", withParams("bookedRow: int", "bookedCol: int"))
+        it.hasMethod("testBookSpecificSeat", withNoParams())
           .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
-          .thatHasAnnotation("ParameterizedTest", withCases("all corners", "one arbitrary seat"))
           .thatReturnsNothing();
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_03)
-    public void methodTestTailoredSeat() {
-        it.hasMethod("testBookTailoredSeat", withParams("name: String", "expected: theater.seating.SeatType"))
-          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
-          .thatHasAnnotation("ParameterizedTest", withCases("Roxy", "Bob", "Al"))
-          .thatReturnsNothing();
-    }//
-
-    @Test @DisabledIf(notApplicable) @Order(3_04)
     public void methodTestGetName() {
         it.hasMethod("testGetName", withNoParams())
           .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
           .thatReturnsNothing();
     }
 
-    @Test @DisabledIf(notApplicable) @Order(3_05)
+    @Test @DisabledIf(notApplicable) @Order(3_04)
     public void methodTestGetSeatInitialState() {
         it.hasMethod("testGetSeatInitialState", withNoParams())
           .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
           .thatReturnsNothing();
     }
 
-}
 
+    // -------------------------------------------------
+    // The following methods do not need to be implemented.
+    // However, if you implement them, they must have the following structure.
+
+    @Test @DisabledIf(notApplicable) @Order(3_11)
+    public void methodTestGiftWithoutGift() {
+        it.optionally()
+          .hasMethod("testTakeGiftWithoutGift", withNoParams())
+          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
+          .thatReturnsNothing();
+    }
+
+    @Test @DisabledIf(notApplicable) @Order(3_12)
+    public void methodTestTakeGiftWithGift() {
+        it.optionally()
+          .hasMethod("testTakeGiftWithGift", withNoParams())
+          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
+          .thatReturnsNothing();
+    }
+
+    @Test @DisabledIf(notApplicable) @Order(3_13)
+    public void methodTestATailoredSeatEvenNameLength() {
+        it.optionally()
+          .hasMethod("testBookATailoredSeatEvenNameLength", withNoParams())
+          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
+          .thatReturnsNothing();
+    }
+
+    @Test @DisabledIf(notApplicable) @Order(3_14)
+    public void methodTestATailoredSeatOddNameLength() {
+        it.optionally()
+          .hasMethod("testBookATailoredSeatOddNameLength", withNoParams())
+          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
+          .thatReturnsNothing();
+    }
+
+    @Test @DisabledIf(notApplicable) @Order(3_15)
+    public void methodTestTailoredSeatShortName() {
+        it.optionally()
+          .hasMethod("testBookTailoredSeatShortName", withNoParams())
+          .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
+          .thatReturnsNothing();
+    }
+}

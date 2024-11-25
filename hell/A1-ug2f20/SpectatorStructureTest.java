@@ -5,8 +5,6 @@ import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.api.MethodOrderer.*;
 import check.*;
 
-import theater.person.Spectator;
-
 @TestMethodOrder(OrderAnnotation.class)
 public class SpectatorStructureTest {
     @BeforeAll
@@ -21,7 +19,7 @@ public class SpectatorStructureTest {
             .thatIs(INSTANCE_LEVEL, MODIFIABLE, VISIBLE_TO_NONE)
             .thatHas(GETTER)
             .thatHasNo(SETTER);
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(1_01)
     public void fieldName() {
@@ -29,34 +27,34 @@ public class SpectatorStructureTest {
             .thatIs(INSTANCE_LEVEL, NOT_MODIFIABLE, VISIBLE_TO_NONE)
             .thatHas(GETTER)
             .thatHasNo(SETTER);
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(2_00)
     public void constructorWithNameParam() {
         it.hasConstructor(withParams("name: String"))
             .thatIs(VISIBLE_TO_ALL);
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_00)
     public void methodTakeGift() {
         it.hasMethod("takeGift", withNoParams())
             .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
             .thatReturns("boolean");
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_01)
     public void methodBookAnySeat() {
         it.hasMethod("bookAnySeat", withParams("ts: theater.TheaterSeating"))
             .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
             .thatReturnsNothing();
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_02)
     public void methodBookSpecificSeat() {
         it.hasMethod("bookSpecificSeat", withParams("ts: theater.TheaterSeating", "row: int", "col: int"))
             .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
             .thatReturnsNothing();
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(3_03)
     public void methodBookTailoredSeat() {

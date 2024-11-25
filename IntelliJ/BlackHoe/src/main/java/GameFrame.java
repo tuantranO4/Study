@@ -1,86 +1,74 @@
 import java.awt.BorderLayout;
+import java.awt.Image;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.IOException;
 
+import javax.imageio.ImageIO;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
 import javax.swing.JMenu;
 import javax.swing.JMenuBar;
 import javax.swing.JMenuItem;
-import javax.swing.JOptionPane;
-import javax.swing.SwingConstants;
-import javax.swing.SwingUtilities;
 
-import enums.PlayerTurn;
-import gamestate.Board;
+public class GameFrame {
 
-public class GameFrame extends JFrame {
-    private Board board;
-    private BoardPanel boardPanel;
-    private JLabel statusLabel;
+    private JFrame frame;
+    private BoardGUI boardGUI;
+
+    private final int INITIAL_BOARD_SIZE = 5;
 
     public GameFrame() {
-        setTitle("Board Game");
-        setSize(400, 400);
-        setLocationRelativeTo(null);
-        setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        setLayout(new BorderLayout());
+        frame = new JFrame("Space Game");
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        try {
+            Image icon = ImageIO.read(getClass().getResource("/b8f57b1e2badfd1471fd45425ce5d430 (1).jpg"));
+            frame.setIconImage(icon);
+        } catch (IOException e) {
+            System.err.println("Icon image not found!");
+        }
+        
+        boardGUI = new BoardGUI();
+        boardGUI.initializeGame(INITIAL_BOARD_SIZE);
 
-        // Menu
+        frame.getContentPane().add(boardGUI.boardPanel, BorderLayout.CENTER);
+
+
         JMenuBar menuBar = new JMenuBar();
-        setJMenuBar(menuBar);
+        frame.setJMenuBar(menuBar);
 
-        // Game menu
         JMenu gameMenu = new JMenu("Game");
         menuBar.add(gameMenu);
 
-        JMenuItem newGame = new JMenuItem("New Game");
-        newGame.addActionListener(e -> initializeGame(5));  
-        gameMenu.add(newGame);
+        JMenu newMenu = new JMenu("New");
+        gameMenu.add(newMenu);
 
-        JMenuItem exitItem = new JMenuItem("Exit");
-        exitItem.addActionListener(e -> System.exit(0));
-        gameMenu.add(exitItem);
-
-        // Size menu
-        JMenu sizeMenu = new JMenu("Size");
-        menuBar.add(sizeMenu);
-
-        int[] sizes = {5, 7, 9};
-        for (int size : sizes) {
-            JMenuItem sizeItem = new JMenuItem(size + "x" + size);
-            sizeItem.addActionListener(e -> initializeGame(size));
-            sizeMenu.add(sizeItem);
+        int[] boardSizes = new int[]{5, 7, 9};
+        for (int boardSize : boardSizes) {
+            JMenuItem sizeMenuItem = new JMenuItem(boardSize + " x " + boardSize);
+            newMenu.add(sizeMenuItem);
+            sizeMenuItem.addActionListener(new ActionListener() {
+                @Override
+                public void actionPerformed(ActionEvent e) {
+                    frame.getContentPane().remove(boardGUI.boardPanel);
+                    boardGUI.initializeGame(boardSize);
+                    frame.getContentPane().add(boardGUI.boardPanel, BorderLayout.CENTER);
+                    frame.pack();
+                }
+            });
         }
 
-        // Status label
-        statusLabel = new JLabel(" Player 1's turn", SwingConstants.CENTER);
-        add(statusLabel, BorderLayout.SOUTH);
+        JMenuItem exitMenuItem = new JMenuItem("Exit");
+        gameMenu.add(exitMenuItem);
+        exitMenuItem.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                System.exit(0);
+            }
+        });
 
-        // Board panel
-        boardPanel = new BoardPanel();
-        add(boardPanel, BorderLayout.CENTER);
-
-        initializeGame(5); 
-        setVisible(true);
+        frame.pack();
+        frame.setLocationRelativeTo(null);
+        frame.setVisible(true);
     }
 
-    private void initializeGame(int size) {
-        board = new Board(size);
-        boardPanel.setBoard(board);
-        updateStatus();
-    }
-
-    public void updateStatus() {
-        if (board.isOver()) {
-            String winnerText = board.winnerAnnouncer();
-            JOptionPane.showMessageDialog(this, winnerText);
-            initializeGame(board.getBoardSize()); 
-        } else {
-            String turnText = board.getTurn() == PlayerTurn.TURN_1 ? "Player 1's turn" : "Player 2's turn";
-            statusLabel.setText(turnText);
-        }
-    }
-
-    public static void main(String[] args) {
-        SwingUtilities.invokeLater(GameFrame::new);
-    }
 }

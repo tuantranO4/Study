@@ -5,8 +5,6 @@ import org.junit.jupiter.api.condition.*;
 import org.junit.jupiter.api.MethodOrderer.*;
 import check.*;
 
-import theater.seating.*;
-
 @TestMethodOrder(OrderAnnotation.class)
 public class SeatStructureTest {
     @BeforeAll
@@ -14,7 +12,7 @@ public class SeatStructureTest {
         CheckThat.theClass("theater.seating.Seat")
                  .thatIs(FULLY_IMPLEMENTED, INSTANCE_LEVEL, VISIBLE_TO_ALL)
                  ;
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(1_00)
     public void fieldId() {
@@ -22,14 +20,14 @@ public class SeatStructureTest {
           .thatIs(INSTANCE_LEVEL, NOT_MODIFIABLE, VISIBLE_TO_NONE)
           .thatHas(GETTER)
           .thatHasNo(SETTER);
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(1_01)
     public void fieldHasGift() {
         it.hasField("hasGift: boolean")
           .thatIs(INSTANCE_LEVEL, MODIFIABLE, VISIBLE_TO_NONE)
           .thatHas(GETTER, SETTER);
-    }//
+    }
 
     @Test @DisabledIf(notApplicable) @Order(1_02)
     public void fieldSeatType() {

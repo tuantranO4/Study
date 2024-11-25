@@ -18,21 +18,17 @@ public class TheaterSeating {
     }
     
     private void initSeating(int row, int col) {
-        int middleRow1 = row / 2; 
-        int middleRow2 = row % 2 == 0 ? middleRow1 - 1 : middleRow1;
-        int middleCol1 = col / 2; 
-        int middleCol2 = col % 2 == 0 ? middleCol1 - 1 : middleCol1;
     
         for (int i = 0; i < row; i++) {
             for (int j = 0; j < col; j++) {
                 String id = "Row " + i + " Col " + j;
                 boolean hasGift = (i + j) % 2 == 1;
-                SeatType st;
+                SeatType st=null;
 
-                if (i == 0 || i == row - 1 || j == 0 || j == col - 1) {
-                    st = SeatType.OT; 
-                } else if ((i == middleRow1 || i == middleRow2) && (j == middleCol1 || j == middleCol2)) {
+                if ((i == row/2 || i == row/2) && (j == col/2 || j == col/2)) {
                     st = SeatType.MT; 
+                } else if (i == 0 || i == row - 1 || j == 0 || j == col - 1) {
+                    st = SeatType.OT; 
                 } else {
                     st = SeatType.IT;
                 }

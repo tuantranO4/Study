@@ -22,7 +22,7 @@ public class TheaterSeatingTest {
             for (int j = 0; j < col; j++) {
                 if (i == 0 || i == row - 1 || j == 0 || j == col - 1) {
                     assertEquals(SeatType.OT, seatsGet[i][j].getSeatType(), "Outer seat test");
-                } else if (j == col-1 / 2) {
+                } else if ((i == row/2 || i == row/2) && (j == col/2 || j == col/2)) {
                     assertEquals(SeatType.MT, seatsGet[i][j].getSeatType(), "Middle seat test");
                 } else {
                     assertEquals(SeatType.IT, seatsGet[i][j].getSeatType(), "Inner seat test");
@@ -84,7 +84,6 @@ public class TheaterSeatingTest {
 public void testText() {
     int rows = 5;
     int cols = 5;
-
 
     TheaterSeating theaterSeating = new TheaterSeating(rows, cols);
     theaterSeating.getSeats()[0][0].setIsOccupied(true); 

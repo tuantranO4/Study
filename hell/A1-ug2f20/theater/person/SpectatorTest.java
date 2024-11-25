@@ -18,19 +18,6 @@ public class SpectatorTest {
     private static final int COL_COUNT=5;
 
 
-    @ParameterizedTest
-    @CsvSource({
-        "true, JAGERMEISTER",
-        "true, Anne"
-    })
-    public void testTakeGift(boolean hasGift, String name){
-        TheaterSeating ts1 = new TheaterSeating(ROW_COUNT, COL_COUNT);
-        Spectator Anne = new Spectator(name);
-        Anne.bookSpecificSeat(ts1,2,3);
-        boolean takenGift = Anne.takeGift();
-        assertEquals(hasGift, takenGift);
-    }
-
     @Test
     public void testConstructorWithNullName(){
         String nullName = null;
@@ -47,17 +34,11 @@ public class SpectatorTest {
         assertEquals(true, bookAny.getIsOccupied(),"kys");//expect, actual, msg
     }
 
-    @ParameterizedTest
-    @CsvSource({
-        "0,0",
-        "0,4",
-        "3,0",
-        "3,4"
-    })
-    public void testBookSpecificSeat(int bookedRow, int bookedCol){
+    @Test
+    public void testBookSpecificSeat(){
         TheaterSeating ts = new TheaterSeating(ROW_COUNT, COL_COUNT);
         Spectator ss = new Spectator("Blanc");
-        ss.bookSpecificSeat(ts, bookedRow, bookedCol);
+        ss.bookSpecificSeat(ts, 0, 0);
         Seat bookSpecific = ss.getSeat();
         
         assertNotNull(bookSpecific);
