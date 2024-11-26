@@ -138,7 +138,7 @@ public class BoardGUI {
 
     private void move(Direction direction) {
         if (currentX == -1 || currentY == -1) {
-            JOptionPane.showMessageDialog(boardPanel, "Select a ship first!", "Warning", JOptionPane.WARNING_MESSAGE);
+            JOptionPane.showMessageDialog(boardPanel, "Select a ship pls.", "Warning", JOptionPane.WARNING_MESSAGE);
             return;
         }
         board.traverse(currentX, currentY, direction);

@@ -23,7 +23,7 @@ public class GameFrame {
             Image icon = ImageIO.read(getClass().getResource("/b8f57b1e2badfd1471fd45425ce5d430 (1).jpg"));
             frame.setIconImage(icon);
         } catch (IOException e) {
-            System.err.println("Icon image not found!");
+            System.err.println("Icon image error. cant find");
         }
 
         boardGUI = new BoardGUI(frame);
