@@ -1,0 +1,10 @@
+{
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.referencedLibraries": [
+        "a:\\GitCloud\\Study\\hell\\checkagent.jar",
+        "a:\\GitCloud\\Study\\hell\\checkthat.jar",
+        "a:\\GitCloud\\Study\\hell\\junit5all.jar"
+    ]
+}
