@@ -1,3 +1,4 @@
+import GHC.Exts.Heap (GenClosure(key))
 -- 1. Create a Employee Record, which has fields EmployeeID :: Int, companyName :: String, and programmer :: Bool
 
 data Employee = Employee {
@@ -141,24 +142,49 @@ simplify Q {nom=n,den=d}
    | otherwise = Q { nom = n `div` g, den = d `div` g}
       where g = gcd n d
 
-mkQ :: Int -> Int -> Q
-mkQ n d = simplify (Q n d)
+--mkQ :: Int -> Int -> Q
+--mkQ n d = simplify (Q n d)
 
---equalQ :: Q -> Q -> Bool
+equalQ :: Q -> Q -> Bool
+equalQ (Q n1 d1) (Q n2 d2) = n1 * d2 == n2 * d1
 
---smallerQ :: Q -> Q -> Bool
+smallerQ :: Q -> Q -> Bool
+smallerQ (Q n1 d1) (Q n2 d2) = n1 * d2 < n2 * d1
 
---plusQ :: Q -> Q -> Q
+plusQ :: Q -> Q -> Q
+plusQ (Q n1 d1) (Q n2 d2) = Q (newNom `div` g) (newDen `div` g)
+  where
+    k = lcm d1 d2                      
+    newNom = (n1 * (k `div` d1)) + (n2 * (k `div` d2)) 
+    newDen = k                         
+    g = gcd newNom newDen              
 
---decrementQ :: Q -> Q -> Q
+decrementQ :: Q -> Q -> Q
+decrementQ (Q n1 d1) (Q n2 d2) = Q (newNom `div` g) (newDen `div` g)
+  where
+    k = lcm d1 d2                      
+    newNom = (n1 * (k `div` d1)) - (n2 * (k `div` d2)) 
+    newDen = k                         
+    g = gcd newNom newDen
 
---timesQ :: Q -> Q -> Q
+timesQ :: Q -> Q -> Q
+timesQ (Q n1 d1) (Q n2 d2) = Q (newNom `div` g) (newDen `div` g)
+    where
+    newNom = n1*n2
+    newDen=d1*d2
+    g=gcd newNom newDen
 
---divideQ :: Q -> Q -> Q
+divideQ :: Q -> Q -> Q
+divideQ (Q n1 d1) (Q n2 d2) = Q (newNom `div` g) (newDen `div` g)
+    where
+    newNom = n1 `div` n2
+    newDen=d1 `div` d2
+    g=gcd newNom newDen
 
---absoluteQ :: Q -> Q
+absoluteQ :: Q -> Q
+absoluteQ (Q n d) = Q (abs n) (abs d)
 
---signOfQ :: Q -> Int
+signOfQ :: Q -> Int
 
 --negateQ :: Q -> Q
 
