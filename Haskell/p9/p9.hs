@@ -142,11 +142,12 @@ simplify Q {nom=n,den=d}
    | otherwise = Q { nom = n `div` g, den = d `div` g}
       where g = gcd n d
 
---mkQ :: Int -> Int -> Q
---mkQ n d = simplify (Q n d)
+mkQ :: Int -> Int -> Q
+mkQ n d = simplify (Q n d)
+--NOTE: data constructor pattern matching: Q n d -> Extract the nom and den fields from Q value, bind them to n1 and d1
 
 equalQ :: Q -> Q -> Bool
-equalQ (Q n1 d1) (Q n2 d2) = n1 * d2 == n2 * d1
+equalQ (Q n1 d1) (Q n2 d2) = n1 * d2 == n2 * d1 
 
 smallerQ :: Q -> Q -> Bool
 smallerQ (Q n1 d1) (Q n2 d2) = n1 * d2 < n2 * d1
@@ -185,17 +186,32 @@ absoluteQ :: Q -> Q
 absoluteQ (Q n d) = Q (abs n) (abs d)
 
 signOfQ :: Q -> Int
+signOfQ (Q n d)
+    |n*d == 0 && d == 0 = error "denom is 0"
+    |n*d >= 0 = 1
+    |n*d < 0 = -1
+--main = print (signOfQ (Q (-3) 4)) -- Output: -1
 
 --negateQ :: Q -> Q
 
---integerToQ :: Int -> Q
+integerToQ :: Int -> Q
+integerToQ 0 = Q 0 0
+integerToQ a = Q a 1
+--main = print (integerToQ 2)
 
---rationaltoInt :: Q -> Int
+rationaltoInt :: Q -> Int
+rationaltoInt (Q 0 d) = 0
+rationaltoInt (Q n 0) = error "cave diving"
+rationaltoInt (Q n d) = n `div` d
+--main = print (rationaltoInt (Q 2 0))
 
---isIntQ :: Q -> Bool
-
---rationaltoReal :: Q -> Float
-
+isIntQ :: Q -> Bool
+isIntQ (Q n d)
+    |n `mod` d ==0 = True
+    |otherwise = False
+rationaltoReal :: Q -> Float
+rationaltoReal (Q n d) = fromIntegral n / fromIntegral d
+ 
 q0 = Q { nom = 0, den = 1 }
 q1 = Q { nom = 1, den = 1 }
 q2 = Q { nom = 1, den = 2 }
@@ -205,13 +221,13 @@ q3 = Q { nom = 3, den = 4 }
 --main = print $ mkQ 81 90 -- Q {nom = 9, den = 10}
 --main = print $ equalQ (mkQ 9 10) (mkQ 81 90) -- True
 --main = print $ smallerQ q2 q3 -- True
---main = print $ plusQ q2 q0 -- Q {nom = 0, den = 1}
---main = print $ decrementQ q0 q3 -- Q {nom = 0, den = 1}
---main = print $ timesQ q0 q2 -- Q {nom = 0, den = 1}
---main = print $ divideQ q1 q2 -- Q {nom = 2, den = 1}
+--main = print $ plusQ q2 q0 -- Q {nom = 0, den = 1}--
+--main = print $ decrementQ q0 q3 -- Q {nom = 0, den = 1}--
+--main = print $ timesQ q0 q2 -- Q {nom = 0, den = 1}--
+--main = print $ divideQ q1 q2 -- Q {nom = 2, den = 1}--
 --main = print $ absoluteQ q2 -- Q {nom = 1, den = 2}
 --main = print $ signOfQ q2 -- 1
---main = print $ negateQ q2 -- Q {nom = -1, den = 2}
+--main = print $ negateQ q2 -- Q {nom = -1, den = 2} --
 --main = print $ integerToQ 4 -- Q {nom = 4, den = 1}
 --main = print $ rationaltoInt q2 -- 0
 --main = print $ isIntQ q1 -- True
