@@ -2,7 +2,7 @@ module ExTree where
 
 import Data.List (sort)
 
---main :: IO ()
+----main :: IO ()
 -- Definition of a binary tree
 data Tree a = Node a (Tree a) (Tree a)
             | Leaf
@@ -301,8 +301,8 @@ bst4 = BSTNode 1 BSTLeaf
                    BSTLeaf))
            BSTLeaf)
 
--- -- Test BST checking
--- testBST :: [Bool]
--- testBST = map isBST [bst1, bst2, bst3, bst4, BSTLeaf]  -- [True,True,False,False,True]
+-- Test BST checking
+testBST :: [Bool]
+testBST = map isBST [bst1, bst2, bst3, bst4, BSTLeaf]  -- [True,True,False,False,True]
 
 -- main = print $ testBST
