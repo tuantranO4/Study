@@ -1,8 +1,8 @@
-module Main where
+--module Main where
 
 import Data.List (sort)
 
-main :: IO ()
+--main :: IO ()
 
 -- Tree definition
 data Tree a = Node a (Tree a) (Tree a) | Leaf

@@ -246,9 +246,11 @@ origo = Point {x = 0.0, y = 0.0, visible = True}
 point1 = Point {x = 0.0, y = 3.0, visible = True}
 point2 = Point {x = 2.0, y = 0.0, visible = True}
 
---isTriangle :: Point -> Point -> Point -> Bool
-
--- main = print $ isTriangle origo point1 point2 -- True
+isTriangle :: Point -> Point -> Point -> Bool
+isTriangle (Point x1 y1 _) (Point x2 y2 _) (Point x3 y3 _) =
+    let area = 0.5 * abs (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2))
+    in area > 0
+--main = print $ isTriangle origo point1 point2 -- True
 
 {-- 3. 
     a. Define a Person record which contains name and height two fields,
@@ -273,11 +275,13 @@ mike = Person {name = "Mike", tall = 1.58}
 lily :: Person
 lily = Person {name = "Lily", tall = 1.85}
 
---changeHeight :: Person -> Person
-
--- main =    print $ changeHeight john  -- Person1 "John" 1.7622
+changeHeight :: Person -> Person
+changeHeight (Person n1 t1) 
+    |t1 >1.70 = (Person n1 (t1*0.99))
+    |otherwise = (Person n1 t1)
+--main =    print $ changeHeight john  -- Person1 "John" 1.7622
 -- main =    print $ changeHeight mike  -- Person1 "Mike" 1.58
--- main =    print $ changeHeight lily  -- Person1 "Lily" 1.8315000000000001
+--main =    print $ changeHeight lily  -- Person1 "Lily" 1.8315000000000001
 
 
 {-- 4.
@@ -296,8 +300,18 @@ data APlayer = APlayer {
     skillLevel :: Int
 }
 
---shouldWePlay :: [APlayer] -> APlayer -> Bool
+-- shouldWePlay' :: [APlayer] -> APlayer -> Bool
+-- shouldWePlay' [(APlayer p sk)] (GKPlayer p sgk)
+--     |count [(betterP)| betterP<-APlayer, betterP sk > GKPlayer sgk] >=3 = True
+--     |otherwise = False
+--------------------WRONG
 
--- main = print $  shouldWePlay [ APlayer {playerName = "kareem", skillLevel = 4}, APlayer {playerName = "Tarek", skillLevel = 3}, APlayer {playerName = "Ali", skillLevel = 3},APlayer {playerName="Hussien", skillLevel=2}, APlayer {playerName="Ziad", skillLevel=4}] (APlayer {playerName="Gemy", skillLevel=4}) -- False
--- main = print $  shouldWePlay [ APlayer {playerName = "kareem", skillLevel = 5}, APlayer {playerName = "Tarek", skillLevel = 4}, APlayer {playerName = "Ali", skillLevel = 3},APlayer {playerName="Hussien", skillLevel=2}, APlayer {playerName="Ziad", skillLevel=4}] (APlayer {playerName="Gemy", skillLevel=4}) -- True
+-- Function to determine if the team should play penalties
+shouldWePlay :: [APlayer] -> APlayer -> Bool
+shouldWePlay players (APlayer gkName gkSkill) =
+    let scoredPenalties = length [APlayer | (APlayer _ skill) <- players, skill >= gkSkill]
+    in scoredPenalties >= 3
+
+main = print $  shouldWePlay [ APlayer {playerName = "kareem", skillLevel = 4}, APlayer {playerName = "Tarek", skillLevel = 3}, APlayer {playerName = "Ali", skillLevel = 3},APlayer {playerName="Hussien", skillLevel=2}, APlayer {playerName="Ziad", skillLevel=4}] (APlayer {playerName="Gemy", skillLevel=4}) -- False
+--main = print $  shouldWePlay [ APlayer {playerName = "kareem", skillLevel = 5}, APlayer {playerName = "Tarek", skillLevel = 4}, APlayer {playerName = "Ali", skillLevel = 3},APlayer {playerName="Hussien", skillLevel=2}, APlayer {playerName="Ziad", skillLevel=4}] (APlayer {playerName="Gemy", skillLevel=4}) -- True
 

@@ -23,7 +23,6 @@ changeCompanyName emp
     | programmer emp && companyName emp == "Twitter" = emp {companyName = "X"} --True && company==Twitter
     | otherwise = emp
 
-
 ----------------------------------------------
 data Student = Student {
     neptunID :: Int,
@@ -79,18 +78,54 @@ southAmerica = Continent "South America" [argentina, brazil, chile]
 
 -- Helper functions
 isPrime :: Int -> Bool
-isPrime x = length [y | y <- [1..x], x `mod` y == 0] == 2
+isPrime x = length [y | y <- [1..x], x `mod` y == 0] == 2 --prime number: when the amount of divisor is 2
  
 checkI :: Country -> Bool
 checkI c = isPrime (length $ filter (=='i') $ capital c) -- $ just a parenthesis
 --checkI c = isPrime (length (filter (=='i') (capital c)))
-
+ 
+-------------
+--evens :: [Int] -> [Int]
+-- evens xs = filter even xs
+--Usage:
+-- main = print (evens [1, 2, 3, 4, 5, 6])  -- Output: [2, 4, 6]
+-------------
 
 checkCount :: Continent -> Bool
 checkCount c = any checkI (countries c) --if at least one element in a list satisfies a given condition (predicate) -> true
---countries c is a field of Continent. 
+--countries c is a field of Continent. we check if exist Prime number of 'i' in capital name
 
 -- Main function
 continentsPrimeI :: [Continent] -> [String]
 continentsPrimeI = map contName . filter checkCount --map f . g : we do g first (aka check count), then f (aka extract contName).
---main = print $ continentsPrimeI [europe, asia] -- ["Asia"]
+--continentsPrimeI continents = map contName (filter checkCount continents)
+main = print $ continentsPrimeI [europe, asia] -- ["Asia"]
+
+--------------------------
+data APlayer = APlayer {
+    playerName :: String,
+    skillLevel :: Int
+}
+shouldWePlay :: [APlayer] -> APlayer -> Bool
+shouldWePlay players (APlayer gkName gkSkill) =
+    let scoredPenalties = length [APlayer | (APlayer _ skill) <- players, skill >= gkSkill]
+    in scoredPenalties >= 3 --true/false
+
+
+------------------SYNTAX------------------
+
+{--
+data TypeName = ConstructorName {
+    field :: Type1,
+    field :: Type2,
+    ...
+}deriving (Show, Eq, Ord)
+--}
+
+--LIST OF CUSTOM DATA TYPE--
+-- students :: [Student]
+-- students = [Student {neptunID=1,uni="Elte",grades=[]}, Student {neptunID=2,uni="BME",grades=[5,5,5]}, Student {neptunID=3,uni="Corvinus",grades=[5,5,5,5]}]
+
+-- moreThanNGrades :: [Student] -> Int -> [(Int, String)]
+-- moreThanNGrades list n = [ (neptunID x, uni x) | x<-list, length (grades x) > n]
+--extract elem from list of datatype with (field TypeName1, field TypeName2)

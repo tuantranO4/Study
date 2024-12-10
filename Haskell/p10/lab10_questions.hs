@@ -2,7 +2,7 @@ module ExTree where
 
 import Data.List (sort)
 
-main :: IO ()
+--main :: IO ()
 -- Definition of a binary tree
 data Tree a = Node a (Tree a) (Tree a)
             | Leaf
@@ -12,7 +12,6 @@ data Tree a = Node a (Tree a) (Tree a)
 tree1 :: Tree Int
 tree1 = Node 7 Leaf Leaf
 -- Tree1 see link: http://graphonline.ru/en/?graph=RDODcKkbEjpzIbIh
-
 tree2 :: Tree Int
 tree2 = Node 0 
             (Node 1 
@@ -52,7 +51,7 @@ sizeT (Node x le ri) = 1 + sizeT le + sizeT ri
    + 1 + (1+0+0) + (1+0+0)
 =7
 -}
--- main = print $ sizeT tree1 -- 1
+--main = print $ sizeT tree1 -- 1
 -- main = print $ sizeT tree2 -- 7
 -- main = print $ sizeT tree3 -- 5
 
@@ -302,8 +301,8 @@ bst4 = BSTNode 1 BSTLeaf
                    BSTLeaf))
            BSTLeaf)
 
--- Test BST checking
-testBST :: [Bool]
-testBST = map isBST [bst1, bst2, bst3, bst4, BSTLeaf]  -- [True,True,False,False,True]
+-- -- Test BST checking
+-- testBST :: [Bool]
+-- testBST = map isBST [bst1, bst2, bst3, bst4, BSTLeaf]  -- [True,True,False,False,True]
 
 -- main = print $ testBST
