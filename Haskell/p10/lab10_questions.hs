@@ -140,7 +140,11 @@ tree3fiveTimes = Node 3 (Node 3 Leaf (Node 3 Leaf (Node 2 Leaf Leaf)))
                        (Node 3 (Node 3 Leaf Leaf) (Node 7 Leaf Leaf))
 
 -- Two implementations
---task2 :: Tree Int -> Int -> Int
+task2 :: Tree Int -> Int -> Int
+task2 Leaf _ = 0
+task2 (Node x left right) a
+  | x == a = 1 + task2 left x + task2 right x
+  | otherwise = task2 left x + task2 right x
 
 --task21 :: Tree Int -> Int -> Int
 
@@ -154,15 +158,21 @@ extractN :: Tree Int -> Int
 extractN Leaf = -1
 extractN (Node x _ _) = x
 
---task3 :: Tree Int -> [(Int, Int, Int)]
-
+task3 :: Tree Int -> [(Int, Int, Int)]
+task3 Leaf = []
+task3 (Node x l r)
+    |odd x = (x, extractN l, extractN r)  : task3 l ++ task3 r
+    |otherwise  = task3 l ++ task3 r
 -- main = do
 --     print $ task3 tree3 --[(1,3,-1),(3,-1,8)]
 --     print $ task3 tree2 --[(1,3,4),(3,-1,-1),(5,-1,-1)]
 
 -- 7. Search for a value in the tree
---searchT :: Tree Int -> Int -> Bool
-
+searchT :: Tree Int -> Int -> Bool
+searchT Leaf _ = False
+searchT (Node x l r) a
+    | x == a = True 
+    | otherwise = searchT l a || searchT r a
 -- main = do
 --     print $ searchT tree2 10 --False
 --     print $ searchT tree2 1 --True
@@ -173,8 +183,11 @@ exNode :: Tree Int -> Int
 exNode Leaf = 0
 exNode (Node x _ _) = x -- It's similar to extractN, but leaf is counted as 0.
 
---f8 :: Tree Int -> Int -> Int
-
+f8 :: Tree Int -> Int -> Int
+f8 Leaf _ = 0
+f8 (Node x l r) a
+    |x==a = exNode l + exNode r
+    |otherwise = 0
 -- main =  print $ f8 (Node 2 Leaf Leaf) 3  -- 0
 -- main =  print $ f8 (Node 3 (Node 1 Leaf Leaf) (Node 1 Leaf Leaf)) 3  -- 2
 -- main =  print $ f8 (Node 1 (Node 0 Leaf Leaf) (Node 2 Leaf Leaf)) 1  -- 2
@@ -182,13 +195,17 @@ exNode (Node x _ _) = x -- It's similar to extractN, but leaf is counted as 0.
 -- main =  print $ f8 (Node 2 (Node 1 Leaf Leaf) (Node 2 Leaf (Node 1 Leaf Leaf))) 2 -- 4
 
 -- 9. Replace nodes equal to n with 0
---replace :: Int -> Tree Int -> Tree Int
+replace :: Int -> Tree Int -> Tree Int
+replace a Leaf = Leaf
+replace a (Node x l r) 
+    |x==a = Node 0 (replace a l) (replace a r)
+    |otherwise = Node x (replace a l) (replace a r)
 
 treec :: Tree Int
 treec = Node 4 (Node 3 (Node 1 Leaf Leaf) (Node 3 Leaf Leaf)) 
               (Node 6 (Node 3 Leaf Leaf) (Node 7 Leaf Leaf))
 
--- main =  print $ replace 3 treec 
+--main =  print $ replace 3 treec 
 
 -- 10. Add "_over18" to names of persons over 18
 data Person = Person {
@@ -224,9 +241,13 @@ over18 (year, _, _)
 addString :: Person -> Person
 addString p = p { name = name p ++ "_over18" }
 
---updateName :: Tree Person -> Tree Person
+updateName :: Tree Person -> Tree Person
+updateName Leaf = Leaf
+updateName (Node p l r)
+    | over18 (birthday p) = Node (addString p) (updateName l) (updateName r)
+    | otherwise           = Node p (updateName l) (updateName r)
 
--- main = print $ updateName t1
+--main = print $ updateName t1
 -- main = print $ updateName t2
 -- main = print $ updateName t3
 
@@ -302,7 +323,7 @@ bst4 = BSTNode 1 BSTLeaf
            BSTLeaf)
 
 -- Test BST checking
-testBST :: [Bool]
-testBST = map isBST [bst1, bst2, bst3, bst4, BSTLeaf]  -- [True,True,False,False,True]
+--testBST :: [Bool]
+--testBST = map isBST [bst1, bst2, bst3, bst4, BSTLeaf]  -- [True,True,False,False,True]
 
 -- main = print $ testBST

@@ -51,7 +51,7 @@ instance Eq a => Eq (MyList a) where -- "=>: requires that"
     (Cons x xs) == (Cons y ys) = x == y && xs == ys
     _ == _ = False
 
-instance Functor MyList where
+instance Functor MyList where --supports the fmap function, which applies a function to every element in the structure
     fmap _ Empty = Empty
     fmap f (Cons x xs) = Cons (f x) (fmap f xs)
 
