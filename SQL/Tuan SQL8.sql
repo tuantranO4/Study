@@ -8,7 +8,6 @@ end;
 /
 Call hello()
 execute hello;
-
 begin
     hello;
 end;
