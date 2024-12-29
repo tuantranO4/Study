@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="ProgTech">
+    <CLASSES>
+      <root url="jar://$PROJECT_DIR$/rpgame.zip!/" />
+      <root url="jar://$PROJECT_DIR$/vehicles.zip!/" />
+      <root url="jar://$PROJECT_DIR$/Zoo.zip!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES />
+  </library>
+</component>

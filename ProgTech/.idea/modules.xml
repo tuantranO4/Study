@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/A3/Arkanoid/Arkanoid.iml" filepath="$PROJECT_DIR$/A3/Arkanoid/Arkanoid.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Assignment/Assignment.iml" filepath="$PROJECT_DIR$/Assignment/Assignment.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A2 material/ColorclickerOptimized/ColorclickerOptimized.iml" filepath="$PROJECT_DIR$/A2 material/ColorclickerOptimized/ColorclickerOptimized.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A2 material/Flashcards/Flashcards.iml" filepath="$PROJECT_DIR$/A2 material/Flashcards/Flashcards.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A2 material/FlashcardsMV/FlashcardsMV.iml" filepath="$PROJECT_DIR$/A2 material/FlashcardsMV/FlashcardsMV.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sol/People/People.iml" filepath="$PROJECT_DIR$/sol/People/People.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/ProgTech.iml" filepath="$PROJECT_DIR$/.idea/ProgTech.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sol/Queue/Queue.iml" filepath="$PROJECT_DIR$/sol/Queue/Queue.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SoOver/SoOver.iml" filepath="$PROJECT_DIR$/SoOver/SoOver.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A3/Sokoban/Sokoban.iml" filepath="$PROJECT_DIR$/A3/Sokoban/Sokoban.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A2 material/UFOs/UFOs.iml" filepath="$PROJECT_DIR$/A2 material/UFOs/UFOs.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Week3/Week3.iml" filepath="$PROJECT_DIR$/Week3/Week3.iml" />
+      <module fileurl="file://$PROJECT_DIR$/Zoo/Zoo.iml" filepath="$PROJECT_DIR$/Zoo/Zoo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A2 material/calc/calc.iml" filepath="$PROJECT_DIR$/A2 material/calc/calc.iml" />
+      <module fileurl="file://$PROJECT_DIR$/exe1/exe1.iml" filepath="$PROJECT_DIR$/exe1/exe1.iml" />
+      <module fileurl="file://$PROJECT_DIR$/A2 material/qwerty/qwerty.iml" filepath="$PROJECT_DIR$/A2 material/qwerty/qwerty.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpg/rpg.iml" filepath="$PROJECT_DIR$/rpg/rpg.iml" />
+      <module fileurl="file://$PROJECT_DIR$/rpgame/rpgame.iml" filepath="$PROJECT_DIR$/rpgame/rpgame.iml" />
+      <module fileurl="file://$PROJECT_DIR$/vehicles/vehicles.iml" filepath="$PROJECT_DIR$/vehicles/vehicles.iml" />
+      <module fileurl="file://$PROJECT_DIR$/week4/week4.iml" filepath="$PROJECT_DIR$/week4/week4.iml" />
+    </modules>
+  </component>
+</project>

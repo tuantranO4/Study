@@ -13,9 +13,11 @@ Write a function sumOfSquaresOfDigits that takes an integer
 and returns the sum of the squares of its digits.
 In case of negatives, ignore the sign.
 --}
-
---sumOfSquaresOfDigits :: Int -> Int
-
+nums :: Int -> [Int]
+nums 0 = []
+nums n = nums (n`div` 10) ++ [n `mod` 10]
+sumOfSquaresOfDigits :: Int -> Int
+sumOfSquaresOfDigits n = sum [num^2 | num <- nums (abs n)]
 --main =  print(sumOfSquaresOfDigits 123)    -- 1^2 + 2^2 + 3^2 = 14
 --main =  print(sumOfSquaresOfDigits 405)    -- 4^2 + 0^2 + 5^2 = 41
 --main =  print(sumOfSquaresOfDigits (-56))  -- 5^2 + 6^2 = 61 (ignoring the negative sign)
@@ -28,8 +30,8 @@ Write a function, that checks if a given integer is prime.
 A prime number is only divisible by 1 and itself.
 -}
 
---isPrime :: Int -> Bool
-
+isPrime :: Int -> Bool
+isPrime n = length [y | y <-[1..n], n `mod` y ==0] == 2
 --main = print(isPrime 5)  -- True
 --main = print(isPrime 4)  -- False
 --main = print(isPrime 13) -- True
@@ -46,8 +48,13 @@ the output should be 1 because 2 is followed by
 an odd number two positions after it only once ([2,1,3] part).
 -}
 
---countOddGap :: [Int] -> Int -> Int
-
+countOddGap :: [Int] -> Int -> Int
+countOddGap [] _ = 0
+countOddGap [_] _ = 0
+countOddGap [_,_] _ = 0
+countOddGap (x:y:z:xs) a
+  | x == a && odd z = 1 + countOddGap (y:z:xs) a
+  | otherwise = countOddGap (y:z:xs) a
 --main = print(countOddGap [2, 3, 4, 7, 2, 1, 3, 5] 2) -- 1
 --main = print(countOddGap [3,7,4,1,4,9,5,3,4,4,8,1] 4) -- 2
 --main = print(countOddGap [1,2,3,4,5,6,4,8,8,2,3,1,2,3,3,3,3] 3) -- 3
@@ -67,9 +74,19 @@ For example, converting 7:
     For 3rd digit: 1 / 2 = 0 remainder 1 -> 3rd digit is 1
     So, 7 is 111 in binary representation.
 -}
+convertBin :: Int -> [Int]
+convertBin 0 = [0]
+convertBin x = reverse (helper x)
+ where
+  helper 0 = []
+  helper x = (x `mod` 2 ) : helper (x `div` 2) -- :  cons operator, append to left side
+{--append right:
+    helper 0 acc = acc
+    helper x acc = helper (x `div` 2) (acc ++ [x `mod` 2])
+--}
 
---isAllOnes :: Int -> Bool
-
+isAllOnes :: Int -> Bool
+isAllOnes n = length (filter (==1) $ convertBin n) ==length (convertBin n) 
 --main = print (isAllOnes 7) -- True
 --main = print (isAllOnes 55) -- False
 --main = print (isAllOnes 15) -- True
@@ -83,8 +100,11 @@ but in which every element x that satisfies p is replaced
 by f applied to x (an element x satisfies p if (p x) is True).
 -}
 
---selectiveMap :: (a -> Bool) -> (a -> a) -> [a] -> [a]
-
+selectiveMap :: (a -> Bool) -> (a -> a) -> [a] -> [a]
+selectiveMap _ _ [] = []
+selectiveMap p f (x:xs) --remember, [x:xs doesnt work]
+  |p x = f x : selectiveMap p f xs
+  |otherwise = x : selectiveMap p f xs
 --main = print $ selectiveMap odd (\x -> x*x) [] -- []
 --main = print $ selectiveMap odd (\x -> 6000) [2,4,6,8,10] -- [2,4,6,8,10]
 --main = print $ selectiveMap odd (\x -> 6000) [3,1,-5] -- [6000,6000,6000]
@@ -97,8 +117,8 @@ by f applied to x (an element x satisfies p if (p x) is True).
 Write a function that takes a string and changes every vowel to O.
 -}
 
---f1 :: String -> String
-    
+f1 :: String -> String
+f1 str = [if c `elem` "aeiouAEIOU" then 'O' else c | c<-str]
 --main = print(f1 "Apple is my favourite electronics company") 
 -- "OpplO Os my fOvOOrOtO OlOctrOnOcs cOmpOny"
 --main = print(f1 "cad!ng luiks se giad") 
@@ -120,8 +140,9 @@ absDiff [2,1,4,2] [5, 3, 1, 5] 3
   After removing duplicates, the final list is: [(4,1),(2,5)]
 -}
 
---absDiff :: [Int] -> [Int] -> Int -> [(Int, Int)]
-
+absDiff :: [Int] -> [Int] -> Int -> [(Int, Int)]
+absDiff [] [] _ = []
+absDiff xs ys a = [(x,y) | x<-xs, y<-ys, abs (x-y) == a]
 --main = print (absDiff [1..5] [5..10] 4) --[(1,5),(2,6),(3,7),(4,8),(5,9)]
 --main = print (absDiff [] [] 2) --[]
 --main = print (absDiff [2,1,4,2] [5, 3, 1, 5] 3) --[(4,1),(2,5)]
@@ -135,7 +156,12 @@ The function should return a list of tuples, with each tuple
 containing the student's name and their average score.
 -}
 
---averageScores :: [(String, [Int])] -> [(String, Double)]
+averageScores :: [(String, [Int])] -> [(String, Double)]
+averageScores [] = [] 
+averageScores ((name, scores):xs) =
+  let avg = fromIntegral (sum scores) / fromIntegral (length scores)
+  in (name, avg) : averageScores xs
+
 
 --main = print (averageScores [("Alice", [10, 20, 30]), ("Bob", [20, 30, 40])]) 
 --  [("Alice", 20.0), ("Bob", 30.0)]
@@ -154,8 +180,9 @@ returns only the tuples where the sum of elements are
 greater than the given integer.
 -}
 
---filterTupleSum :: Int -> [(Int, Int)] -> [(Int, Int)]
-
+filterTupleSum :: Int -> [(Int, Int)] -> [(Int, Int)]
+filterTupleSum _ [] = []
+filterTupleSum n xs = [(a,b) | (a,b)<-xs, a+b<n]
 --main = print (filterTupleSum 5 [(2, 3), (1, 4), (5, 0), (2, 2)]) -- [(2,2)]
 --main = print (filterTupleSum 10 [(2, 3), (1, 4), (5, 0), (2, 2)]) -- [(2,3),(1,4),(5,0),(2,2)]
 --main = print (filterTupleSum 6 [(3, 3), (2, 4), (1, 5), (6, 0)]) -- []
@@ -173,9 +200,9 @@ the pairs that meet these conditions are
 [(1,13),(3,13),(5,13),(8,10),(8,12),(8,14),(8,16),(8,18)]
 -}
 
---findPairs :: [Int] -> Int -> [(Int, Int)] 
-
--- main = print(findPairs [1, 3, 5, 8, 10, 12, 13, 14, 16, 18] 10)
+findPairs :: [Int] -> Int -> [(Int, Int)] 
+findPairs xs n = [(a,b)| a<-xs, b<-xs, a<n  && b>n && (a+b) `mod` 2 ==0]
+--main = print(findPairs [1, 3, 5, 8, 10, 12, 13, 14, 16, 18] 10)
 -- [(1,13),(3,13),(5,13),(8,10),(8,12),(8,14),(8,16),(8,18)]
 -- main = print (findPairs [2, 4, 6, 7, 9, 11, 13, 15 ,16, 17] 9) 
 -- [(2,16),(4,16),(6,16),(7,9),(7,11),(7,13),(7,15),(7,17)]
@@ -192,8 +219,10 @@ If value is False, the function should return the cubes of odd integers.
 The function should return an empty list if start is greater than end.
 -}
 
---generateFiltered :: Int -> Int -> Bool -> [Int]
-
+generateFiltered :: Int -> Int -> Bool -> [Int]
+generateFiltered a b t 
+ | t== True = [c^2 | c<- [a..b], c `mod` 2 ==0] --it's [a..b] not (a..b) as a ranged array
+ | t== False = [c^3 | c<- [a..b], c `mod` 2 ==1]
 --main = print(generateFiltered 1 10 True) -- [4,16,36,64,100]
 --main = print(generateFiltered 1 10 False) -- [1,27,125,343,729]
 --main = print(generateFiltered (-4) 4 True) -- [16,4,0,4,16]
@@ -230,8 +259,9 @@ new letters Y could be code for any birds in the
 list `possibleBirds`, so we generate all the pairs.
 -}
 
---newGuess :: String -> [(Char, String)]
-
+newGuess :: String -> [(Char, String)]
+newGuess str = 
+  [ (c, bird) | c <- str, bird <- possibleBirds, c `notElem` currentLib ]
 --main = print (newGuess "BCKMS")  
 -- [] -- all of the letter codes are in currentLib.
 --main = print (newGuess "BKMY")   
@@ -241,4 +271,4 @@ list `possibleBirds`, so we generate all the pairs.
 [('L',"Hummingbird"),('L',"Dove"),('L',"Dickcissel"),('L',"Why Bird"),('L',"Eagle"),('L',"Lark"),
 ('Y',"Hummingbird"),('Y',"Dove"),('Y',"Dickcissel"),('Y',"Why Bird"),('Y',"Eagle"),('Y',"Lark"),
 ('E',"Hummingbird"),('E',"Dove"),('E',"Dickcissel"),('E',"Why Bird"),('E',"Eagle"),('E',"Lark")] 
--}
+--} 

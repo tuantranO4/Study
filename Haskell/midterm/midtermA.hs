@@ -248,7 +248,7 @@ maxList (x:y:xs) | otherwise = maxList (y:xs)
 minList :: [Int] -> Int
 minList [] = 0
 minList [x] = x 
-minList (x:y:xs) | x <= y   = minList (x:xs)
+minList (x:y:xs) | x <= y   = minList (x:xs) --if x min, continue with x, else y
 minList (x:y:xs) | otherwise = minList (y:xs)
 
 makeList::[Int] -> [Int]
