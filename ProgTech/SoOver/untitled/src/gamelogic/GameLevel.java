@@ -1,6 +1,7 @@
 package gamelogic;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.Random;
 
 public class GameLevel {
@@ -9,7 +10,10 @@ public class GameLevel {
     public final int cols = 10;
     public final LevelItem[][] level;
     public final boolean[][] visible;
+    private int lives=3;
     public Position player;
+    private int currentDrakeDx = 0;
+    private int currentDrakeDy = 0;
     private int numSteps;
     private boolean gameLost;
     private static final int VISIBILITY_RANGE = 3;
@@ -33,13 +37,13 @@ public class GameLevel {
             String s = gameLevelRows.get(i);
             for (int j = 0; j < Math.min(cols, s.length()); j++) {
                 switch (s.charAt(j)) {
-                    case '#': 
+                    case '#':
                         level[i][j] = LevelItem.WALL;
                         break;
-                    case '.': 
+                    case '.':
                         level[i][j] = LevelItem.DESTINATION;
                         break;
-                    default:  
+                    default:
                         level[i][j] = LevelItem.EMPTY;
                         break;
                 }
@@ -55,35 +59,35 @@ public class GameLevel {
     }
 
     private void placeRandomDrake() {
-        Random random = new Random();
-        while (true) {
-            int x = random.nextInt(cols);
-            int y = random.nextInt(rows);
-            // check if position is valid for drake:
-            // - empty space (!wall || !destination)
-            // - not on player position
-            // - not next to player
-            if (level[y][x] == LevelItem.EMPTY && !(x == player.x && y == player.y) && !isAdjacentToPlayer(new Position(x, y))) {
-                    level[y][x] = LevelItem.DRAKE;
-                    return;
+        var random = new Random();
+        List<Position> freePositions = new ArrayList<>();
+        // Collect all free positions
+        for (int y = 0; y < rows; y++) {
+            for (int x = 0; x < cols; x++) {
+                if (level[y][x] == LevelItem.EMPTY && !(x == player.x && y == player.y)
+                        && !isDrakeSpawnpointPlayerAdjacent(new Position(x, y))) {
+                    freePositions.add(new Position(x, y));
+                }
             }
+        }
+        // Select a random free position
+        if (!freePositions.isEmpty()) {
+            Position randomFreePosition = freePositions.get(random.nextInt(freePositions.size()));
+            level[randomFreePosition.y][randomFreePosition.x] = LevelItem.DRAKE;
         }
     }
 
-    private boolean isAdjacentToPlayer(Position p) {
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        for (int i = 0; i <= 4; i++) {
-            int newX = p.x + dx[i];
-            int newY = p.y + dy[i];
-            if (newX == player.x && newY == player.y) {
-                return true;
-            }
-        }
-        return false;
+    private static float manhattanDistance(Position p1, Position p2) {
+        return Math.abs(p1.x - p2.x) + Math.abs(p1.y - p2.y);
     }
 
-    public GameLevel(GameLevel gl) { //copy constructor
+    private boolean isDrakeSpawnpointPlayerAdjacent(Position p) {
+        int distance = 5;
+        return manhattanDistance(player, p) <= distance;
+
+    }
+
+    public GameLevel(GameLevel gl) { // copy constructor
         this.gameID = gl.gameID;
         this.numSteps = gl.numSteps;
         this.gameLost = gl.gameLost;
@@ -108,8 +112,7 @@ public class GameLevel {
                 visible[i][j] = false;
             }
         }
-        
-        // Make cells within VISIBILITY_RANGE visible
+
         for (int dy = -VISIBILITY_RANGE; dy <= VISIBILITY_RANGE; dy++) {
             for (int dx = -VISIBILITY_RANGE; dx <= VISIBILITY_RANGE; dx++) {
                 int newY = player.y + dy;
@@ -133,7 +136,8 @@ public class GameLevel {
     }
 
     public boolean isFree(Position p) {
-        if (!isValidPosition(p)) return false;
+        if (!isValidPosition(p))
+            return false;
         LevelItem li = level[p.y][p.x];
         return (li == LevelItem.EMPTY || li == LevelItem.DESTINATION);
     }
@@ -145,16 +149,13 @@ public class GameLevel {
             player = next;
             numSteps++;
             updateVisibility();
-            if (collideDrake()) {
-                gameLost = true;
-            }
             return true;
         }
         return false;
     }
-
+    
     public void moveDrake() {
-        Random random = new Random();
+        // Find drake position
         Position drakePosition = null;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -163,38 +164,80 @@ public class GameLevel {
                     break;
                 }
             }
-            if (drakePosition != null) break;
+            if (drakePosition != null)
+                break;
         }
-
-        if (drakePosition == null) return;
-        // Direction for rand: Left, Right, Up, Down
-        int[] dx = {-1, 1, 0, 0};
-        int[] dy = {0, 0, -1, 1};
-        while (true) {
-            int direction = random.nextInt(4);
-            Position next = new Position(drakePosition.x + dx[direction], drakePosition.y + dy[direction]); //check the position the dragon is about to move
-
-            while (isValidPosition(next) && level[next.y][next.x] == LevelItem.EMPTY) { 
-
-                Position afterNext = new Position(next.x + dx[direction], next.y + dy[direction]); //check stop just one step before a wall in its current direction
-                if (!isValidPosition(afterNext) || level[afterNext.y][afterNext.x] == LevelItem.WALL) { 
-                    level[drakePosition.y][drakePosition.x] = LevelItem.EMPTY;
-                    level[next.y][next.x] = LevelItem.DRAKE;
-                    drakePosition = next;
-                    if (collideDrake()) {
-                        gameLost = true;
-                    }
-                    return;
-                }
-                next = afterNext;
+        if (drakePosition == null)
+            return;
+        // Direction arrays for Left, Right, Up, Down
+        int[] dx = { -1, 1, 0, 0 };
+        int[] dy = { 0, 0, -1, 1 };
+        if (currentDrakeDx == 0 && currentDrakeDy == 0) {
+            List<Integer> directions = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                directions.add(i);
             }
+            
+            Random random = new Random();
+            while (!directions.isEmpty()) {
+                int idx = random.nextInt(directions.size());
+                int dirIndex = directions.get(idx);
+                Position possible = new Position(
+                    drakePosition.x + dx[dirIndex],
+                    drakePosition.y + dy[dirIndex]
+                );
+                
+                if (isValidPosition(possible) && level[possible.y][possible.x] == LevelItem.EMPTY) {
+                    currentDrakeDx = dx[dirIndex];
+                    currentDrakeDy = dy[dirIndex];
+                    break;
+                }
+                directions.remove(idx);
+            }
+        }
+        Position nextPosition = new Position(
+            drakePosition.x + currentDrakeDx,
+            drakePosition.y + currentDrakeDy
+        );
+        
+        if (!isValidPosition(nextPosition) || level[nextPosition.y][nextPosition.x] != LevelItem.EMPTY) {
+            // Hit a wall then check directions until finding first valid one
+            List<Integer> directions = new ArrayList<>();
+            for (int i = 0; i < 4; i++) {
+                directions.add(i);
+            }
+            
+            Random random = new Random();
+            while (!directions.isEmpty()) {
+                int idx = random.nextInt(directions.size());
+                int dirIndex = directions.get(idx);
+                
+                Position possible = new Position(
+                    drakePosition.x + dx[dirIndex],
+                    drakePosition.y + dy[dirIndex]
+                );
+                
+                if (isValidPosition(possible) && level[possible.y][possible.x] == LevelItem.EMPTY) {
+                    currentDrakeDx = dx[dirIndex];
+                    currentDrakeDy = dy[dirIndex];
+                    nextPosition = possible;
+                    break;
+                }
+                directions.remove(idx);
+            }
+        }
+        
+        // Move drake to next position if we found a valid direction
+        if (isValidPosition(nextPosition) && level[nextPosition.y][nextPosition.x] == LevelItem.EMPTY) {
+            level[drakePosition.y][drakePosition.x] = LevelItem.EMPTY;
+            level[nextPosition.y][nextPosition.x] = LevelItem.DRAKE;
         }
     }
 
     public boolean collideDrake() {
-        int[] dx = {-1, 1, 0, 0}; //scanning around
-        int[] dy = {0, 0, -1, 1};
-        for (int i = 0; i < 4; i++) {
+        int[] dx = { -1, 1, 0, 0, 0 }; // scanning around
+        int[] dy = { 0, 0, -1, 1, 0 };
+        for (int i = 0; i < 5; i++) {
             Position neighbor = new Position(player.x + dx[i], player.y + dy[i]);
             if (isValidPosition(neighbor) && level[neighbor.y][neighbor.x] == LevelItem.DRAKE) {
                 return true;
@@ -203,11 +246,11 @@ public class GameLevel {
         return false;
     }
 
-    public boolean hasExit(){
+    public boolean hasExit() {
         return level[player.y][player.x] == LevelItem.DESTINATION;
     }
 
-    public void printLevel() { //debug thing
+    public void printLevel() { // debug thing
         int x = player.x, y = player.y;
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
@@ -219,12 +262,30 @@ public class GameLevel {
             System.out.println("");
         }
     }
-
+    public void setLost(){
+        gameLost = true;
+    }
     public boolean isGameLost() {
         return gameLost;
     }
 
     public int getNumSteps() {
         return numSteps;
+    }
+
+    public void resetLives() {
+        lives = 3;
+    }
+
+    public int getLives() {
+        return lives;
+    }
+
+    public void decreaseLive() {
+        lives--;
+    }
+
+    public boolean isGameWon() {
+        return lives>0 && gameLost == false && hasExit();
     }
 }

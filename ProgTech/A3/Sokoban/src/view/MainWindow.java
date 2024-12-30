@@ -126,7 +126,7 @@ public class MainWindow extends JFrame{
             JMenu difficultyMenu = new JMenu(s);
             menu.add(difficultyMenu);
             for (Integer i : game.getLevelsOfDifficulty(s)){
-                JMenuItem item = new JMenuItem(new AbstractAction("Level-" + i) {
+                JMenuItem item = new JMenuItem(new AbstractAction("Level: " + i) {
                     @Override
                     public void actionPerformed(ActionEvent e) {
                         game.loadGame(new GameID(s, i));
