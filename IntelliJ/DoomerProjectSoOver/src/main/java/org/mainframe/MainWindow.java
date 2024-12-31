@@ -1,5 +1,4 @@
 package org.mainframe;
-
 import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +22,7 @@ import org.gamelogic.GameID;
 import org.database.LeaderboardManager;
 import org.database.PlayerScore;
 
+
 public class MainWindow extends JFrame {
     private final Game game;
     private Board board;
@@ -39,7 +39,6 @@ public class MainWindow extends JFrame {
         URL url = MainWindow.class.getClassLoader().getResource("drake.png");
         setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 
-        // Create menu bar
         JMenuBar menuBar = new JMenuBar();
         JMenu menuGame = new JMenu("Options");
         JMenu menuGameLevel = new JMenu("Choose Room");
@@ -162,80 +161,81 @@ public class MainWindow extends JFrame {
     }
 
     private void handleGameWon() {
-        int lives = game.getLives();
-        int steps = game.getNumSteps();
-        String name = JOptionPane.showInputDialog(this,
-            "Mad things! You escaped Diddler with " + lives + " lives in " + steps + " steps!\nEnter your name for the leaderboard:",
-            "W in the ssshat!",
-            JOptionPane.INFORMATION_MESSAGE);
-
-        if (name != null && !name.trim().isEmpty()) {
-            leaderboardManager.addScore(new PlayerScore(name, lives, steps));
-            showLeaderboard();
-        }
-
+        game.incrementSolved();
+        JOptionPane.showMessageDialog(this,
+                "Crazy! You escaped the diddler! Another W to the total: " + game.getSolved() + ".",
+                "W in the SSSHATT",
+                JOptionPane.INFORMATION_MESSAGE);
         restartLevel();
     }
 
     private void handleGameLost() {
-        int lives = game.getLives();
-        if (lives <= 0) {
-            JOptionPane.showMessageDialog(this,
-                "So fucking over. You've been MOLESTED!",
-                "GGWP",
+        saveScoreToLeaderboard();
+        showLeaderboard();
+        JOptionPane.showMessageDialog(this,
+                "Damn bro... You only solved: " + game.getSolved() + ".",
+                "GG Go next",
                 JOptionPane.INFORMATION_MESSAGE);
-            showLeaderboard();
-            restartGame();
-        } else {
-            JOptionPane.showMessageDialog(this,
-                "Drake got you lil bro. Lives remaining: " + lives,
-                "Mane...",
+        restartGame();
+    }
+
+    private void saveScoreToLeaderboard() {
+        String name = JOptionPane.showInputDialog(this,
+                "Enter name for the leaderboard:",
+                "Game Over!",
                 JOptionPane.INFORMATION_MESSAGE);
-            restartLevel();
+
+        if (name != null && !name.trim().isEmpty()) {
+            leaderboardManager.addScore(new PlayerScore(name, game.getSolved(), game.getTotalSteps()));
         }
     }
 
     private void restartLevel() {
         GameID currentID = game.getGameID();
-        game.loadGame(currentID); // This preserves the current lives count
+        game.loadGame(currentID);
         board.refresh();
         refreshGameStatLabel();
     }
 
     private void restartGame() {
+        game.resetGame();
         game.loadGame(new GameID("EASY", 1));
-        game.resetLives();
         board.refresh();
         refreshGameStatLabel();
     }
 
     private void showLeaderboard() {
-        StringBuilder leaderboard = new StringBuilder("Top 10 Escapes:\n\n");
+        StringBuilder leaderboard = new StringBuilder("Top 10 Players:\n\n");
         List<PlayerScore> topScores = leaderboardManager.getTopScores(10);
 
         for (int i = 0; i < topScores.size(); i++) {
             PlayerScore score = topScores.get(i);
-            leaderboard.append(String.format("%d. %s - Lives: %d, Steps: %d\n",
-                i + 1, score.getName(), score.getLives(), score.getSteps()));
+            leaderboard.append(String.format("%d. %s - Mazes: %d, Steps: %d\n",
+                    i + 1, score.getName(), score.getSolved(), score.getSteps()));
         }
 
         JOptionPane.showMessageDialog(this,
-            leaderboard.toString(),
-            "Leaderboard",
-            JOptionPane.INFORMATION_MESSAGE);
+                leaderboard.toString(),
+                "Leaderboard",
+                JOptionPane.INFORMATION_MESSAGE);
     }
 
     private void refreshGameStatLabel() {
-        String s = "Steps: " + game.getNumSteps();
-        String l = "Lives: " + game.getLives();
+        if (!game.isLevelLoaded()) {
+            gameStatLabel.setText("No level loaded.");
+            return;
+        }
+        String s = "Steps: " + game.getTotalSteps();
+        String l = "Mazes Solved: " + game.getSolved();
         gameStatLabel.setText(s + "  |  " + l);
     }
-    
-    private void createGameLevelMenuItems(JMenu menu){
-        for (String s : game.getDifficulties()){
+
+
+    private void createGameLevelMenuItems(JMenu menu) {
+        for (String s : game.getDifficulties()) {
             JMenu difficultyMenu = new JMenu(s);
             menu.add(difficultyMenu);
-            for (Integer i : game.getLevelsOfDifficulty(s)){
+            for (Integer i : game.getLevelsOfDifficulty(s)) {
                 JMenuItem item = new JMenuItem(new AbstractAction("Level: " + i) {
                     @Override
                     public void actionPerformed(ActionEvent e) {
@@ -248,9 +248,9 @@ public class MainWindow extends JFrame {
             }
         }
     }
-    
-    private void createScaleMenuItems(JMenu menu, double from, double to, double by){
-        while (from <= to){
+
+    private void createScaleMenuItems(JMenu menu, double from, double to, double by) {
+        while (from <= to) {
             final double scale = from;
             JMenuItem item = new JMenuItem(new AbstractAction(from + "x") {
                 @Override
@@ -259,16 +259,17 @@ public class MainWindow extends JFrame {
                 }
             });
             menu.add(item);
-            
+
             if (from == to) break;
             from += by;
             if (from > to) from = to;
         }
     }
-    
+
     public static void main(String[] args) {
         try {
             new MainWindow();
-        } catch (IOException ex) {}
-    }    
+        } catch (IOException ex) {
+        }
+    }
 }
