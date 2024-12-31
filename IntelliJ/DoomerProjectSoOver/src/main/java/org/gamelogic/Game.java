@@ -48,12 +48,30 @@ public class Game {
 
     public void step(Direction d){
         gameLevel.movePlayer(d);
-        gameLevel.moveDrake();
+        gameLevel.moveDrake(); //shouldve implemented base on tick
+        if (gameLevel.hasExit()) {
+            gameLevel.incrementSolved();
+            return;
+        }
         if (gameLevel.collideDrake()){
             gameLevel.decreaseLive();
             gameLevel.setLost();
         }
     }
+
+//    public void tick() {
+//        if (gameLevel != null) {
+//            gameLevel.tick();
+//        }
+//        if (gameLevel.hasExit()) {
+//            gameLevel.incrementSolved();
+//            return;
+//        }
+//        if (gameLevel.collideDrake()){
+//            gameLevel.decreaseLive();
+//            gameLevel.setLost();
+//        }
+//    }
 
     public boolean isGameLost(){ return gameLevel.isGameLost(); }
     public boolean isGameWon(){ return gameLevel.isGameWon(); }

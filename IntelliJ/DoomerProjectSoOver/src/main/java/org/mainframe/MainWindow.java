@@ -29,6 +29,7 @@ public class MainWindow extends JFrame {
     private final JLabel gameStatLabel;
     private Direction currDir;
     private final LeaderboardManager leaderboardManager;
+//    private javax.swing.Timer gameTimer;
 
     public MainWindow() throws IOException {
         game = new Game();
@@ -38,6 +39,18 @@ public class MainWindow extends JFrame {
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         URL url = MainWindow.class.getClassLoader().getResource("drake.png");
         setIconImage(Toolkit.getDefaultToolkit().getImage(url));
+
+//        gameTimer = new javax.swing.Timer(50, e -> {
+//            if (game.isLevelLoaded()) {
+//                game.tick();
+//                if (game.isGameLost()) {
+//                    handleGameLost();
+//                    gameTimer.stop();
+//                }
+//                board.repaint();
+//            }
+//        });
+//        gameTimer.start();
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menuGame = new JMenu("Options");
