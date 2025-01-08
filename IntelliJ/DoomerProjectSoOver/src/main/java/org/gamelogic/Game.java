@@ -46,16 +46,30 @@ public class Game {
 
     public void printGameLevel(){ gameLevel.printLevel(); }
 
-    public void step(Direction d){
-        gameLevel.movePlayer(d);
-        gameLevel.moveDrake(); //shouldve implemented base on tick
-        if (gameLevel.hasExit()) {
-            gameLevel.incrementSolved();
-            return;
+    public void movePlayer(Direction d) {
+        if (gameLevel != null) {
+            gameLevel.movePlayer(d);
+            if (gameLevel.hasExit()) {
+                gameLevel.incrementSolved();
+                return;
+            }
+            if (gameLevel.collideDrake()) {
+                gameLevel.decreaseLive();
+                gameLevel.setLost();
+            }
         }
-        if (gameLevel.collideDrake()){
-            gameLevel.decreaseLive();
-            gameLevel.setLost();
+    }
+    public void tick() {
+        if (gameLevel != null) {
+            gameLevel.moveDrake();
+            if (gameLevel.hasExit()) {
+                gameLevel.incrementSolved();
+                return;
+            }
+            if (gameLevel.collideDrake()) {
+                gameLevel.decreaseLive();
+                gameLevel.setLost();
+            }
         }
     }
 

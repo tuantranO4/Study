@@ -1,56 +1,62 @@
 package org.mainframe;
-import java.awt.*;
+import java.awt.BorderLayout;
 import java.sql.SQLException;
 import java.util.List;
+import java.awt.Toolkit;
 import java.awt.event.ActionEvent;
 import java.awt.event.KeyAdapter;
 import java.awt.event.KeyEvent;
 import java.io.IOException;
 import java.net.URL;
-import javax.swing.*;
-
-import org.gamelogic.*;
+import javax.swing.AbstractAction;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JMenu;
+import javax.swing.JMenuBar;
+import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
+import javax.swing.WindowConstants;
+import org.gamelogic.Direction;
+import org.gamelogic.Game;
+import org.gamelogic.GameID;
 import org.database.LeaderboardManager;
 import org.database.PlayerScore;
 
 
+
 public class MainWindow extends JFrame {
-    private GameSprite player;
-    private Direction currentDirection;
     private final Game game;
     private Board board;
     private final JLabel gameStatLabel;
     private Direction currDir;
+    private javax.swing.Timer gameTimer;
     private final LeaderboardManager leaderboardManager;
-//    private javax.swing.Timer gameTimer;
 
     public MainWindow() throws IOException {
         game = new Game();
         leaderboardManager = new LeaderboardManager();
         setTitle("Diddler Escape - Night of the Living Drake");
-        Image playerImage = new ImageIcon("player.png").getImage();
-        player = new GameSprite(0, 0, 32, 32, playerImage);
         setSize(600, 600);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         URL url = MainWindow.class.getClassLoader().getResource("drake.png");
         setIconImage(Toolkit.getDefaultToolkit().getImage(url));
 
-//        gameTimer = new javax.swing.Timer(50, e -> {
-//            if (game.isLevelLoaded()) {
-//                game.tick();
-//                if (game.isGameLost()) {
-//                    handleGameLost();
-//                    gameTimer.stop();
-//                }
-//                board.repaint();
-//            }
-//        });
-//        gameTimer.start();
 
         JMenuBar menuBar = new JMenuBar();
         JMenu menuGame = new JMenu("Options");
         JMenu menuGameLevel = new JMenu("Choose Room");
         JMenu menuGameScale = new JMenu("Resolution");
+
+        gameTimer = new javax.swing.Timer(500, e -> {
+            if (game.isLevelLoaded() && !game.isGameWon() && !game.isGameLost()) {
+                game.tick();
+                board.repaint();
+                if (game.isGameLost()) {
+                    handleGameLost();
+                }
+            }
+        });
+        gameTimer.start();
         JMenuItem leaderboardItem = new JMenuItem(new AbstractAction("Leaderboard") {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -100,59 +106,63 @@ public class MainWindow extends JFrame {
         addKeyListener(new KeyAdapter() {
             @Override
             public void keyPressed(KeyEvent ke) {
+                super.keyPressed(ke);
                 if (!game.isLevelLoaded()) return;
-
-                switch (ke.getKeyCode()) {
+                int kk = ke.getKeyCode();
+                Direction d = null;
+                switch (kk) {
                     case KeyEvent.VK_LEFT:
-                        currentDirection = Direction.LEFT;
-                        player.setDirection(Direction.LEFT);
+                        currDir = d = Direction.LEFT;
                         break;
                     case KeyEvent.VK_RIGHT:
-                        currentDirection = Direction.RIGHT;
-                        player.setDirection(Direction.RIGHT);
+                        currDir = d = Direction.RIGHT;
                         break;
                     case KeyEvent.VK_UP:
-                        currentDirection = Direction.UP;
-                        player.setDirection(Direction.UP);
+                        currDir = d = Direction.UP;
                         break;
                     case KeyEvent.VK_DOWN:
-                        currentDirection = Direction.DOWN;
-                        player.setDirection(Direction.DOWN);
+                        currDir = d = Direction.DOWN;
+                        break;
+                    case KeyEvent.VK_ESCAPE:
+                        restartLevel();
                         break;
                 }
-
-                if (currentDirection != null) {
-                    player.move();
-                    checkCollisions();
-                    repaint();
+                refreshGameStatLabel();
+                board.repaint();
+                if (currDir != null) {
+                    game.movePlayer(currDir); // Changed from step() to movePlayer()
+                    if (game.isGameWon()) {
+                        handleGameWon();
+                    } else if (game.isGameLost()) {
+                        handleGameLost();
+                    }
                 }
             }
 
             @Override
             public void keyReleased(KeyEvent ke) {
-                Direction releasedDir = null;
+                super.keyReleased(ke);
+                Direction d = null;
+                int kk = ke.getKeyCode();
 
-                switch (ke.getKeyCode()) {
+                switch (kk) {
                     case KeyEvent.VK_LEFT:
-                        releasedDir = Direction.LEFT;
+                        d = Direction.LEFT;
                         break;
                     case KeyEvent.VK_RIGHT:
-                        releasedDir = Direction.RIGHT;
+                        d = Direction.RIGHT;
                         break;
                     case KeyEvent.VK_UP:
-                        releasedDir = Direction.UP;
+                        d = Direction.UP;
                         break;
                     case KeyEvent.VK_DOWN:
-                        releasedDir = Direction.DOWN;
+                        d = Direction.DOWN;
                         break;
                 }
 
-                if (currentDirection == releasedDir) {
-                    currentDirection = null;
-                    player.stopMoving();
-                }
+                if (currDir == d)
+                    currDir = null;
             }
-
         });
 
         setResizable(false);
@@ -164,31 +174,14 @@ public class MainWindow extends JFrame {
         setVisible(true);
     }
 
-    @Override
-    public void paint(Graphics g) {
-        super.paint(g);
-        player.draw(g);
 
-    }
 
-    private void checkCollisions() {
-        // Add collision detection logic here
-        int tileX = player.getX() / 32; // Convert pixel position to tile position
-        int tileY = player.getY() / 32;
-        Position playerPos = game.getPlayerPos();
-        if (tileX != playerPos.x || tileY != playerPos.y) {
-            Direction moveDir = null;
-            if (tileX > playerPos.x) moveDir = Direction.RIGHT;
-            else if (tileX < playerPos.x) moveDir = Direction.LEFT;
-            else if (tileY > playerPos.y) moveDir = Direction.DOWN;
-            else if (tileY < playerPos.y) moveDir = Direction.UP;
 
-            if (moveDir != null) {
-                game.step(moveDir);
-            }
-        }
-    }
 
+
+
+
+    
     private void handleGameWon() {
         game.incrementSolved();
         JOptionPane.showMessageDialog(this,
