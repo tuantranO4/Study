@@ -1,0 +1,30 @@
+{
+    "admin": {
+        "id": "admin",
+        "full_name": "Administrator",
+        "email": "admin@ikarrental.hu",
+        "password": "admin",
+        "is_admin": true
+    },
+    "0000001": {
+        "id": "TedKaczynski",
+        "full_name": "Ted Kaczynski",
+        "email": "TedK@yahoo.com",
+        "password": "The industrial revolution and its consequences has been a disaster to human race",
+        "is_admin": false
+    },
+    "0000002": {
+        "id": "Penaldo",
+        "full_name": "Cristiano Penaldo",
+        "email": "Siuuu7@gmail.com",
+        "password": "7Siuuu7",
+        "is_admin": false
+    },
+    "0000003": {
+        "id": "Pessi",
+        "full_name": "Leo Pepsi",
+        "email": "CameraWoWo@gmail.com",
+        "password": "10Pepsi10",
+        "is_admin": false
+    }
+}
