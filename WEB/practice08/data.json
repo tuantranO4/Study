@@ -1,0 +1,152 @@
+{
+    "010101001": {
+        "fullname": "Chip Boardman",
+        "id": "010101001",
+        "email": "chip.board@example.com",
+        "age": 34,
+        "gender": "m",
+        "regdate": "2020-02-20",
+        "notes": "Tech enthusiast",
+        "img": "profile3.svg"
+    },
+    "010101002": {
+        "fullname": "Al Gorithm",
+        "id": "010101002",
+        "email": "al.gorithm@example.com",
+        "age": 28,
+        "gender": "m",
+        "regdate": "2020-02-20",
+        "notes": "Python developer",
+        "img": "profile2.svg"
+    },
+    "010101003": {
+        "fullname": "Cindy Syntax",
+        "id": "010101003",
+        "email": "cindy.syntax@example.com",
+        "age": 26,
+        "gender": "f",
+        "regdate": "2020-02-20",
+        "notes": "Frontend specialist",
+        "img": "profile3.svg"
+    },
+    "010101004": {
+        "fullname": "Ella Vator",
+        "id": "010101004",
+        "email": "ella.vator@example.com",
+        "age": 31,
+        "gender": "f",
+        "regdate": "2016-07-23",
+        "notes": "UX\/UI designer",
+        "img": "profile4.svg"
+    },
+    "010101005": {
+        "fullname": "Max Volume",
+        "id": "010101005",
+        "email": "max.volume@example.com",
+        "age": 37,
+        "gender": "m",
+        "regdate": "2008-04-10",
+        "notes": "Sound engineer",
+        "img": "profile5.svg"
+    },
+    "010101006": {
+        "fullname": "Lois Lane",
+        "id": "010101006",
+        "email": "lois.lane@example.com",
+        "age": 29,
+        "gender": "f",
+        "regdate": "2017-11-19",
+        "notes": "Marketing guru",
+        "img": "profile1.svg"
+    },
+    "010101007": {
+        "fullname": "Ray Coder",
+        "id": "010101007",
+        "email": "ray.coder@example.com",
+        "age": 33,
+        "gender": "m",
+        "regdate": "2012-03-25",
+        "notes": "JavaScript ninja",
+        "img": "profile2.svg"
+    },
+    "010101008": {
+        "fullname": "Flo Chart",
+        "id": "010101008",
+        "email": "flo.chart@example.com",
+        "age": 30,
+        "gender": "f",
+        "regdate": "2014-08-18",
+        "notes": "Data analyst",
+        "img": "profile3.svg"
+    },
+    "010101009": {
+        "fullname": "Deb Bug",
+        "id": "010101009",
+        "email": "deb.bug@example.com",
+        "age": 27,
+        "gender": "f",
+        "regdate": "2019-05-05",
+        "notes": "QA specialist",
+        "img": "profile4.svg"
+    },
+    "010101010": {
+        "fullname": "Joe Bloggs",
+        "id": "010101010",
+        "email": "joe.bloggs@example.com",
+        "age": 36,
+        "gender": "m",
+        "regdate": "2006-12-11",
+        "notes": "Full-stack developer",
+        "img": "profile5.svg"
+    },
+    "010101011": {
+        "fullname": "Ada Lovelace",
+        "id": "010101011",
+        "email": "ada.lovelace@example.com",
+        "age": 39,
+        "gender": "f",
+        "regdate": "2003-09-09",
+        "notes": "Mathematics wizard",
+        "img": "profile1.svg"
+    },
+    "010101012": {
+        "fullname": "Frank Stein",
+        "id": "010101012",
+        "email": "frank.stein@example.com",
+        "age": 44,
+        "gender": "m",
+        "regdate": "1999-01-15",
+        "notes": "System architect",
+        "img": "profile2.svg"
+    },
+    "010101013": {
+        "fullname": "Linus Kernel",
+        "id": "010101013",
+        "email": "linus.kernel@example.com",
+        "age": 50,
+        "gender": "m",
+        "regdate": "1995-04-25",
+        "notes": "Operating system developer",
+        "img": "profile3.svg"
+    },
+    "010101014": {
+        "fullname": "Paige Turner",
+        "id": "010101014",
+        "email": "paige.turner@example.com",
+        "age": 41,
+        "gender": "f",
+        "regdate": "2007-06-18",
+        "notes": "Technical writer",
+        "img": "profile4.svg"
+    },
+    "010101015": {
+        "fullname": "Hugh Jass",
+        "id": "010101015",
+        "email": "hugh.jass@example.com",
+        "age": 48,
+        "gender": "m",
+        "regdate": "1993-02-12",
+        "notes": "Networking expert",
+        "img": "profile5.svg"
+    }
+}
