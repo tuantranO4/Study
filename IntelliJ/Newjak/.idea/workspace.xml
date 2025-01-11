@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="a8b4ff4c-dfcc-41d6-8f0f-ec5488677ccc" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/GameSprite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Sprite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/DragonSprite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Empty.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Exit.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/GameEngine.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Level.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Logic.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/PlayerSprite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Point.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Sprite.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/GameEngine/Wall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/InterFace/DrakeGUI.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/InterFace/GamePanel.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/DatabaseConnection.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/LeaderboardManager.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/PlayerScore.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/Util/Direction.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/Util/GameID.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/Util/LevelItem.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/Util/ResourceLoader.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/resources/level00.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/../Gamejak/src/main/resources/level01.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/compiler.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/compiler.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/encodings.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/jarRepositories.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/jarRepositories.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/libraries/codenameone_sqlite_jdbc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/libraries/codenameone_sqlite_jdbc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.idea/vcs.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/.vscode/launch.json" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/.vscode/launch.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/database/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/database/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/database/LeaderboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/database/LeaderboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/database/PlayerScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/database/PlayerScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Direction.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Direction.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Game.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Game.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/GameID.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/GameID.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/GameLevel.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/GameLevel.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/LevelItem.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/LevelItem.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Position.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/gamelogic/Position.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/mainframe/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/mainframe/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/mainframe/MainWindow.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/mainframe/MainWindow.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/res/ResourceLoader.java" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/java/org/res/ResourceLoader.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/resources/levels.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/src/main/resources/levels.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/levels.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/levels.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/database/DatabaseConnection.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/database/DatabaseConnection.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/database/LeaderboardManager.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/database/LeaderboardManager.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/database/PlayerScore.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/database/PlayerScore.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/Direction.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/Direction.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/Game.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/Game.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/GameID.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/GameID.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/GameLevel.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/GameLevel.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/LevelItem.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/LevelItem.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/Position.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/gamelogic/Position.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/Board$1.class" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/Board.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/Board.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$1.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$1.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$2.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$2.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$3.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$3.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$4.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$4.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$5.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$5.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$6.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow$6.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/mainframe/MainWindow.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/res/ResourceLoader.class" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/classes/org/res/ResourceLoader.class" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/maven-status/maven-compiler-plugin/compile/default-compile/createdFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../DoomerProjectSoOver/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" beforeDir="false" afterPath="$PROJECT_DIR$/../DoomerProjectSoOver/target/maven-status/maven-compiler-plugin/compile/default-compile/inputFiles.lst" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../ProgTech/A3/Arkanoid/src/arkanoid/Point.java" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
+  </component>
+  <component name="GitHubPullRequestSearchHistory"><![CDATA[{
+  "lastFilter": {
+    "state": "OPEN",
+    "assignee": "tuantranO4"
+  }
+}]]></component>
+  <component name="GithubPullRequestsUISettings"><![CDATA[{
+  "selectedUrlAndAccountId": {
+    "url": "https://github.com/tuantranO4/Study.git",
+    "accountId": "4cfe4f36-5637-436f-a4e0-baeb45057883"
+  }
+}]]></component>
+  <component name="ProjectColorInfo"><![CDATA[{
+  "associatedIndex": 6
+}]]></component>
+  <component name="ProjectId" id="2r62cEzpiXWAH3ddA5w980bdEPy" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "main",
+    "kotlin-language-version-configured": "true",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="a8b4ff4c-dfcc-41d6-8f0f-ec5488677ccc" name="Changes" comment="" />
+      <created>1735865281489</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735865281489</updated>
+    </task>
+    <servers />
+  </component>
+</project>
