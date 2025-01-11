@@ -105,6 +105,9 @@ public class GameEngine extends JPanel implements Runnable, KeyListener {
         g2.dispose();
     }
 
+
+
+    ///////////////KEY HANDLING
     @Override
     public void keyPressed(KeyEvent e) {
         if (e.getKeyCode() == KeyEvent.VK_RIGHT) {

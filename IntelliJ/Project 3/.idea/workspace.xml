@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="276b9d68-67c7-4d31-9f4c-9e78ac988ffe" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/../Gamejak/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/pom.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/DatabaseConnection.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/DatabaseConnection.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/LeaderboardManager.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/LeaderboardManager.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/PlayerScore.java" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/src/main/java/LeaderboardUtil/PlayerScore.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/src/main/resources/level00.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/src/main/resources/level00.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/src/main/resources/level01.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/src/main/resources/level01.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Gamejak/src/main/resources/level02.txt" beforeDir="false" afterPath="$PROJECT_DIR$/../Gamejak/src/main/resources/level02.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Newjak/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Newjak/.idea/.gitignore" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Newjak/.idea/encodings.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Newjak/.idea/misc.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Newjak/.idea/vcs.xml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../Newjak/pom.xml" beforeDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ProjectId" id="2r8E3iWQsFwjMYylntYWZ2Qbkch" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "last_opened_file_path": "A:/GITCLONEBS/Study/IntelliJ/Project 3/Yogi"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="276b9d68-67c7-4d31-9f4c-9e78ac988ffe" name="Changes" comment="" />
+      <created>1735932106272</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1735932106272</updated>
+    </task>
+    <servers />
+  </component>
+</project>

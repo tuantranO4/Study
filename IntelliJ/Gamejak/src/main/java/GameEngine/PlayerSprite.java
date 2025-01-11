@@ -58,7 +58,7 @@ public class PlayerSprite extends Sprite {
         return false;
     }
 
-    public void update(int dir, Rectangle[] borders) {
+    public void update(int dir, Rectangle[] borders) { //collide, stop
         boolean collision = false;
         switch (dir) {
             case 1: //r

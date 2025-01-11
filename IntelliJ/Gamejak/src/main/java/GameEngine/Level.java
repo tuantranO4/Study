@@ -42,6 +42,7 @@ public class Level {
         }
     }
 
+
     public void loadLevel(int levelNum) {
         try {
             BufferedReader br = new BufferedReader(new FileReader("data\\levels\\level" + levelNum + ".txt"));
@@ -112,6 +113,10 @@ public class Level {
         if (exit.collides(player)) {
             won = true;
         }
+    }
+
+    public Unit[][] getUnits() {
+        return units;
     }
 
     public void draw(Graphics2D g2) {
