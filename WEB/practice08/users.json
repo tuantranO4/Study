@@ -1,0 +1,15 @@
+{
+    "010101001": {
+        "id": "010101001",
+        "username": "chip.board",
+        "password": "$2y$10$\/76dj4CVGQi1X9fn.p.OEuKAr1R4AvPKNk\/Rw.ZX0PwSb4I71klBK",
+        "isAdmin": true
+    },
+    "010101002": {
+        "id": "010101002",
+        "username": "al.gorithm",
+        "password": "$2y$10$yjLdFSiImJFK2EuCbj\/tReRGQqkVPmWmljg8\/F6GADyDaH9YxnKna",
+        "isAdmin": false
+    }
+}
+

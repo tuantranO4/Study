@@ -1,0 +1,171 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+body {
+    background-color: #f9f9f9;
+    color: #333;
+    padding: 20px;
+    line-height: 1.6;
+}
+
+.container {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 50%;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+h1 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #4a90e2;
+}
+
+.profile-card {
+    background: #ffffff;
+    border: 1px solid #ddd;
+    border-radius: 10px;
+    padding: 20px;
+    max-width: 400px;
+    margin: 0 auto 20px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+}
+
+.profile-card .profile-picture {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    margin-bottom: 15px;
+    border: 2px solid #3b4a6b;
+}
+
+.profile-card p {
+    margin: 8px 0;
+    color: #555;
+}
+
+.form {
+    background: #fff;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    padding: 20px;
+    max-width: 500px;
+    margin: 20px auto;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.profile-card p {
+    margin: 10px 0;
+}
+
+.profile-card .actions a, form button {
+    display: inline-block;
+    background: #4a90e2;
+    color: #fff;
+    padding: 10px 15px;
+    border-radius: 4px;
+    border: none;
+    text-align: center;
+    font-size: 14px;
+    cursor: pointer;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.profile-card .actions a:hover, form button:hover {
+    background: #357abd;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+table th, table td {
+    border: 1px solid #ddd;
+    padding: 10px;
+    text-align: left;
+}
+
+table th {
+    background-color: #4a90e2;
+    color: #fff;
+}
+
+table tr:nth-child(even) {
+    background-color: #f2f2f2;
+}
+
+table tr:hover {
+    background-color: #f1f1f1;
+}
+
+a {
+    color: #4a90e2;
+    text-decoration: none;
+    transition: color 0.3s;
+}
+
+a:hover {
+    color: #ffa500;
+}
+
+@import url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css');
+
+.icon {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    color: #4a90e2;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.icon.delete {
+    display: inline-flex;
+    align-items: center;
+    font-size: 16px;
+    color: #ff6b6b;
+    padding: 8px;
+    border-radius: 4px;
+    transition: all 0.3s;
+    text-decoration: none;
+}
+
+.icon:hover {
+    color: #ffa500;
+    background-color: #f2f2f2;
+}
+
+.icon.delete::before {
+    content: "\f1f8";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+}
+
+.icon.edit::before {
+    content: "\f044";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+}
+
+.icon.back::before {
+    content: "\f015";
+    font-family: "Font Awesome 5 Free";
+    font-weight: 900;
+    margin-right: 8px;
+}

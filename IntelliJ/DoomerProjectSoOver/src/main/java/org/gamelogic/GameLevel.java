@@ -15,8 +15,6 @@ public class GameLevel {
     public Position player;
     private int currentDrakeDx = 0;
     private int currentDrakeDy = 0;
-//    private long lastDrakeMoveTime;
-//    private static final long DRAKE_MOVE_INTERVAL_MS = 500;
     private int numSteps;
     private boolean gameLost;
     private static final int VISIBILITY_RANGE = 3;
@@ -27,8 +25,6 @@ public class GameLevel {
         visible = new boolean[rows][cols];
         numSteps = 0;
         gameLost = false;
-//        lastDrakeMoveTime = System.currentTimeMillis();
-        // Initialize level with EMPTY
         for (int i = 0; i < rows; i++) {
             for (int j = 0; j < cols; j++) {
                 level[i][j] = LevelItem.EMPTY;
@@ -158,13 +154,6 @@ public class GameLevel {
         return false;
     }
 
-//    public void tick() {
-//        long currentTime = System.currentTimeMillis();
-//        if (currentTime - lastDrakeMoveTime >= DRAKE_MOVE_INTERVAL_MS) {
-//            moveDrake();
-//            lastDrakeMoveTime = currentTime;
-//        }
-//    }
 
     public void moveDrake() {
         Position drakePosition = null;

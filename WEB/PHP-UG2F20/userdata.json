@@ -1,0 +1,20 @@
+{
+    "12ab34cd56ef78gh": {
+        "fullname": "Cristiano Penaldo",
+        "email": "miss.penalty@football.com",
+        "password": "$2y$10$hashedPasswordHere",
+        "isAdmin": false
+    },
+    "90ij12kl34mn56op": {
+        "fullname": "Leo Pepsi",
+        "email": "son.infantino@football.com",
+        "password": "$2y$10$hashedPasswordHere",
+        "isAdmin": false
+    },
+    "78qr90st12uv34wx": {
+        "fullname": "999_GIGACHAD_ADMIN_999",
+        "email": "admin@ikarrental.hu",
+        "password": "$2y$10$hashedPasswordForAdmin",
+        "isAdmin": true
+    }
+}
