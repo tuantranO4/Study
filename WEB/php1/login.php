@@ -3,6 +3,15 @@
 require_once "storage.php";
 require_once "auth.php";
 
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_POST['password'])) {
+    if (verifyLogin($_POST['email'], $_POST['password'])) {
+        header("Location: dashboard.php"); // Redirect on successful login
+        exit();
+    } else {
+        $error = "Login failed. Invalid email or password.";
+    }
+}
+
 if (is_logged_in()) {
     redirect("index.php");
 }
@@ -24,46 +33,38 @@ if ($_POST) {
     }
 }
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Login - iKarRental</title>
-    <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
+    <title>Login</title>
+    <style>
+        body { font-family: Arial, sans-serif; background-color: #f4f4f4; padding: 20px; }
+        form { max-width: 300px; margin: auto; background: white; padding: 20px; box-shadow: 2px 2px 5px rgba(0,0,0,0.1); }
+        input[type="email"], input[type="password"] { width: 100%; padding: 8px; margin: 10px 0; }
+        button { width: 100%; padding: 10px; background-color: #007BFF; color: white; border: none; }
+        button:hover { background-color: #0056b3; }
+        .footer { text-align: center; margin-top: 20px; }
+    </style>
 </head>
 <body>
-    <?php include "navbar.php"; ?>
-    
-    <div class="container mx-auto px-4 py-8">
-        <div class="max-w-md mx-auto bg-white p-8 border rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold mb-6">Login</h2>
-            
-            <?php if ($errors): ?>
-            <div class="bg-red-100 border-red-400 text-red-700 px-4 py-3 rounded mb-4">
-                <?php foreach ($errors as $error): ?>
-                    <p><?= htmlspecialchars($error) ?></p>
-                <?php endforeach; ?>
-            </div>
-            <?php endif; ?>
-
-            <form method="POST" novalidate>
-                <div class="mb-4">
-                    <label class="block mb-2">Email Address</label>
-                    <input type="email" name="email" required class="w-full px-3 py-2 border rounded">
-                </div>
-                <div class="mb-6">
-                    <label class="block mb-2">Password</label>
-                    <input type="password" name="password" required class="w-full px-3 py-2 border rounded">
-                </div>
-                <button type="submit" class="w-full bg-blue-500 text-white px-4 py-2 rounded">Login</button>
-            </form>
-            
-            <p class="mt-4 text-center">
-                Don't have an account? <a href="register.php" class="text-blue-500">Register</a>
-            </p>
+    <?php if (isset($error)): ?>
+        <p style="color: red; text-align: center;"><?= htmlspecialchars($error) ?></p>
+    <?php endif; ?>
+    <form action="login.php" method="post">
+        <div>
+            <label for="email">Email Address</label>
+            <input type="email" id="email" name="email" required>
         </div>
+        <div>
+            <label for="password">Password</label>
+            <input type="password" id="password" name="password" required>
+        </div>
+        <button type="submit">Login</button>
+    </form>
+    <div class="footer">
+        Don't have an account? <a href="register.php">Register</a>
     </div>
 </body>
 </html>
