@@ -51,32 +51,41 @@ interface IStorage {
 
 class Storage implements IStorage {
   protected $contents;
-  protected $io;
+    protected $io;
 
-  public function __construct(IFileIO $io, $assoc = true) {
-    $this->io = $io;
-    $this->contents = (array)$this->io->load($assoc);
-  }
+    public function __construct(IFileIO $io, $assoc = true) {
+        $this->io = $io;
+        $this->contents = (array)$this->io->load($assoc);
+    }
 
-  public function __destruct() {
-    $this->io->save($this->contents);
+
+    public function __destruct() {
+      $this->io->save($this->contents);
   }
 
   public function add($record): string {
-    $id = uniqid();
+    $maxId = 0;
+    foreach ($this->contents as $item) {
+        if (is_numeric($item['id']) && $item['id'] > $maxId) {
+            $maxId = $item['id'];
+        }
+    }
+    $newId = $maxId + 1;
     if (is_array($record)) {
-      $record['id'] = $id;
+        $record['id'] = $newId;
+    } else if (is_object($record)) {
+        $record->id = $newId;
     }
-    else if (is_object($record)) {
-      $record->id = $id;
-    }
-    $this->contents[$id] = $record;
-    return $id;
+    $this->contents[$newId] = $record;
+
+    return $newId;
   }
+
 
   public function findById(string $id) {
     return $this->contents[$id] ?? NULL;
   }
+
 
   public function findAll(array $params = []) {
     return array_filter($this->contents, function ($item) use ($params) {
@@ -96,11 +105,19 @@ class Storage implements IStorage {
   }
 
   public function update(string $id, $record) {
-    $this->contents[$id] = $record;
-  }
+    foreach ($this->contents as $key => $value) {
+        if ((string)$value['id'] === (string)$id) {
+            $this->contents[$key] = array_merge($value, $record); 
+            return true;
+        }
+    }
+    return false;
+}
+
+
 
   public function delete(string $id) {
-    unset($this->contents[$id]);
+    unset($this->contents[$id-1]);
   }
 
   public function findMany(callable $condition) {

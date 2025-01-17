@@ -1,17 +1,17 @@
 <?php
-// login.php
 require_once "storage.php";
 require_once "auth.php";
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST' && !empty($_POST['email']) && !empty($_POST['password'])) {
     if (verifyLogin($_POST['email'], $_POST['password'])) {
-        header("Location: dashboard.php"); // Redirect on successful login
+        $redirect = $_SESSION['redirect_after_login'] ?? 'index.php';
+        unset($_SESSION['redirect_after_login']);
+        header("Location: " . $redirect);
         exit();
     } else {
         $error = "Login failed. Invalid email or password.";
     }
 }
-
 if (is_logged_in()) {
     redirect("index.php");
 }

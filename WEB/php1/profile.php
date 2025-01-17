@@ -1,114 +1,100 @@
 <?php
 require_once "storage.php";
 require_once "auth.php";
+require_once "auth.php";
+if (session_status() === PHP_SESSION_NONE) {
+    session_start();
+}
 
 authorize(["user", "admin"]);
+if (!isset($_SESSION['user'])) {
+    header("Location: login.php");
+    exit;
+}
 
-$userStorage = new Storage(new JsonIO("storage/users.json"));
 $bookingStorage = new Storage(new JsonIO("storage/bookings.json"));
 $carStorage = new Storage(new JsonIO("storage/cars.json"));
 
-$user = $userStorage->findById($_SESSION["user"]["id"]);
-$bookings = $bookingStorage->findAll(["user_id" => $_SESSION["user"]["id"]]);
+$userId = $_SESSION['user']['id'];
+$bookings = $bookingStorage->findMany(function ($booking) use ($userId) {
+    return $booking['user_id'] === $userId;
+});
 
-// For each booking, attach car details
-foreach ($bookings as &$booking) {
-    $car = $carStorage->findById($booking["car_id"]);
-    $booking["car"] = $car;
-}
+// Sort bookings recent first
+usort($bookings, function($a, $b) {
+    return strtotime($b['start_date']) - strtotime($a['start_date']);
+});
 ?>
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Profile - iKarRental</title>
+    <title>My Profile - iKarRental</title>
     <link href="https://cdn.jsdelivr.net/npm/tailwindcss@2.2.19/dist/tailwind.min.css" rel="stylesheet">
 </head>
-<body>
+<body class="bg-gray-100">
     <?php include "navbar.php"; ?>
     
     <div class="container mx-auto px-4 py-8">
-        <div class="bg-white p-8 border rounded-lg shadow-lg">
-            <h2 class="text-2xl font-bold mb-6">Profile</h2>
-            
-            <div class="mb-8">
-                <h3 class="text-xl font-semibold mb-4">User Information</h3>
-                <p><strong>Name:</strong> <?= htmlspecialchars($user["full_name"]) ?></p>
-                <p><strong>Email:</strong> <?= htmlspecialchars($user["email"]) ?></p>
-                <p><strong>Role:</strong> <?= $user["is_admin"] ? "Administrator" : "User" ?></p>
-            </div>
-
-            <div>
-                <h3 class="text-xl font-semibold mb-4">Your Bookings</h3>
-                <?php if (empty($bookings)): ?>
-                    <p class="text-gray-600">No bookings yet.</p>
-                <?php else: ?>
-                    <div class="space-y-4">
-                        <?php foreach ($bookings as $booking): ?>
-                        <div class="border p-4 rounded">?>
-                            <div class="flex justify-between items-start">
-                                <div>
-                                    <h4 class="font-semibold">
-                                        <?= htmlspecialchars($booking["car"]["brand"] . " " . $booking["car"]["model"]) ?>
-                                    </h4>
-                                    <p class="text-gray-600">
-                                        Booking period: <?= htmlspecialchars($booking["start_date"]) ?> to 
-                                        <?= htmlspecialchars($booking["end_date"]) ?>
-                                    </p>
-                                    <?php
-                                        $start = new DateTime($booking["start_date"]);
-                                        $end = new DateTime($booking["end_date"]);
-                                        $days = $end->diff($start)->days + 1;
-                                        $total = $days * $booking["car"]["daily_price_huf"];
-                                    ?>
-                                    <p class="mt-2">
-                                        <span class="font-medium">Duration:</span> <?= $days ?> days<br>
-                                        <span class="font-medium">Daily Rate:</span> <?= number_format($booking["car"]["daily_price_huf"]) ?> HUF<br>
-                                        <span class="font-medium">Total Cost:</span> <?= number_format($total) ?> HUF
-                                    </p>
-                                </div>
-                                <div>
-                                    <img src="<?= htmlspecialchars($booking["car"]["image"]) ?>" 
-                                         alt="<?= htmlspecialchars($booking["car"]["brand"] . " " . $booking["car"]["model"]) ?>"
-                                         class="w-32 h-24 object-cover rounded">
-                                </div>
-                            </div>
-                            <?php if (strtotime($booking["end_date"]) >= strtotime('today')): ?>
-                                <div class="mt-4 p-2 bg-green-100 text-green-700 rounded">
-                                    Active Booking
-                                </div>
-                            <?php else: ?>
-                                <div class="mt-4 p-2 bg-gray-100 text-gray-700 rounded">
-                                    Past Booking
-                                </div>
-                            <?php endif; ?>
-                        </div>
-                        <?php endforeach; ?>
-                    </div>
-                <?php endif; ?>
-            </div>
-
-            <?php if ($user["is_admin"]): ?>
-            <div class="mt-8">
-                <h3 class="text-xl font-semibold mb-4">Administrator Actions</h3>
-                <div class="space-x-4">
-                    <a href="admin/cars.php" class="inline-block bg-blue-500 text-white px-4 py-2 rounded">
-                        Manage Cars
-                    </a>
-                    <a href="admin/bookings.php" class="inline-block bg-blue-500 text-white px-4 py-2 rounded">
-                        View All Bookings
-                    </a>
-                </div>
-            </div>
-            <?php endif; ?>
-
-            <div class="mt-8 pt-8 border-t">
-                <a href="logout.php" class="inline-block bg-red-500 text-white px-4 py-2 rounded">
-                    Logout
+        <div class="bg-white rounded-lg shadow-lg p-6">
+            <div class="flex justify-between items-center mb-6">
+                <h1 class="text-2xl font-bold">My Reservations</h1>
+                <a href="logout.php" 
+                   class="bg-red-500 text-white px-4 py-2 rounded hover:bg-red-600">
+                    Log Out
                 </a>
             </div>
+
+            <?php if (empty($bookings)): ?>
+                <div class="text-center py-8">
+                    <p class="text-gray-600">You don't have any reservations yet.</p>
+                    <a href="index.php" class="text-blue-500 hover:underline mt-2 inline-block">
+                        Browse Available Cars
+                    </a>
+                </div>
+            <?php else: ?>
+                <div class="space-y-4">
+                    <?php foreach ($bookings as $booking): ?>
+                        <?php $car = $carStorage->findById($booking['car_id']-1); ?>
+                        <div class="border rounded-lg p-4 flex items-start space-x-4">
+                            <img src="<?= htmlspecialchars($car['image']) ?>" 
+                                 alt="<?= htmlspecialchars($car['brand'] . ' ' . $car['model']) ?>"
+                                 class="w-32 h-24 object-cover rounded">
+                            
+                            <div class="flex-grow">
+                                <h3 class="font-bold text-lg">
+                                    <?= htmlspecialchars($car['brand'] . ' ' . $car['model']) ?>
+                                </h3>
+                                <p class="text-gray-600">
+                                    <?= htmlspecialchars($booking['start_date']) ?> to 
+                                    <?= htmlspecialchars($booking['end_date']) ?>
+                                </p>
+                                <p class="mt-2">
+                                    <span class="font-medium">Total Cost:</span> 
+                                    <?= number_format($booking['total_cost']) ?> HUF
+                                </p>
+                            </div>
+
+                            <?php
+                                $start_date = new DateTime($booking['start_date']);
+                                $current_date = new DateTime();
+                                $is_future_booking = $start_date > $current_date;
+                            ?>
+                            
+                            <?php if ($is_future_booking): ?>
+                                <span class="bg-green-100 text-green-800 px-2 py-1 rounded text-sm">
+                                    Upcoming
+                                </span>
+                            <?php else: ?>
+                                <span class="bg-gray-100 text-gray-800 px-2 py-1 rounded text-sm">
+                                    Completed
+                                </span>
+                            <?php endif; ?>
+                        </div>
+                    <?php endforeach; ?>
+                </div>
+            <?php endif; ?>
         </div>
     </div>
 </body>

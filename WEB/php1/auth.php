@@ -1,6 +1,7 @@
     <?php
-    // auth.php
+if (session_status() === PHP_SESSION_NONE) {
     session_start();
+}
     require_once "storage.php";
 
     $userStorage = new Storage(new JsonIO("storage/users.json")); 
@@ -16,19 +17,19 @@
     }
     
     function verifyLogin($email, $password) {
-        $user = getUserByEmail($email);
-        if ($user && $user['password'] === $password) {
-            session_start();
-            $_SESSION['user'] = $user;
-            if ($user['is_admin']) {
-                header("Location: adminprofile.php"); 
-            } else {
-                header("Location: profile.php"); 
-            }
-            exit();
+    $user = getUserByEmail($email);
+    if ($user && $user['password'] === $password) {
+        $_SESSION['user'] = $user;
+        /*if ($user['is_admin']) {
+            header("Location: manage_cars.php");
+        } else {
+            header("Location: profile.php");
         }
-        return false;
+        exit();*/
+        return true;
     }
+    return false;
+}
     
     function redirect(string $page) {
         header("Location: $page");

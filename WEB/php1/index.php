@@ -3,12 +3,9 @@ require_once "storage.php";
 require_once "auth.php";
 
 $carStorage = new Storage(new JsonIO("storage/cars.json"));
-// Start with all cars
 $cars = $carStorage->findAll(); 
 if ($_GET) {
     $filters = [];
-
-    // Prepare filters based on input
     if (!empty($_GET["transmission"])) {
         $filters[] = function ($car) {
             return $car["transmission"] === $_GET["transmission"];
@@ -35,7 +32,6 @@ if ($_GET) {
         };
     }
 
-    // Apply all filters
     foreach ($filters as $filter) {
         $cars = array_filter($cars, $filter);
     }
@@ -85,22 +81,28 @@ if ($_GET) {
         </form>
 
 
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
-        <?php foreach ($cars as $car): ?>
-        <div class="border rounded-lg overflow-hidden shadow-lg">
-            <a href="car.php?id=<?= urlencode($car['id']-1) ?>">
-                <img src="<?= htmlspecialchars($car["image"]) ?>" alt="<?= htmlspecialchars($car["brand"] . " " . $car["model"]) ?>" class="w-full h-48 object-cover">
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+    <?php foreach ($cars as $car): ?>
+    <div class="border rounded-lg overflow-hidden shadow-lg">
+        <a href="car.php?id=<?= urlencode($car['id']-1) ?>">
+            <img src="<?= htmlspecialchars($car["image"]) ?>" 
+                 alt="<?= htmlspecialchars($car["brand"] . " " . $car["model"]) ?>" 
+                 class="w-full h-48 object-cover">
+        </a>
+        <div class="p-4">
+            <a href="car.php?id=<?= urlencode($car['id']) ?>">
+                <h3 class="text-xl font-bold hover:text-blue-600">
+                    <?= htmlspecialchars($car["brand"] . " " . $car["model"]) ?>
+                </h3>
             </a>
-            <div class="p-4">
-                <h3 class="text-xl font-bold"><?= htmlspecialchars($car["brand"] . " " . $car["model"]) ?></h3>
-                <p class="text-gray-600">Year: <?= htmlspecialchars($car["year"]) ?></p>
-                <p class="text-gray-600">Transmission: <?= htmlspecialchars($car["transmission"]) ?></p>
-                <p class="text-gray-600">Passengers: <?= htmlspecialchars($car["passengers"]) ?></p>
-                <p class="text-lg font-bold mt-2"><?= number_format($car["daily_price_huf"]) ?> HUF/day</p>
-            </div>
+            <p class="text-gray-600">Year: <?= htmlspecialchars($car["year"]) ?></p>
+            <p class="text-gray-600">Transmission: <?= htmlspecialchars($car["transmission"]) ?></p>
+            <p class="text-gray-600">Passengers: <?= htmlspecialchars($car["passengers"]) ?></p>
+            <p class="text-lg font-bold mt-2"><?= number_format($car["daily_price_huf"]) ?> HUF/day</p>
         </div>
-        <?php endforeach; ?>
     </div>
+    <?php endforeach; ?>
+</div>
 
 
     </div>

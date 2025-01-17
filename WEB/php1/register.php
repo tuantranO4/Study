@@ -28,7 +28,7 @@ if ($_POST) {
     if (empty($errors)) {
         $userStorage = new Storage(new JsonIO("storage/users.json"));
         
-        // Check if email already exists
+        // Check email exist
         if ($userStorage->findOne(["email" => $email])) {
             $errors[] = "Email already registered";
         } else {
